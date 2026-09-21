@@ -245,19 +245,19 @@ profile:
                "expressive head", "facial expression", "facial expressions", "facial action", "animatronic", "social robot",
                "social robots", "socially interactive", "socially assistive robot", "human-robot interaction", "human-humanoid",
                "re:\\bhri\\b", "companion robot", "robot companion", "embodied conversational agent", "embodied ai",
-               "embodied intelligence", "affective computing", "functional empathy", "human-state estimation", "cross-embodiment"]
-      core: ["gaze", "eye contact", "emotion recognition", "emotion expression", "empathy", "empathic", "speech interaction",
-             "spoken dialogue", "dialogue system", "conversational ai", "conversational agent", "multimodal interaction",
+               "embodied intelligence", "affective computing", "functional empathy", "human-state estimation", "cross-embodiment",
+               "humanoide roboter", "humanoider roboter", "sozialer roboter", "soziale roboter", "mensch-roboter-interaktion", "mensch-roboter", "humanoid robotok", "szociális robot", "ember-robot interakció", "sociale robotter", "menneske-robot"]
+      core: ["robotics", "robotik", "robotika", "gaze", "eye contact", "emotion recognition", "emotion expression", "empathy", "empathic", "speech interaction",
+             "spoken dialogue", "dialogue system", "conversational agent", "multimodal interaction",
              "nonverbal", "non-verbal", "body language", "soft skin", "tactile skin", "artificial skin", "silicone",
              "face tracking", "facial animation", "voice interaction", "physical human-robot", "cognitive robotics",
-             "cognitive architecture", "theory of mind", "trustworthy ai", "human-centred ai", "human-centric ai",
-             "robot ethics", "acceptance of robots", "uncanny", "personal robot", "service robot", "service robotics",
-             "assistive robot", "assistive robotics", "care robot", "vision-language-action", "foundation model",
-             "foundation models", "large language model", "large language models", "ros 2", "physiological signals",
-             "wearables", "digital twin"]
-      context: ["robotics", "robot", "robots", "actuator", "actuators", "sensor", "sensors", "speech", "computer vision",
+             "cognitive architecture", "theory of mind", "robot ethics", "acceptance of robots", "uncanny", "personal robot", "service robot", "service robotics",
+             "assistive robot", "assistive robotics", "care robot", "vision-language-action", "ros 2", "physiological signals",
+             "wearables", "roboter", "künstliche intelligenz", "mesterséges intelligencia", "sprachassistent", "gesichtsausdruck", "emotionserkennung", "empathie", "empátia"]
+      context: ["robot", "robots", "roboter", "actuator", "actuators", "sensor", "sensors", "speech", "computer vision",
                 "perception", "interaction", "ai", "artificial intelligence", "machine learning", "3d printing",
-                "additive manufacturing", "prototype", "on-device", "edge ai", "living lab", "user study"]
+                "additive manufacturing", "prototype", "on-device", "edge ai", "living lab", "user study",
+                "trustworthy ai", "human-centred ai", "human-centric ai", "conversational ai", "foundation model", "foundation models", "large language model", "large language models", "digital twin"]
     health_companion:
       label: "Healthcare social companion (oncology)"
       priority: 1
@@ -265,13 +265,15 @@ profile:
       anchor: ["oncology", "cancer patient", "cancer patients", "cancer care", "psycho-oncology", "chemotherapy", "palliative",
                "survivorship", "socially assistive robot", "socially assistive robotics", "care robot", "companion robot",
                "patient companion", "robot-assisted therapy", "social robot", "loneliness", "social isolation",
-               "eldercare", "elderly care", "long-term care", "smart hospital"]
+               "eldercare", "elderly care", "long-term care", "smart hospital",
+               "onkologie", "onkológia", "krebspatient", "krebspatienten", "daganatos", "rákbeteg", "palliativ", "pflegeroboter", "pflegerobotik", "kræft", "einsamkeit", "magány", "altenpflege", "idősgondozás", "langzeitpflege"]
       core: ["cancer", "patient support", "patient engagement", "patient experience", "patient-reported", "mental health",
              "psychological support", "emotional support", "psychosocial", "hospital", "nursing", "caregiver", "caregivers",
              "informal care", "dementia", "person-centred care", "digital health", "ehealth", "e-health", "telemedicine",
              "rehabilitation", "assistive technology", "active and assisted living", "ambient assisted living",
              "older adults", "older people", "co-creation with patients", "clinical validation", "digital therapeutics",
-             "mental well-being", "mental wellbeing"]
+             "mental well-being", "mental wellbeing",
+               "krebs", "pflege", "patienten", "patientinnen", "krankenhaus", "kórház", "betegek", "demenz", "demencia", "psychische gesundheit", "mentális egészség", "rehabilitáció", "ältere menschen", "idősek", "patienter", "ældre"]
       context: ["health", "healthcare", "patient", "patients", "care", "clinical", "therapy", "medical", "well-being",
                 "wellbeing", "quality of life", "ageing", "elderly", "living lab", "robot", "ai"]
     teacher_companion:
@@ -280,10 +282,12 @@ profile:
       color: "#0891b2"
       anchor: ["educational robot", "educational robotics", "robot tutor", "robotic tutor", "learning companion",
                "social robot", "socially assistive robot", "autism", "special educational needs", "child-robot interaction",
-               "ai tutor", "intelligent tutoring", "teaching assistant", "robots in education", "robots in the classroom"]
+               "ai tutor", "intelligent tutoring", "teaching assistant", "robots in education", "robots in the classroom",
+               "bildungsroboter", "lernroboter", "oktatási robot", "autismus", "autizmus", "sonderpädagogik"]
       core: ["teaching", "teacher", "teachers", "tutoring", "classroom", "pupils", "pedagog", "stem education",
              "language learning", "early childhood", "inclusive education", "personalised learning", "personalized learning",
-             "edtech", "digital education", "learning outcomes", "learner engagement", "special needs"]
+             "edtech", "digital education", "learning outcomes", "learner engagement", "special needs",
+               "unterricht", "lehrkräfte", "lehrer", "schule", "schulen", "schüler", "tanár", "iskola", "oktatás", "undervisning", "skole", "mint-bildung", "digitale bildung"]
       context: ["education", "school", "schools", "students", "learning", "children", "skills", "upskilling",
                 "lifelong learning", "vocational", "robot", "ai", "artificial intelligence", "interaction", "engagement"]
     veterans:
@@ -291,10 +295,12 @@ profile:
       priority: 3
       color: "#b45309"
       anchor: ["veteran", "veterans", "ptsd", "post-traumatic", "posttraumatic", "war trauma", "war-affected",
-               "conflict-affected", "psychological trauma", "moral injury"]
+               "conflict-affected", "psychological trauma", "moral injury",
+               "veteranen", "veteránok", "kriegsveteranen", "ptbs", "posttraumatisch", "kriegstrauma", "háborús trauma"]
       core: ["trauma", "psychosocial support", "reintegration", "ukraine", "ukrainian", "refugees", "displaced",
              "amputee", "prosthetic", "prosthetics", "peer support", "suicide prevention", "anxiety", "depression",
-             "mental health", "trauma-informed"]
+             "mental health", "trauma-informed",
+               "ukrajna", "geflüchtete", "menekültek", "psychosozial", "pszichoszociális"]
       context: ["resilience", "rehabilitation", "sleep", "therapy", "companion", "robot", "digital", "ai", "support"]
     space_companion:
       label: "Space crew companion"
@@ -302,10 +308,12 @@ profile:
       color: "#1d4ed8"
       anchor: ["astronaut", "astronauts", "crew support", "crew health", "human spaceflight", "long-duration mission",
                "long-duration spaceflight", "space habitat", "lunar gateway", "space psychology", "space medicine",
-               "isolation and confinement", "analog mission", "analogue mission", "re:HORIZON-[A-Z0-9-]*SPACE"]
+               "isolation and confinement", "analog mission", "analogue mission", "re:HORIZON-[A-Z0-9-]*SPACE",
+               "astronauten", "űrhajós", "űrhajósok", "bemannte raumfahrt"]
       core: ["iss", "international space station", "microgravity", "behavioural health", "behavioral health", "crew",
              "esa", "european space agency", "human factors", "life support", "in-orbit", "orbital", "lunar", "moon",
-             "mars", "human exploration", "space robotics"]
+             "mars", "human exploration", "space robotics",
+               "weltraum", "dlr", "raumstation", "űrállomás", "űrkutatás", "raumfahrt"]
       context: ["space", "autonomy", "exploration", "robot", "ai", "companion", "interaction", "monitoring"]
 
 # ---------------------------------------------------------------------------

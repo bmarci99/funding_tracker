@@ -80,6 +80,23 @@
     .focus span { font-size: 12px; padding: 3px 10px; border-radius: 999px; color: #fff; font-weight: 600; }
     .focus span i { font-style: normal; opacity: .85; font-weight: 400; margin-left: 5px; }
     .funder { color: #374151; font-size: 12px; }
+    /* match cards */
+    .card { width: 100%; border: 1px solid #e5e7eb; border-radius: 8px; margin: 0 0 10px; border-collapse: separate; table-layout: fixed; }
+    .card td { border: 0; padding: 12px 14px; vertical-align: top; }
+    .card .main { width: 76%; }
+    .card .fit { width: 24%; border-left: 1px solid #f1f3f5; text-align: left; background: #fafafa; border-radius: 0 8px 8px 0; }
+    .card .title { font-size: 15px; font-weight: 600; line-height: 1.35; }
+    .card .meta { margin-top: 5px; font-size: 12px; color: #555; line-height: 1.7; }
+    .card .meta .sep { color: #c4c4c4; margin: 0 5px; }
+    .card .why { margin-top: 7px; font-size: 12px; color: #444; line-height: 1.6; }
+    .card .why .lbl { color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: .03em; margin-right: 6px; }
+    .card .why b { background: #fef9c3; padding: 0 3px; border-radius: 3px; color: #1a1a1a; }
+    .card .why .neg { color: #b91c1c; }
+    .card .score { font-size: 26px; }
+    .card .bar { max-width: 100%; margin: 6px 0; }
+    .card .bd { white-space: normal; line-height: 1.5; margin-top: 4px; }
+    .deadline-chip { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; background: #f1f3f5; color: #374151; }
+    .deadline-chip.soon { background: #fee2e2; color: #991b1b; }
     .tag { display: inline-block; font-size: 10px; color: #555; background: #f1f3f5; border-radius: 3px; padding: 0 5px; margin: 2px 2px 0 0; }
 
     .more { margin-top: 8px; font-size: 13px; color: #555; }
@@ -117,7 +134,7 @@
         <tr>
           <th style="width: 46%">Topic</th>
           <th class="hide-sm">Action</th>
-          <th>Grant</th>
+          <th style="width: 12%">Grant</th>
           <th>Deadline</th>
           <th>Status</th>
         </tr>
@@ -164,47 +181,35 @@
     {%- endmacro %}
 
     {% macro fit_table(items) -%}
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 40%">Opportunity · why it matches</th>
-          <th style="width: 15%">Fit</th>
-          <th class="hide-sm" style="width: 13%">Instrument</th>
-          <th style="width: 11%">Grant</th>
-          <th style="width: 11%">Deadline</th>
-          <th style="width: 10%">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for o in items %}
-        <tr>
-          <td>
-            <a href="{{ o.url }}">{{ o.title }}</a><br/>
-            {% if o.source == 'portal' %}<span class="ident">{{ o.id }}</span> <span class="tag">{{ o.cluster }}</span>{% else %}<span class="funder">{{ o.programme }}</span> <span class="tag">{{ o.country }}</span>{% endif %}
-            {% for t in o.tags[:2] if t != o.country %}<span class="tag">{{ t }}</span>{% endfor %}
-            <br/><span class="hits">{% for h in o.interest_hits[:5] %}{% if h.startswith('title:') %}<b>{{ h[7:] }}</b>{% elif h.startswith('tags:') %}{{ h[6:] }}{% elif h.startswith('body:') %}{{ h[6:] }}{% else %}<span style="color:#b91c1c">{{ h }}</span>{% endif %}{% if not loop.last %} · {% endif %}{% endfor %}</span>
-          </td>
-          <td>
-            <span class="score">{{ o.fit_score }}</span>
-            <div class="bar"><span style="width: {{ o.fit_score }}%; background: {{ '#16a34a' if o.fit_verdict == 'Strong fit' else '#2563eb' if o.fit_verdict == 'Good fit' else '#9ca3af' }}"></span></div>
-            <span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">{{ o.fit_verdict }}</span>
-            <div class="bd">theme {{ o.fit_breakdown.theme }} · instr {{ o.fit_breakdown.instrument }} · cond {{ o.fit_breakdown.conditions }}{% if o.fit_breakdown.packs %} · packs {{ o.fit_breakdown.packs }}{% endif %}{% if o.fit_breakdown.penalty %} · <span style="color:#b91c1c">{{ o.fit_breakdown.penalty }}</span>{% endif %}</div>
-          </td>
-          <td class="action hide-sm">{{ o.action_type or ('foundation call' if o.source != 'portal' else '—') }}</td>
-          <td class="money">
-            {% if o.contribution_max %}{% if o.contribution_min and o.contribution_min != o.contribution_max %}{{ o.contribution_min | eur }}–{% else %}≤ {% endif %}{{ o.contribution_max | eur }}{% if o.expected_grants %} <span style="color:#888">×{{ o.expected_grants }}</span>{% endif %}
-            {% elif o.call_budget %}<span style="color:#666">call {{ o.call_budget | eur }}</span>{% else %}—{% endif %}
-          </td>
-          <td class="date">{% if o.deadline %}{{ o.deadline }}{% set d = o.deadline | days_left %}<br/><span class="dl">in {{ d }}d{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>{% else %}<span class="dl">see page</span>{% endif %}</td>
-          <td>
-            {% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">💯 {{ o.funding_rate }}</span>{% elif o.funding_rate %}<span class="badge badge-rate">{{ o.funding_rate }}</span>{% endif %}
-            {% if o.id in new_ids %}<span class="badge badge-new">🆕 NEW</span>{% endif %}
-            {% if o.deadline and o.deadline <= soon and o.deadline >= today %}<span class="badge badge-soon">⏰ SOON</span>{% elif o.status == 'Forthcoming' %}<span class="badge badge-forth">FORTHCOMING</span>{% elif o.status == 'Open' %}<span class="badge badge-open">OPEN</span>{% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
+    {% for o in items %}
+    <table class="card">
+      <tr>
+        <td class="main">
+          <div class="title"><a href="{{ o.url }}">{{ o.title }}</a></div>
+          <div class="meta">
+            {% if o.source == 'portal' %}<span class="ident">{{ o.id }}</span><span class="sep">·</span>{{ o.cluster_label }}{% else %}<span class="funder">{{ o.programme }}</span>{% if o.country %} <span class="tag">{{ o.country }}</span>{% endif %}{% endif %}
+            {% if o.action_type %}<span class="sep">·</span>{{ o.action_type }}{% endif %}
+            {% if o.tags %}<span class="sep">·</span>{% for t in o.tags[:3] if t != o.country %}<span class="tag">{{ t }}</span>{% endfor %}{% endif %}
+            <br/>
+            {% if o.deadline %}{% set d = o.deadline | days_left %}<span class="deadline-chip{{ ' soon' if o.deadline <= soon }}">⏰ {{ o.deadline }} · in {{ d }}d{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>{% else %}<span class="deadline-chip">deadline: see page</span>{% endif %}
+            <span class="sep">·</span>
+            {% if o.contribution_max %}<b>{% if o.contribution_min and o.contribution_min != o.contribution_max %}{{ o.contribution_min | eur }}–{% else %}≤ {% endif %}{{ o.contribution_max | eur }}</b>{% if o.expected_grants %} <span style="color:#888">×{{ o.expected_grants }}</span>{% endif %}{% if o.call_budget %} <span style="color:#999">(call {{ o.call_budget | eur }})</span>{% endif %}{% elif o.call_budget %}call {{ o.call_budget | eur }}{% else %}grant: see page{% endif %}
+            <span class="sep">·</span>
+            {% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">💯 {{ o.funding_rate }}</span>{% elif o.funding_rate %}<span class="badge badge-rate">{{ o.funding_rate }}</span>{% else %}<span class="badge badge-rate">rate: check</span>{% endif %}
+            {% if o.id in new_ids %} <span class="badge badge-new">🆕 NEW</span>{% endif %}
+            {% if o.status == 'Forthcoming' %} <span class="badge badge-forth">FORTHCOMING</span>{% elif o.status == 'Open' %} <span class="badge badge-open">OPEN</span>{% endif %}
+          </div>
+          <div class="why"><span class="lbl">why</span>{% for h in o.interest_hits[:6] %}{% if h.startswith('title:') %}<b>{{ h[7:] }}</b>{% elif h.startswith('tags:') %}{{ h[6:] }}{% elif h.startswith('body:') %}{{ h[6:] }}{% else %}<span class="neg">{{ h }}</span>{% endif %}{% if not loop.last %} · {% endif %}{% endfor %}</div>
+          {% if o.summary and o.source != 'portal' %}<div class="why" style="color:#666">{{ o.summary[:220] }}…</div>{% endif %}
+        </td>
+        <td class="fit">
+          <span class="score">{{ o.fit_score }}</span> <span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">{{ o.fit_verdict }}</span>
+          <div class="bar"><span style="width: {{ o.fit_score }}%; background: {{ '#16a34a' if o.fit_verdict == 'Strong fit' else '#2563eb' if o.fit_verdict == 'Good fit' else '#9ca3af' }}"></span></div>
+          <div class="bd">theme {{ o.fit_breakdown.theme }}/60 · instrument {{ o.fit_breakdown.instrument }}/15 · conditions {{ o.fit_breakdown.conditions }}/10{% if o.fit_breakdown.packs %} · packs {{ o.fit_breakdown.packs }}{% endif %}{% if o.fit_breakdown.penalty %} · <span style="color:#b91c1c">penalty {{ o.fit_breakdown.penalty }}</span>{% endif %}</div>
+        </td>
+      </tr>
     </table>
+    {% endfor %}
     {%- endmacro %}
 
     {% if match_groups %}

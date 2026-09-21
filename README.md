@@ -14,7 +14,10 @@ Every Monday this pipeline pulls **open and forthcoming calls** from the
 (Horizon Europe, Euratom, Digital Europe, LIFE, CEF, Erasmus+, I3, CERV, SMP, Innovation Fund, EMFAF, EU agencies —
 topics, calls **and cascade-funding sub-grants**), plus **~35 foundations, Interreg programmes and national funders**
 (Villum, Novo Nordisk, VolkswagenStiftung, Bosch, SPRIND, BMFTR, EIT Health, Interreg CE / Danube / AT–HU, NKFIH,
-Széchenyi Plusz, NRW.Bank, EFRE.NRW, KI.NRW, Gauss Centre …). Everything is scored against **your roadmap**,
+Széchenyi Plusz, NRW.Bank, EFRE.NRW, KI.NRW, Gauss Centre …). For those, every call found on an index page is
+**followed to its own page** (`ingest/enrich.py`): the main text is kept for scoring, the deadline and the amount
+are extracted (EN / DE / DK / SE / HU date and money formats), pages without any funding vocabulary are dropped,
+and results are cached for 30 days in `outputs/page_cache.json`. Everything is scored against **your roadmap**,
 diffed against last week, and emailed:
 
 1. ⭐ **Matches your roadmap** — grouped by priority theme, each with a 0–100 fit score, verdict and the words that matched
@@ -43,9 +46,11 @@ diffed against last week, and emailed:
 | conditions | 0–10 | 100 % funding rate (+6) and grant ≥ €250k (+4) |
 | penalty | ≤ 0 | defence / military / gambling (−12 each), unless the veterans theme matched |
 
-Two rules keep it honest: a theme only fires on an **anchor** term (or three core hits with one in the title) — context
-words never make a match; and a **domain** theme that fires without any **capability** signal (a pure clinical-trials
-call, a space-hardware call) is halved and capped at *Worth a look* — it is a place to bring a robot, not a robot call.
+Two rules keep it honest: a theme only fires on an **anchor** term, a core term in the title, or three core hits —
+context words ("ai", "health") never make a match; and a **domain** theme that fires without any **capability**
+signal from anchor/core terms (a pure clinical-trials call, a space-hardware call) is halved and capped at
+*Worth a look* — it is a place to bring a robot, not a robot call. Terms of 7+ letters also match German compounds
+("Robotik" → "Robotiklösungen"); the vocabulary is EN + DE + HU + DK.
 
 Verdicts: ≥ 70 **Strong fit** · ≥ 50 **Good fit** · ≥ 35 **Worth a look**.
 

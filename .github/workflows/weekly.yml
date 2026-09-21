@@ -42,6 +42,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add outputs/history.json docs/
+          git add outputs/history.json outputs/page_cache.json docs/
           git diff --cached --quiet || git commit -m "chore: weekly digest $(date -u +%Y-%m-%d)"
           git push

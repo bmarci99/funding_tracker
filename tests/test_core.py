@@ -121,3 +121,17 @@ def test_instrument_and_entity_rate():
     assert ria.fit_breakdown["instrument"] > erc.fit_breakdown["instrument"]
     assert infer_funding_rate("HORIZON", "Innovation Actions", "", {"nonprofit": True})[0] == "100% (as non-profit)"
     assert infer_funding_rate("HORIZON", "EIC Grants")[0] == "100%"
+
+
+def test_enrich_extractors():
+    from datetime import date
+    from funding_tracker.ingest.enrich import extract_amount_eur, extract_deadline, main_text
+    t = date(2026, 9, 21)
+    assert extract_deadline("Ansøgningsfrist: 15. oktober 2026. Info meeting 1 September 2026.", t) == date(2026, 10, 15)
+    assert extract_deadline("Bewerbungsschluss ist der 22.10.2026, 18:00 Uhr", t) == date(2026, 10, 22)
+    assert extract_deadline("Benyújtási határidő: 2026. november 30.", t) == date(2026, 11, 30)
+    assert extract_deadline("Founded in 2006, deadline passed 01.01.2025", t) is None
+    assert extract_amount_eur("Grants of up to DKK 5 million per project") == 670000.0
+    assert extract_amount_eur("bis zu 2,5 Mio. Euro") == 2500000.0
+    html = "<html><body><nav>Home Contact</nav><main><h1>Call</h1><p>Apply now © sdecoret – stock.adobe.com Deadline 1 May 2027</p></main></body></html>"
+    assert main_text(html) == "Call Apply now Deadline 1 May 2027"

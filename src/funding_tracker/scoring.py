@@ -6,7 +6,7 @@ Score is 0–100 and decomposes into four explainable parts (see `FitBreakdown`)
                        Terms have tiers (anchor 4 · core 2 · context 0.75); a hit in the title or
                        call title counts ×2, in tags ×1.5, in the body ×1. Distinct terms only,
                        saturating: 60·(1−e^(−raw/8)). A theme is *active* only with ≥1 anchor hit,
-                       or ≥3 core hits of which one is in the title — context words never make a match.
+                       a core hit in the title, or ≥3 core hits — context words never make a match.
                        Best theme + 25 % of the runner-up, then × the theme's priority weight.
                        Two axes: the theme flagged `capability: true` (humanoid / social robot / HRI)
                        is what you build; the others are application domains. A domain theme that
@@ -60,7 +60,9 @@ def _term_regex(term: str) -> re.Pattern:
     if term.startswith("re:"):
         return re.compile(term[3:], re.I)
     esc = re.escape(term.lower()).replace(r"\-", "[-\\s]").replace(r"\ ", "[-\\s]")
-    return re.compile(rf"(?<![a-z0-9]){esc}(?![a-z0-9])", re.I)
+    # terms of 7+ letters may continue into a compound / inflection ("robotik|lösungen", "humanoid|e", "patient|innen")
+    tail = "" if len(term.replace(" ", "")) >= 7 else "(?![a-z0-9])"
+    return re.compile(rf"(?<![a-z0-9]){esc}{tail}", re.I)
 
 
 @dataclass
@@ -124,21 +126,25 @@ class FitScorer:
             "body": f"{o.id} {o.text or o.summary}",
         }
 
-    def _theme_raw(self, theme: Theme, fields: Dict[str, str]) -> Tuple[float, bool, List[str]]:
-        raw, hits, n_anchor, n_core, core_in_title = 0.0, [], 0, 0, False
+    def _theme_raw(self, theme: Theme, fields: Dict[str, str]) -> Tuple[float, bool, List[str], float]:
+        """→ (raw score, active?, top hits, raw from anchor+core only — the part that counts as a real signal)"""
+        raw, hits, n_anchor, n_core, core_in_title, strong_raw = 0.0, [], 0, 0, False, 0.0
         for tier, terms in theme.terms.items():
             for term, rx in terms:
                 best_loc = next((loc for loc in ("title", "tags", "body") if rx.search(fields[loc])), None)
                 if not best_loc:
                     continue
                 raw += TIER_WEIGHT[tier] * LOC_WEIGHT[best_loc]
+                if tier != "context":
+                    strong_raw += TIER_WEIGHT[tier] * LOC_WEIGHT[best_loc]
                 n_anchor += tier == "anchor"
                 n_core += tier == "core"
                 core_in_title |= tier == "core" and best_loc == "title"
                 hits.append((TIER_WEIGHT[tier] * LOC_WEIGHT[best_loc], f"{best_loc}: {term.removeprefix('re:')}"))
-        active = n_anchor >= 1 or (n_core >= 3 and core_in_title)
+        # a core term in the *title* is as good as an anchor: a call named "…Robotik…" is a robotics call
+        active = n_anchor >= 1 or core_in_title or n_core >= 3
         hits.sort(key=lambda h: -h[0])
-        return raw, active, [h[1] for h in hits[:6]]
+        return raw, active, [h[1] for h in hits[:6]], strong_raw
 
     def _instrument(self, o: Opportunity) -> float:
         if o.source != "portal":
@@ -172,9 +178,9 @@ class FitScorer:
         active: List[Tuple[Theme, float, List[str]]] = []
         capability_raw = 0.0
         for t in self.themes:
-            raw, is_active, hits = self._theme_raw(t, fields)
+            raw, is_active, hits, strong_raw = self._theme_raw(t, fields)
             if t.capability:
-                capability_raw = max(capability_raw, raw)
+                capability_raw = max(capability_raw, strong_raw)   # context words ("ai") are not a robot signal
             if is_active:
                 active.append((t, raw, hits))
         active.sort(key=lambda x: -(x[1] * x[0].weight))

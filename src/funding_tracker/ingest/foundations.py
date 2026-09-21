@@ -16,6 +16,7 @@ import httpx
 from bs4 import BeautifulSoup
 
 from ..models import Opportunity
+from .enrich import PageCache, enrich
 from ..util.logging import setup_logger
 
 logger, _ = setup_logger()
@@ -112,6 +113,13 @@ class FoundationsIngester:
                 except Exception as exc:  # noqa: BLE001 — one dead site must not kill the run
                     logger.warning(f"  {feed['name']}: [yellow]{type(exc).__name__}: {str(exc)[:80]}[/yellow]")
                 time.sleep(delay)
+
+            if self.cfg.get("fetch_details", True):
+                cache = PageCache(self.cfg.get("page_cache", "outputs/page_cache.json"),
+                                  int(self.cfg.get("cache_days", 30)))
+                all_items = enrich(all_items, client, cache,
+                                   per_feed=int(self.cfg.get("detail_pages_per_feed", 12)), delay_s=delay)
+                cache.save()
         return all_items
 
     def safe_fetch(self) -> List[Opportunity]:
