@@ -40,6 +40,7 @@ _RSS = """\
 def build_site(html: str, date: str, archive_dir: str) -> None:
     root = Path(archive_dir)
     root.mkdir(parents=True, exist_ok=True)
+    (root / ".nojekyll").touch()          # plain static files — no Jekyll build on GitHub Pages
     (root / f"{date}.html").write_text(html, encoding="utf-8")
     pages = sorted(root.glob("????-??-??.html"), reverse=True)
 
