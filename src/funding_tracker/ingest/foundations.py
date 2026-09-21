@@ -10,7 +10,7 @@ import hashlib
 import re
 import time
 from typing import Any, Dict, List
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 import httpx
 from bs4 import BeautifulSoup
@@ -56,11 +56,12 @@ class FoundationsIngester:
             if link:
                 candidates.append((title, link[feed.get("link_attr", "href")], node.get_text(" ", strip=True)))
         if len(candidates) < 3:
-            base_host = str(r.url).split("/")[2]
+            base_host = urlparse(str(r.url)).netloc
             for a in soup.find_all("a", href=True):
                 href = urljoin(str(r.url), a["href"])
                 title = " ".join(a.get_text(" ", strip=True).split())
-                if href.split("/")[2] != base_host or "#" in a["href"] or _NAV_WORDS.match(title):
+                if urlparse(href).scheme not in ("http", "https") or urlparse(href).netloc != base_host \
+                        or "#" in a["href"] or _NAV_WORDS.match(title):
                     continue
                 if _FUNDING_HREF.search(href) or _FUNDING_HREF.search(title):
                     parent = a.find_parent(["li", "article", "div"]) or a
@@ -82,6 +83,8 @@ class FoundationsIngester:
                 source="foundation",
                 programme=feed["name"],
                 status="Open",
+                funding_rate=feed.get("funding_rate", "100% (typ.)"),
+                funding_rate_note="foundations and national programmes usually fund full project costs — check the call",
                 country=feed.get("country", ""),
                 tags=[feed.get("country", "")] if feed.get("country") else [],
                 summary=snippet[:300],

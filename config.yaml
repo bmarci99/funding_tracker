@@ -25,6 +25,8 @@ portal:
   statuses:
     - "31094501"
     - "31094502"
+  # 1 = topic, 2 = call, 8 = cascade funding (FSTP sub-grants from funded projects — small, fast, usually 100%)
+  types: ["1", "2", "8"]
   page_size: 100
   max_pages: 30
 
@@ -189,25 +191,131 @@ foundations:
       url: "https://www.gauss-centre.eu/for-users/hpc-access/"
       item_selector: "article, .call, li"
       title_selector: "h2, h3"
+    # --- Interreg (NOT on the F&T portal — each programme has its own site) --------
+    - name: "Interreg Europe — Calls"
+      country: "EU"
+      url: "https://www.interregeurope.eu/call-for-projects"
+    - name: "Interreg CENTRAL EUROPE — Calls"
+      country: "EU"
+      url: "https://www.interreg-central.eu/calls-for-proposals/"
+    - name: "Interreg Danube Region Programme — Calls"
+      country: "EU"
+      url: "https://interreg-danube.eu/calls-for-proposals"
+    - name: "Interreg Austria–Hungary"
+      country: "AT/HU"
+      url: "https://www.interreg-athu.eu/en/"
+    # Interreg SI–HU: broken TLS certificate on si-hu.eu — re-add once fixed
+    # --- Humanoid / health / deep-tech funders that fit the roadmap ---------------
+    - name: "SPRIND — Challenges & funding (DE)"
+      country: "DE"
+      url: "https://www.sprind.org/en/actions/challenges"
+    - name: "BMFTR (ex-BMBF) — Bekanntmachungen"
+      country: "DE"
+      url: "https://www.bmftr.bund.de/SiteGlobals/Forms/Suche/Bekanntmachungsuche/Bekanntmachungsuche_Formular.html"
+    - name: "EIT Health — Opportunities"
+      country: "EU"
+      url: "https://eithealth.eu/get-involved/new-call-opportunities/"
+    - name: "EIT — Current opportunities (all KICs)"
+      country: "EU"
+      url: "https://www.eit.europa.eu/our-activities/opportunities"
+    - name: "Széchenyi Terv Plusz — pályázatok (HU)"
+      country: "HU"
+      url: "https://www.palyazat.gov.hu/palyazatok"
     # EuroHPC JU: site blocks scripts (403); its calls are on the F&T portal anyway (HORIZON-EUROHPC-JU-…)
 
 # ---------------------------------------------------------------------------
-# Relevance: keyword packs per company (from PBN Tender Radar) + HORIZONS interests.
-# Score = 3×strong + 1.5×medium + 0.5×soft (each capped at 3 distinct hits) − 5×negative.
+# YOUR PROFILE — what the fit score (0–100) is measured against. See src/funding_tracker/scoring.py.
+# Term tiers per theme: anchor (4) · core (2) · context (0.75). Title hits ×2, tags ×1.5, body ×1.
+# A theme only fires with ≥1 anchor or ≥2 core hits. Prefix a term with "re:" for a raw regex.
 # ---------------------------------------------------------------------------
-relevance:
-  threshold: 4.5          # needs a real strong hit plus something else
-  # Terms that are ubiquitous in EU call texts (they were written for tender notices):
-  # always counted at soft weight (0.5) whatever tier they sit in, so they can't carry a match alone.
+profile:
+  entities:                      # legal entities you can apply with → effective funding rate
+    nonprofit: true              # HU non-profit now, DE gGmbH planned → IA/JU-IA count as 100 %
+    sme: true                    # DE GmbH, HU for-profit → EIC Accelerator, SME-only calls
+  min_grant_eur: 250000          # below this a grant barely pays for a prototype
+  negative: ["defence", "military", "weapon", "verteidigung", "katonai", "gambling", "glücksspiel"]
+  negative_exempt_themes: ["veterans"]   # "military veterans" must not be penalised
+  themes:
+    humanoid_head:                 # CAPABILITY axis — what you build (ETHEA Face + ETHEA platform)
+      label: "Humanoid head & expressive HRI"
+      priority: 1
+      capability: true
+      color: "#7c3aed"
+      anchor: ["humanoid", "humanoids", "android robot", "humanoid head", "robot head", "robotic head", "expressive face",
+               "expressive head", "facial expression", "facial expressions", "facial action", "animatronic", "social robot",
+               "social robots", "socially interactive", "socially assistive robot", "human-robot interaction", "human-humanoid",
+               "re:\\bhri\\b", "companion robot", "robot companion", "embodied conversational agent", "embodied ai",
+               "embodied intelligence", "affective computing", "functional empathy", "human-state estimation", "cross-embodiment"]
+      core: ["gaze", "eye contact", "emotion recognition", "emotion expression", "empathy", "empathic", "speech interaction",
+             "spoken dialogue", "dialogue system", "conversational ai", "conversational agent", "multimodal interaction",
+             "nonverbal", "non-verbal", "body language", "soft skin", "tactile skin", "artificial skin", "silicone",
+             "face tracking", "facial animation", "voice interaction", "physical human-robot", "cognitive robotics",
+             "cognitive architecture", "theory of mind", "trustworthy ai", "human-centred ai", "human-centric ai",
+             "robot ethics", "acceptance of robots", "uncanny", "personal robot", "service robot", "service robotics",
+             "assistive robot", "assistive robotics", "care robot", "vision-language-action", "foundation model",
+             "foundation models", "large language model", "large language models", "ros 2", "physiological signals",
+             "wearables", "digital twin"]
+      context: ["robotics", "robot", "robots", "actuator", "actuators", "sensor", "sensors", "speech", "computer vision",
+                "perception", "interaction", "ai", "artificial intelligence", "machine learning", "3d printing",
+                "additive manufacturing", "prototype", "on-device", "edge ai", "living lab", "user study"]
+    health_companion:
+      label: "Healthcare social companion (oncology)"
+      priority: 1
+      color: "#db2777"
+      anchor: ["oncology", "cancer patient", "cancer patients", "cancer care", "psycho-oncology", "chemotherapy", "palliative",
+               "survivorship", "socially assistive robot", "socially assistive robotics", "care robot", "companion robot",
+               "patient companion", "robot-assisted therapy", "social robot", "loneliness", "social isolation",
+               "eldercare", "elderly care", "long-term care", "smart hospital"]
+      core: ["cancer", "patient support", "patient engagement", "patient experience", "patient-reported", "mental health",
+             "psychological support", "emotional support", "psychosocial", "hospital", "nursing", "caregiver", "caregivers",
+             "informal care", "dementia", "person-centred care", "digital health", "ehealth", "e-health", "telemedicine",
+             "rehabilitation", "assistive technology", "active and assisted living", "ambient assisted living",
+             "older adults", "older people", "co-creation with patients", "clinical validation", "digital therapeutics",
+             "mental well-being", "mental wellbeing"]
+      context: ["health", "healthcare", "patient", "patients", "care", "clinical", "therapy", "medical", "well-being",
+                "wellbeing", "quality of life", "ageing", "elderly", "living lab", "robot", "ai"]
+    teacher_companion:
+      label: "Teacher & learning companion"
+      priority: 2
+      color: "#0891b2"
+      anchor: ["educational robot", "educational robotics", "robot tutor", "robotic tutor", "learning companion",
+               "social robot", "socially assistive robot", "autism", "special educational needs", "child-robot interaction",
+               "ai tutor", "intelligent tutoring", "teaching assistant", "robots in education", "robots in the classroom"]
+      core: ["teaching", "teacher", "teachers", "tutoring", "classroom", "pupils", "pedagog", "stem education",
+             "language learning", "early childhood", "inclusive education", "personalised learning", "personalized learning",
+             "edtech", "digital education", "learning outcomes", "learner engagement", "special needs"]
+      context: ["education", "school", "schools", "students", "learning", "children", "skills", "upskilling",
+                "lifelong learning", "vocational", "robot", "ai", "artificial intelligence", "interaction", "engagement"]
+    veterans:
+      label: "Companion for war veterans & trauma"
+      priority: 3
+      color: "#b45309"
+      anchor: ["veteran", "veterans", "ptsd", "post-traumatic", "posttraumatic", "war trauma", "war-affected",
+               "conflict-affected", "psychological trauma", "moral injury"]
+      core: ["trauma", "psychosocial support", "reintegration", "ukraine", "ukrainian", "refugees", "displaced",
+             "amputee", "prosthetic", "prosthetics", "peer support", "suicide prevention", "anxiety", "depression",
+             "mental health", "trauma-informed"]
+      context: ["resilience", "rehabilitation", "sleep", "therapy", "companion", "robot", "digital", "ai", "support"]
+    space_companion:
+      label: "Space crew companion"
+      priority: 3
+      color: "#1d4ed8"
+      anchor: ["astronaut", "astronauts", "crew support", "crew health", "human spaceflight", "long-duration mission",
+               "long-duration spaceflight", "space habitat", "lunar gateway", "space psychology", "space medicine",
+               "isolation and confinement", "analog mission", "analogue mission", "re:HORIZON-[A-Z0-9-]*SPACE"]
+      core: ["iss", "international space station", "microgravity", "behavioural health", "behavioral health", "crew",
+             "esa", "european space agency", "human factors", "life support", "in-orbit", "orbital", "lunar", "moon",
+             "mars", "human exploration", "space robotics"]
+      context: ["space", "autonomy", "exploration", "robot", "ai", "companion", "interaction", "monitoring"]
+
+# ---------------------------------------------------------------------------
+# Secondary signal (0–15 pts): the PBN company keyword packs from Tender Radar.
+# ---------------------------------------------------------------------------
+packs:
   demote: ["ecosystem", "consortium", "policy", "training", "pilot", "widening", "leadership", "sme", "kkv", "kmu",
            "horizon europe", "digital europe", "eic", "demonstrator", "mentoring", "accessibility", "automation",
            "artificial intelligence", "machine learning", "future of work", "change management", "energy efficiency",
            "circular economy", "data analytics", "technology transfer", "elderly", "ageing", "robotics"]
-  interests:              # regexes ported from HORIZONS category insights; count as strong hits
-    - label: "Humanoid / Social Robotics"
-      pattern: "humanoid|social robot|socially assistive|human-robot interaction|\\bhri\\b"
-    - label: "Core Space"
-      pattern: "HORIZON-[A-Z0-9-]*SPACE"
   companies:
     pbn:
       name: "Pannon Business Network"
@@ -275,11 +383,13 @@ filters:
   deadline_within_days: 0          # 0 = no limit
   include_keywords: []             # hard include (substring on id/title/tags); empty = keep all
   exclude_keywords: []
-  only_full_rate: false            # true → keep only 100%-funded topics
+  only_full_rate: true             # keep only topics that are 100 %-funded *for your entities* (foundations count as 100 %)
 
 digest:
+  match_min_score: 35              # fit score needed for the ⭐ section (35 Worth a look · 50 Good · 70 Strong)
   closing_soon_days: 30
   max_rows_per_section: 40         # email only; overflow links to the archive
+  max_matches_per_theme: 10        # email only
   max_per_cluster: 0               # archive page (0 = unlimited)
 
 history:

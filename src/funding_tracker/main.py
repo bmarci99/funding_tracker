@@ -12,7 +12,7 @@ import yaml
 from .delivery.email_sender import send_digest_email
 from .ingest.foundations import FoundationsIngester
 from .ingest.ft_portal import FTPortalIngester
-from .interests import InterestScorer
+from .scoring import FitScorer
 from .models import Opportunity
 from .render.digest_html import render_html
 from .render.digest_md import render_markdown
@@ -49,7 +49,7 @@ def apply_filters(opps: List[Opportunity], f: Dict[str, Any]) -> List[Opportunit
             continue
         if o.deadline and o.deadline < date.today():   # stale portal entries (status never updated)
             continue
-        if only_full and o.source == "portal" and not o.is_full_rate:
+        if only_full and o.funding_rate and not o.is_full_rate:   # unknown rate → keep, it is flagged in the digest
             continue
         out.append(o)
     return out
@@ -65,7 +65,7 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
     http_cfg = cfg.get("http", {})
     opps: List[Opportunity] = []
     if cfg.get("portal", {}).get("enabled", True):
-        opps += FTPortalIngester(cfg["portal"], http_cfg).safe_fetch()
+        opps += FTPortalIngester(cfg["portal"], http_cfg, cfg.get("profile", {}).get("entities")).safe_fetch()
     if cfg.get("foundations", {}).get("enabled", False):
         logger.info("foundations & national funders:")
         opps += FoundationsIngester(cfg["foundations"], http_cfg).safe_fetch()
@@ -74,8 +74,13 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
     logger.info(f"{before} fetched → [bold]{len(opps)}[/bold] after filters")
 
     # --- 1b. Relevance scoring ---
-    scorer = InterestScorer(cfg.get("relevance", {}))
+    scorer = FitScorer(cfg.get("profile", {}), cfg.get("packs", {}))
     scorer.score_all(opps)
+    dg = cfg.get("digest", {})
+    min_score = int(dg.get("match_min_score", 35))
+    for o in opps:                                   # config threshold decides what counts as a match
+        if o.fit_score < min_score:
+            o.interest_for, o.fit_verdict = [], ""
     n_match = sum(1 for o in opps if o.interest_for)
     n_full = sum(1 for o in opps if o.is_full_rate)
     logger.info(f"[bold]{n_match}[/bold] match your profile · [bold]{n_full}[/bold] are 100%-funded")
@@ -104,7 +109,6 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
     out_dir = Path(cfg.get("output", {}).get("dir", "outputs"))
     out_dir.mkdir(parents=True, exist_ok=True)
     new_ids = {i["id"] for i in new_items}
-    dg = cfg.get("digest", {})
     archive_url = cfg.get("output", {}).get("archive_url", "")
 
     (out_dir / "digest.json").write_text(
@@ -115,16 +119,18 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
         encoding="utf-8",
     )
     md_text = render_markdown(opps, new_ids=new_ids, date=today, closing_soon_days=dg.get("closing_soon_days", 30),
-                              threshold=scorer.threshold)
+                              threshold=min_score, themes=scorer.theme_meta())
     (out_dir / "digest.md").write_text(md_text, encoding="utf-8")
     render_kw = dict(
         new_ids=new_ids, date=today,
         closing_soon_days=dg.get("closing_soon_days", 30),
         max_per_cluster=dg.get("max_per_cluster", 0),
         archive_url=archive_url,
-        threshold=scorer.threshold,
+        threshold=min_score,
+        themes=scorer.theme_meta(),
     )
-    html_text = render_html(opps, compact=True, max_rows=dg.get("max_rows_per_section", 40), **render_kw)       # email: compact
+    html_text = render_html(opps, compact=True, max_rows=dg.get("max_rows_per_section", 40),
+                            max_per_theme=dg.get("max_matches_per_theme", 10), **render_kw)       # email: compact
     html_full = render_html(opps, compact=False, **render_kw)      # archive: everything
     (out_dir / "digest.html").write_text(html_text, encoding="utf-8")
     (out_dir / "digest_full.html").write_text(html_full, encoding="utf-8")

@@ -18,6 +18,7 @@ _RULES: list[tuple[str, str, str]] = [
     ("HORIZON", r"\bERC\b", "100%"),
     ("HORIZON", r"\bMSCA\b|marie", "100%"),
     ("HORIZON", r"pathfinder|transition", "100%"),
+    ("HORIZON", r"\bEIC grants?\b", "100%"),          # Pathfinder / Transition challenges are typed "EIC Grants"
     ("HORIZON", r"accelerator", "70%"),
     ("HORIZON", r"equity", "equity"),
     ("HORIZON", r"pre-?commercial procurement", "100%"),
@@ -48,8 +49,18 @@ _EXPLICIT = re.compile(
 )
 
 
-def infer_funding_rate(programme: str, action_type: str, conditions_text: str = "") -> Tuple[str, str]:
-    """Return (rate, note)."""
+def infer_funding_rate(
+    programme: str, action_type: str, conditions_text: str = "", entities: dict | None = None
+) -> Tuple[str, str]:
+    """Return (rate, note). With entities={"nonprofit": True} a "70% (100% for non-profit)" rate
+    becomes "100% (as non-profit)" — the rate *you* would get applying with the non-profit entity."""
+    rate, note = _infer(programme, action_type, conditions_text)
+    if entities and entities.get("nonprofit") and "100% for non-profit" in rate:
+        return "100% (as non-profit)", f"{note}; 100% because you apply with a non-profit entity"
+    return rate, note
+
+
+def _infer(programme: str, action_type: str, conditions_text: str = "") -> Tuple[str, str]:
     m = _EXPLICIT.search(conditions_text or "")
     if m:
         rate = f"{'up to ' if m.group(1) else ''}{m.group(2)}%"

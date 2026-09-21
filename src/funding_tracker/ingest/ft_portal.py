@@ -169,9 +169,10 @@ def _parse_budget(raw: str, topic_id: str) -> Dict[str, Any]:
 
 
 class FTPortalIngester:
-    def __init__(self, cfg: Dict[str, Any], http_cfg: Dict[str, Any]):
+    def __init__(self, cfg: Dict[str, Any], http_cfg: Dict[str, Any], entities: Dict[str, Any] | None = None):
         self.cfg = cfg
         self.http_cfg = http_cfg
+        self.entities = entities or {}
 
     # ---- HTTP -------------------------------------------------------------
 
@@ -179,7 +180,7 @@ class FTPortalIngester:
         return {
             "bool": {
                 "must": [
-                    {"terms": {"type": ["1", "2"]}},  # 1 = topic, 2 = call (tender types excluded)
+                    {"terms": {"type": [str(t) for t in self.cfg.get("types", ["1", "2"])]}},  # 1 topic · 2 call · 8 cascade
                     {"terms": {"status": self.cfg["statuses"]}},
                     {"term": {"programmePeriod": self.cfg["programme_period"]}},
                     {"terms": {"frameworkProgramme": self.cfg["framework_programmes"]}},
@@ -228,7 +229,8 @@ class FTPortalIngester:
         action = _clean_action(_first(meta, "typesOfAction"))
         description = _strip_html(" ".join(meta.get("descriptionByte", []) or []))
         conditions = _strip_html(" ".join(meta.get("topicConditions", []) or []))
-        rate, rate_note = infer_funding_rate(programme, action, conditions)
+        rate, rate_note = infer_funding_rate(programme, action, conditions, self.entities)
+        is_cascade = _first(meta, "type") == "8"
         deadline = _parse_date(_first(meta, "deadlineDate"))
         # For multi-deadline topics, prefer the next future date from budget info
         if budget.get("deadline_dates"):
@@ -255,7 +257,7 @@ class FTPortalIngester:
             expected_grants=budget.get("expected_grants"),
             funding_rate=rate,
             funding_rate_note=rate_note,
-            tags=[t for t in meta.get("tags", []) if t],
+            tags=(["cascade funding"] if is_cascade else []) + [t for t in meta.get("tags", []) if t],
             summary=description[:300],
             text=description,
         )

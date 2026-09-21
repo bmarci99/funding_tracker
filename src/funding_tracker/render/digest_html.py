@@ -37,7 +37,9 @@ def render_html(
     archive_url: str = "",
     compact: bool = False,
     max_rows: int = 40,
-    threshold: float = 3.0,
+    threshold: float = 35,
+    themes: List[Dict] | None = None,
+    max_per_theme: int = 10,
 ) -> str:
     """Render the digest.
 
@@ -62,7 +64,7 @@ def render_html(
 
     by_deadline = sorted(portal, key=lambda o: (o.deadline or dt_date.max, o.id))
     matches = sorted((o for o in opps if o.interest_for),
-                     key=lambda o: (-o.interest_score, o.deadline or dt_date.max, o.id))
+                     key=lambda o: (-o.fit_score, o.deadline or dt_date.max, o.id))
     closing_soon = [o for o in by_deadline if o.deadline and today <= o.deadline <= soon]
     new_items = [o for o in by_deadline if o.id in new_ids]
     new_foundations = sorted((o for o in foundations if o.id in new_ids), key=lambda o: (o.programme, o.title))
@@ -73,6 +75,32 @@ def render_html(
 
     grouped = group_by_cluster(portal)
     found_grouped = group_by_cluster(foundations)
+
+    # matches grouped by theme, themes in priority order, each theme's rows by score
+    themes = themes or []
+    theme_order = [t["key"] for t in themes]
+    theme_info = {t["key"]: t for t in themes}
+    by_theme: Dict[str, List[Opportunity]] = {}
+    for o in matches:
+        by_theme.setdefault(o.fit_theme, []).append(o)
+    match_groups = [
+        {"key": k, "label": theme_info.get(k, {}).get("label", k), "color": theme_info.get(k, {}).get("color", "#7c3aed"),
+         "priority": theme_info.get(k, {}).get("priority", 9),
+         "items": by_theme[k][:max_per_theme] if compact and max_per_theme else by_theme[k],
+         "total": sum(1 for o in opps if o.interest_for and o.fit_theme == k)}
+        for k in sorted(by_theme, key=lambda k: (theme_order.index(k) if k in theme_order else 99))
+    ]
+    all_matches = [o for o in opps if o.interest_for]
+    verdict_counts = {
+        "Strong fit": sum(1 for o in all_matches if o.fit_verdict == "Strong fit"),
+        "Good fit": sum(1 for o in all_matches if o.fit_verdict == "Good fit"),
+        "Worth a look": sum(1 for o in all_matches if o.fit_verdict == "Worth a look"),
+    }
+    focus_strip = [
+        {"label": t["label"], "color": t["color"], "priority": t["priority"],
+         "count": sum(1 for o in all_matches if o.fit_theme == t["key"])}
+        for t in themes
+    ]
     if max_per_cluster:
         grouped = {k: v[:max_per_cluster] for k, v in grouped.items()}
 
@@ -92,8 +120,9 @@ def render_html(
         compact=compact,
         cluster_summary=cluster_summary,
         matches=matches, matches_total=matches_total, threshold=threshold,
-        match_count=sum(1 for o in opps if o.interest_for),
-        full_rate_count=sum(1 for o in portal if o.is_full_rate),
+        match_groups=match_groups, verdict_counts=verdict_counts, focus_strip=focus_strip,
+        match_count=len(all_matches),
+        full_rate_count=sum(1 for o in opps if o.is_full_rate),
         new_foundations=new_foundations, new_found_total=new_found_total,
         found_grouped=found_grouped, foundations_total=len(foundations),
         date=date,

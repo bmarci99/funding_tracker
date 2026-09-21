@@ -13,7 +13,8 @@ def render_markdown(
     new_ids: Set[str] | None = None,
     date: str = "",
     closing_soon_days: int = 30,
-    threshold: float = 3.0,
+    threshold: float = 35,
+    themes: List[dict] | None = None,
 ) -> str:
     new_ids = new_ids or set()
     today = dt_date.today()
@@ -36,16 +37,23 @@ def render_markdown(
         elif o.call_budget:
             budget = f" · call {fmt_eur(o.call_budget)}"
         rate = f" · 💯 {o.funding_rate}" if o.is_full_rate else (f" · {o.funding_rate}" if o.funding_rate else "")
-        score = f" ⭐{o.interest_score:g}" if o.interest_for else ""
+        score = f" ⭐{o.fit_score}" if o.interest_for else ""
         return f"- [{o.title}]({o.url}) `{o.id}` — {o.action_type or o.programme}{rate}{budget}{dl}{flag}{score}"
 
-    matches = sorted((o for o in opps if o.interest_for), key=lambda o: (-o.interest_score, o.id))
+    matches = sorted((o for o in opps if o.interest_for), key=lambda o: (-o.fit_score, o.id))
     if matches:
-        lines.append("## ⭐ Matches your profile")
+        lines.append(f"## ⭐ Matches your roadmap ({len(matches)})")
         lines.append("")
-        for o in matches:
-            lines.append(row(o) + f" — _{', '.join(o.interest_for)}_: {', '.join(o.interest_hits)}")
-        lines.append("")
+        for t in themes or []:
+            items = [o for o in matches if o.fit_theme == t["key"]]
+            if not items:
+                continue
+            lines.append(f"### P{t['priority']} · {t['label']} ({len(items)})")
+            lines.append("")
+            for o in items:
+                why = ", ".join(h.split(": ", 1)[-1] for h in o.interest_hits)
+                lines.append(row(o) + f" — **{o.fit_score} {o.fit_verdict}** · {why}")
+            lines.append("")
 
     closing = sorted(
         (o for o in opps if o.deadline and today <= o.deadline <= soon),

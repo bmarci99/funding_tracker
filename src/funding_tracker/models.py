@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import re
 from datetime import date, datetime, timezone
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -57,9 +57,14 @@ class Opportunity(BaseModel):
     tags: List[str] = Field(default_factory=list)
     summary: str = ""                          # first ~300 chars of the topic description
     country: str = ""                          # foundations only
-    interest_score: float = 0.0                # keyword-pack relevance (see interests.py)
-    interest_hits: List[str] = Field(default_factory=list)
-    interest_for: List[str] = Field(default_factory=list)  # company packs that matched
+    fit_score: int = 0                         # 0–100, see scoring.py
+    fit_verdict: str = ""                      # "Strong fit" / "Good fit" / "Worth a look" / ""
+    fit_theme: str = ""                        # key of the best-matching priority theme
+    fit_theme_label: str = ""
+    fit_breakdown: Dict[str, int] = Field(default_factory=dict)
+    interest_score: float = 0.0                # = fit_score (kept for the renderers)
+    interest_hits: List[str] = Field(default_factory=list)   # "title: humanoid", "body: oncology", "⚠ military"
+    interest_for: List[str] = Field(default_factory=list)    # [theme label] when it is a match
     first_seen: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     content_hash: str = ""
     text: str = Field(default="", exclude=True)  # full description used for matching; not persisted

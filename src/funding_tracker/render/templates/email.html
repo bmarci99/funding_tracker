@@ -32,7 +32,8 @@
     .section-header.new  { background: #065f46; color: #fff; }
     .section-header .count { font-weight: 400; font-size: 13px; opacity: .85; margin-left: 8px; }
 
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+    td, th { overflow-wrap: anywhere; }
     th {
       text-align: left; padding: 6px 8px; background: #f1f3f5; font-weight: 600;
       font-size: 12px; color: #444; border-bottom: 2px solid #dee2e6;
@@ -63,7 +64,22 @@
     .stat-full   { background: #dcfce7; color: #166534; }
     .section-header.match { background: #86198f; color: #fff; }
     .section-header.found { background: #374151; color: #fff; }
-    .hits { color: #86198f; font-size: 11px; }
+    .hits { color: #555; font-size: 11px; }
+    .hits b { color: #1a1a1a; }
+    .verdict { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .v-strong { background: #16a34a; color: #fff; }
+    .v-good   { background: #2563eb; color: #fff; }
+    .v-look   { background: #e5e7eb; color: #374151; }
+    .score { font-size: 20px; font-weight: 800; line-height: 1; color: #111; }
+    .bar { height: 5px; background: #e5e7eb; border-radius: 3px; margin: 4px 0 3px; width: 100%; max-width: 90px; }
+    .bar span { display: block; height: 5px; border-radius: 3px; background: #7c3aed; }
+    .bd { font-size: 10px; color: #888; white-space: nowrap; }
+    .theme-header { font-size: 15px; font-weight: 700; padding: 6px 12px; border-radius: 6px; color: #fff; margin: 14px 0 8px; }
+    .theme-header .count { font-weight: 400; font-size: 12px; opacity: .9; margin-left: 8px; }
+    .focus { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
+    .focus span { font-size: 12px; padding: 3px 10px; border-radius: 999px; color: #fff; font-weight: 600; }
+    .focus span i { font-style: normal; opacity: .85; font-weight: 400; margin-left: 5px; }
+    .funder { color: #374151; font-size: 12px; }
     .tag { display: inline-block; font-size: 10px; color: #555; background: #f1f3f5; border-radius: 3px; padding: 0 5px; margin: 2px 2px 0 0; }
 
     .more { margin-top: 8px; font-size: 13px; color: #555; }
@@ -82,10 +98,11 @@
   <div class="container">
     <div class="header">
       <h1>🇪🇺 Funding Digest</h1>
-      <div class="subtitle">Weekly digest — {{ date }} · EU programmes (Horizon Europe, Digital Europe, LIFE, CEF, Erasmus+ …) + {{ foundations_total }} foundation calls</div>
+      <div class="subtitle">Weekly digest — {{ date }} · EU programmes incl. cascade funding + Interreg, foundations &amp; national funders ({{ foundations_total }} items)</div>
+      <div class="focus">{% for f in focus_strip %}<span style="background: {{ f.color }}">P{{ f.priority }} {{ f.label }}<i>{{ f.count }}</i></span>{% endfor %}</div>
       <div class="stats">
-        <span class="stat stat-match">⭐ {{ match_count }} match your profile</span>
-        <span class="stat stat-full">💯 {{ full_rate_count }} at 100% funding</span>
+        <span class="stat stat-match">⭐ {{ match_count }} matches · {{ verdict_counts['Strong fit'] }} strong · {{ verdict_counts['Good fit'] }} good</span>
+        <span class="stat stat-full">💯 {{ full_rate_count }} at 100% for your entities</span>
         <span class="stat stat-total">{{ total }} EU topics</span>
         <span class="stat stat-open">{{ open_count }} open</span>
         <span class="stat stat-forth">{{ forthcoming_count }} forthcoming</span>
@@ -113,7 +130,7 @@
             <span class="ident">{{ o.id }}</span>
             {% if show_cluster %}<span class="tag">{{ o.cluster }}</span>{% endif %}
             {% for t in o.tags[:3] %}<span class="tag">{{ t }}</span>{% endfor %}
-            {% if o.interest_for %}<br/><span class="hits">⭐ {{ o.interest_score }} · {{ o.interest_for | join(', ') }} — {{ o.interest_hits | join(', ') }}</span>{% endif %}
+            {% if o.interest_for %}<br/><span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">⭐ {{ o.fit_score }} · {{ o.fit_verdict }}</span> <span class="hits">{{ o.fit_theme_label }}</span>{% endif %}
           </td>
           <td class="action hide-sm">{{ o.action_type or '—' }}</td>
           <td class="money">
@@ -146,11 +163,58 @@
     </table>
     {%- endmacro %}
 
-    {% if matches %}
+    {% macro fit_table(items) -%}
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 40%">Opportunity · why it matches</th>
+          <th style="width: 15%">Fit</th>
+          <th class="hide-sm" style="width: 13%">Instrument</th>
+          <th style="width: 11%">Grant</th>
+          <th style="width: 11%">Deadline</th>
+          <th style="width: 10%">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for o in items %}
+        <tr>
+          <td>
+            <a href="{{ o.url }}">{{ o.title }}</a><br/>
+            {% if o.source == 'portal' %}<span class="ident">{{ o.id }}</span> <span class="tag">{{ o.cluster }}</span>{% else %}<span class="funder">{{ o.programme }}</span> <span class="tag">{{ o.country }}</span>{% endif %}
+            {% for t in o.tags[:2] if t != o.country %}<span class="tag">{{ t }}</span>{% endfor %}
+            <br/><span class="hits">{% for h in o.interest_hits[:5] %}{% if h.startswith('title:') %}<b>{{ h[7:] }}</b>{% elif h.startswith('tags:') %}{{ h[6:] }}{% elif h.startswith('body:') %}{{ h[6:] }}{% else %}<span style="color:#b91c1c">{{ h }}</span>{% endif %}{% if not loop.last %} · {% endif %}{% endfor %}</span>
+          </td>
+          <td>
+            <span class="score">{{ o.fit_score }}</span>
+            <div class="bar"><span style="width: {{ o.fit_score }}%; background: {{ '#16a34a' if o.fit_verdict == 'Strong fit' else '#2563eb' if o.fit_verdict == 'Good fit' else '#9ca3af' }}"></span></div>
+            <span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">{{ o.fit_verdict }}</span>
+            <div class="bd">theme {{ o.fit_breakdown.theme }} · instr {{ o.fit_breakdown.instrument }} · cond {{ o.fit_breakdown.conditions }}{% if o.fit_breakdown.packs %} · packs {{ o.fit_breakdown.packs }}{% endif %}{% if o.fit_breakdown.penalty %} · <span style="color:#b91c1c">{{ o.fit_breakdown.penalty }}</span>{% endif %}</div>
+          </td>
+          <td class="action hide-sm">{{ o.action_type or ('foundation call' if o.source != 'portal' else '—') }}</td>
+          <td class="money">
+            {% if o.contribution_max %}{% if o.contribution_min and o.contribution_min != o.contribution_max %}{{ o.contribution_min | eur }}–{% else %}≤ {% endif %}{{ o.contribution_max | eur }}{% if o.expected_grants %} <span style="color:#888">×{{ o.expected_grants }}</span>{% endif %}
+            {% elif o.call_budget %}<span style="color:#666">call {{ o.call_budget | eur }}</span>{% else %}—{% endif %}
+          </td>
+          <td class="date">{% if o.deadline %}{{ o.deadline }}{% set d = o.deadline | days_left %}<br/><span class="dl">in {{ d }}d{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>{% else %}<span class="dl">see page</span>{% endif %}</td>
+          <td>
+            {% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">💯 {{ o.funding_rate }}</span>{% elif o.funding_rate %}<span class="badge badge-rate">{{ o.funding_rate }}</span>{% endif %}
+            {% if o.id in new_ids %}<span class="badge badge-new">🆕 NEW</span>{% endif %}
+            {% if o.deadline and o.deadline <= soon and o.deadline >= today %}<span class="badge badge-soon">⏰ SOON</span>{% elif o.status == 'Forthcoming' %}<span class="badge badge-forth">FORTHCOMING</span>{% elif o.status == 'Open' %}<span class="badge badge-open">OPEN</span>{% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {%- endmacro %}
+
+    {% if match_groups %}
     <div class="section">
-      <div class="section-header match">⭐ Matches your profile<span class="count">{{ matches_total }} topics · score ≥ {{ threshold }}</span></div>
-      {{ opp_table(matches, show_cluster=True) }}
-      {% if matches_total > matches | length %}<p class="more">… and {{ matches_total - matches | length }} more{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">see the full list</a>{% endif %}</p>{% endif %}
+      <div class="section-header match">⭐ Matches your roadmap<span class="count">{{ matches_total }} opportunities · fit ≥ {{ threshold }} · {{ verdict_counts['Strong fit'] }} strong · {{ verdict_counts['Good fit'] }} good · {{ verdict_counts['Worth a look'] }} worth a look</span></div>
+      {% for g in match_groups %}
+      <div class="theme-header" style="background: {{ g.color }}">P{{ g.priority }} · {{ g.label }}<span class="count">{{ g.total }} match{{ 'es' if g.total != 1 }}</span></div>
+      {{ fit_table(g['items']) }}
+      {% if g.total > g['items'] | length %}<p class="more">… and {{ g.total - g['items'] | length }} more in this theme{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">full list</a>{% endif %}</p>{% endif %}
+      {% endfor %}
     </div>
     {% endif %}
 
@@ -178,7 +242,7 @@
         <tbody>
           {% for o in new_foundations %}
           <tr>
-            <td><a href="{{ o.url }}">{{ o.title }}</a>{% if o.interest_for %}<br/><span class="hits">⭐ {{ o.interest_score }} · {{ o.interest_hits | join(', ') }}</span>{% endif %}</td>
+            <td><a href="{{ o.url }}">{{ o.title }}</a>{% if o.interest_for %}<br/><span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">⭐ {{ o.fit_score }} · {{ o.fit_verdict }}</span> <span class="hits">{{ o.fit_theme_label }}</span>{% endif %}</td>
             <td class="action">{{ o.programme }} <span class="tag">{{ o.country }}</span></td>
             <td><span class="badge badge-new">🆕 NEW</span></td>
           </tr>
@@ -230,7 +294,7 @@
     {% endif %}
 
     <div class="footer">
-      Generated {{ date }} by Funding Tracker · sources: <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals">EU Funding &amp; Tenders Portal</a> + {{ found_grouped | length }} foundation / national funder pages · funding rates are indicative — check the call conditions
+      Generated {{ date }} by Funding Tracker · sources: <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals">EU Funding &amp; Tenders Portal</a> + {{ found_grouped | length }} foundation / national funder pages · funding rates are your effective rate (non-profit entity where allowed) and indicative — check the call conditions
       {% if archive_url %} · <a href="{{ archive_url }}">archive</a>{% endif %}
     </div>
   </div>

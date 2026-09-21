@@ -3,7 +3,7 @@ from datetime import date
 
 from funding_tracker.funding_rate import infer_funding_rate
 from funding_tracker.ingest.ft_portal import _parse_budget
-from funding_tracker.interests import InterestScorer
+from funding_tracker.scoring import FitScorer
 from funding_tracker.models import Opportunity
 from funding_tracker.render.digest_html import fmt_eur, render_html
 
@@ -55,22 +55,69 @@ def test_funding_rate_rules_and_explicit_override():
     assert infer_funding_rate("XYZ", "whatever") == ("", "")
 
 
-def test_interest_scoring_demotes_generic_terms():
-    cfg = {
-        "threshold": 4.5,
-        "demote": ["ecosystem", "consortium"],
-        "companies": {"x": {"name": "X", "keywords": {
-            "strong": ["humanoid", "ecosystem", "consortium"], "medium": ["machine learning"], "negative": ["military"]}}},
-        "interests": [{"label": "Space", "pattern": "SPACE"}],
+def _profile():
+    return {
+        "entities": {"nonprofit": True},
+        "negative": ["military"],
+        "negative_exempt_themes": ["veterans"],
+        "themes": {
+            "head": {"label": "Humanoid head", "priority": 1, "capability": True,
+                     "anchor": ["humanoid", "social robot"], "core": ["gaze", "empathy", "speech interaction"], "context": ["robot"]},
+            "health": {"label": "Oncology companion", "priority": 1,
+                       "anchor": ["oncology", "cancer patients"], "core": ["hospital", "caregivers"], "context": ["health"]},
+            "veterans": {"label": "Veterans", "priority": 3, "anchor": ["veterans"], "core": [], "context": []},
+        },
     }
-    sc = InterestScorer(cfg)
-    generic = Opportunity(id="HORIZON-CL6-2026-01", title="t", url="u", text="a resilient ecosystem for the consortium")
-    real = Opportunity(id="HORIZON-CL4-2026-01", title="Humanoid robots", url="u", text="machine learning for humanoid platforms")
-    military = Opportunity(id="EDF-2026-01", title="Humanoid robots", url="u", text="military machine learning")
-    space = Opportunity(id="HORIZON-CL4-2027-SPACE-03-12", title="t", url="u")
-    for o in (generic, real, military, space):
-        sc.score(o)
-    assert generic.interest_for == [] and generic.interest_score == 1.0
-    assert real.interest_for == ["X"] and real.interest_score == 4.5
-    assert military.interest_for == []
-    assert "Space" in space.interest_for and space.interest_hits[0] == "★ Space"
+
+
+def _opp(**kw):
+    base = dict(id="HORIZON-CL4-2026-01", title="t", url="u", action_type="Research and Innovation Actions",
+                funding_rate="100%", contribution_max=1_000_000)
+    base.update(kw)
+    return Opportunity(**base)
+
+
+def test_capability_call_scores_strong():
+    sc = FitScorer(_profile())
+    o = _opp(title="Expressive humanoid social robot heads", text="gaze, empathy and speech interaction for a robot")
+    sc.score(o)
+    assert o.fit_theme == "head" and o.fit_verdict == "Strong fit" and o.fit_score >= 70
+    assert o.interest_hits[0].startswith("title:")
+
+
+def test_domain_only_call_is_capped_below_good_fit():
+    sc = FitScorer(_profile())
+    o = _opp(title="Clinical trials for cancer patients", text="oncology hospital caregivers health")
+    sc.score(o)
+    assert o.fit_theme == "health" and o.fit_verdict == "Worth a look" and o.fit_score <= 49
+    assert "(no robot / HRI signal)" in o.interest_hits
+
+
+def test_domain_plus_capability_is_strong():
+    sc = FitScorer(_profile())
+    o = _opp(title="Social robot companions for cancer patients", text="oncology hospital; gaze and empathy")
+    sc.score(o)
+    assert o.fit_verdict == "Strong fit"
+
+
+def test_context_words_alone_never_match_and_negatives_penalise():
+    sc = FitScorer(_profile())
+    ctx = _opp(title="Health robot", text="health robot health")
+    sc.score(ctx)
+    assert ctx.interest_for == [] and ctx.fit_score == 0
+    mil = _opp(title="Humanoid military robots", text="humanoid")
+    sc.score(mil)
+    assert mil.fit_breakdown["penalty"] < 0
+    vet = _opp(title="Companion robots for military veterans", text="veterans humanoid")
+    sc.score(vet)
+    assert vet.fit_breakdown["penalty"] == 0 or vet.fit_theme != "veterans"
+
+
+def test_instrument_and_entity_rate():
+    sc = FitScorer(_profile())
+    erc = _opp(title="Humanoid social robot", action_type="ERC Starting Grants", funding_rate="100%")
+    ria = _opp(title="Humanoid social robot", action_type="Innovation Actions", funding_rate="100% (as non-profit)")
+    sc.score(erc); sc.score(ria)
+    assert ria.fit_breakdown["instrument"] > erc.fit_breakdown["instrument"]
+    assert infer_funding_rate("HORIZON", "Innovation Actions", "", {"nonprofit": True})[0] == "100% (as non-profit)"
+    assert infer_funding_rate("HORIZON", "EIC Grants")[0] == "100%"
