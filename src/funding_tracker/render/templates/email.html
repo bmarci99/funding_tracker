@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ lang }}">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Funding Digest — {{ date }}</title>
+  <title>{{ t("title") }} — {{ date }}</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -95,6 +95,14 @@
     .card .score { font-size: 26px; }
     .card .bar { max-width: 100%; margin: 6px 0; }
     .card .bd { white-space: normal; line-height: 1.5; margin-top: 4px; }
+    .ai { margin-top: 10px; padding: 9px 12px; background: #f5f3ff; border-left: 3px solid #7c3aed; border-radius: 4px; font-size: 12px; line-height: 1.55; color: #2e1065; }
+    .ai .h { font-weight: 700; color: #5b21b6; margin-right: 6px; }
+    .ai .k { color: #6d28d9; font-weight: 600; }
+    .ai .na { background: #f3f4f6; border-left-color: #9ca3af; color: #4b5563; }
+    .ai-chip { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 700; background: #ede9fe; color: #5b21b6; white-space: nowrap; }
+    .ai-chip.no { background: #f3f4f6; color: #6b7280; }
+    .section-header.ai { background: #5b21b6; color: #fff; }
+    .stat-ai { background: #ede9fe; color: #5b21b6; }
     .deadline-chip { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; background: #f1f3f5; color: #374151; }
     .deadline-chip.soon { background: #fee2e2; color: #991b1b; }
     .tag { display: inline-block; font-size: 10px; color: #555; background: #f1f3f5; border-radius: 3px; padding: 0 5px; margin: 2px 2px 0 0; }
@@ -114,17 +122,18 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>🇪🇺 Funding Digest</h1>
-      <div class="subtitle">Weekly digest — {{ date }} · EU programmes incl. cascade funding + Interreg, foundations &amp; national funders ({{ foundations_total }} items)</div>
+      <h1>🇪🇺 {{ t("title") }}</h1>
+      <div class="subtitle">{{ t("subtitle", date=date, n=foundations_total) }}</div>
       <div class="focus">{% for f in focus_strip %}<span style="background: {{ f.color }}">P{{ f.priority }} {{ f.label }}<i>{{ f.count }}</i></span>{% endfor %}</div>
       <div class="stats">
-        <span class="stat stat-match">⭐ {{ match_count }} matches · {{ verdict_counts['Strong fit'] }} strong · {{ verdict_counts['Good fit'] }} good</span>
-        <span class="stat stat-full">💯 {{ full_rate_count }} at 100% for your entities</span>
-        <span class="stat stat-total">{{ total }} EU topics</span>
-        <span class="stat stat-open">{{ open_count }} open</span>
-        <span class="stat stat-forth">{{ forthcoming_count }} forthcoming</span>
-        {% if new_count > 0 %}<span class="stat stat-new">+{{ new_count }} new this week</span>{% endif %}
-        {% if closing_soon_total %}<span class="stat stat-soon">{{ closing_soon_total }} closing ≤ {{ closing_soon_days }}d</span>{% endif %}
+        <span class="stat stat-match">{{ t("stat_matches", n=match_count, strong=verdict_counts["Strong fit"], good=verdict_counts["Good fit"]) }}</span>
+        {% if ai_pick_count %}<span class="stat stat-ai">{{ t("stat_ai", n=ai_pick_count) }}</span>{% endif %}
+        <span class="stat stat-full">{{ t("stat_full", n=full_rate_count) }}</span>
+        <span class="stat stat-total">{{ t("stat_total", n=total) }}</span>
+        <span class="stat stat-open">{{ t("stat_open", n=open_count) }}</span>
+        <span class="stat stat-forth">{{ t("stat_forth", n=forthcoming_count) }}</span>
+        {% if new_count > 0 %}<span class="stat stat-new">{{ t("stat_new", n=new_count) }}</span>{% endif %}
+        {% if closing_soon_total %}<span class="stat stat-soon">{{ t("stat_soon", n=closing_soon_total, d=closing_soon_days) }}</span>{% endif %}
       </div>
     </div>
 
@@ -132,9 +141,9 @@
     <table>
       <thead>
         <tr>
-          <th style="width: 46%">Topic</th>
-          <th class="hide-sm">Action</th>
-          <th style="width: 12%">Grant</th>
+          <th style="width: 46%">{{ t("col_topic") }}</th>
+          <th class="hide-sm">{{ t("col_action") }}</th>
+          <th style="width: 12%">{{ t("col_grant") }}</th>
           <th>Deadline</th>
           <th>Status</th>
         </tr>
@@ -147,33 +156,49 @@
             <span class="ident">{{ o.id }}</span>
             {% if show_cluster %}<span class="tag">{{ o.cluster }}</span>{% endif %}
             {% for t in o.tags[:3] %}<span class="tag">{{ t }}</span>{% endfor %}
-            {% if o.interest_for %}<br/><span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">⭐ {{ o.fit_score }} · {{ o.fit_verdict }}</span> <span class="hits">{{ o.fit_theme_label }}</span>{% endif %}
+            {% if o.interest_for %}<br/><span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">⭐ {{ o.fit_score }} · {{ t(o.fit_verdict) }}</span>{% endif %}
           </td>
           <td class="action hide-sm">{{ o.action_type or '—' }}</td>
           <td class="money">
             {% if o.contribution_max %}
               {% if o.contribution_min and o.contribution_min != o.contribution_max %}{{ o.contribution_min | eur }}–{% else %}≤ {% endif %}{{ o.contribution_max | eur }}{% if o.expected_grants %} <span style="color:#888">×{{ o.expected_grants }}</span>{% endif %}
-              {% if o.call_budget %}<br/><span style="color:#999;font-size:11px">call {{ o.call_budget | eur }}</span>{% endif %}
+              {% if o.call_budget %}<br/><span style="color:#999;font-size:11px">{{ t("call_budget", b=o.call_budget | eur) }}</span>{% endif %}
             {% elif o.call_budget %}
-              <span style="color:#666">call {{ o.call_budget | eur }}</span>
+              <span style="color:#666">{{ t("call_budget", b=o.call_budget | eur) }}</span>
             {% else %}—{% endif %}
           </td>
           <td class="date">
             {% if o.deadline %}
               {{ o.deadline }}
               {% set d = o.deadline | days_left %}
-              <br/><span class="dl">{% if d is not none and d >= 0 %}in {{ d }}d{% elif d is not none %}{{ -d }}d ago{% endif %}{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>
+              <br/><span class="dl">{% if d is not none and d >= 0 %}{{ t("in_days", d=d) }}{% elif d is not none %}{{ t("days_ago", d=-d) }}{% endif %}{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>
             {% else %}—{% endif %}
           </td>
           <td>
-            {% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">💯 {{ o.funding_rate }}</span>
-            {% elif o.funding_rate %}<span class="badge badge-rate" title="{{ o.funding_rate_note }}">{{ o.funding_rate }}</span>{% endif %}
-            {% if o.id in new_ids %}<span class="badge badge-new">🆕 NEW</span> {% endif %}
-            {% if o.deadline and o.deadline <= soon and o.deadline >= today %}<span class="badge badge-soon">⏰ SOON</span>
-            {% elif o.status == 'Open' %}<span class="badge badge-open">OPEN</span>
-            {% elif o.status == 'Forthcoming' %}<span class="badge badge-forth">FORTHCOMING</span>
+            {% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">💯 {{ o.funding_rate | rate }}</span>
+            {% elif o.funding_rate %}<span class="badge badge-rate" title="{{ o.funding_rate_note }}">{{ o.funding_rate | rate }}</span>{% endif %}
+            {% if o.id in new_ids %}<span class="badge badge-new">{{ t("NEW") }}</span> {% endif %}
+            {% if o.deadline and o.deadline <= soon and o.deadline >= today %}<span class="badge badge-soon">{{ t("SOON") }}</span>
+            {% elif o.status == 'Open' %}<span class="badge badge-open">{{ t("OPEN") }}</span>
+            {% elif o.status == 'Forthcoming' %}<span class="badge badge-forth">{{ t("FORTHCOMING") }}</span>
             {% endif %}
           </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {%- endmacro %}
+
+    {% macro look_rows(items) -%}
+    <table>
+      <tbody>
+        {% for o in items %}
+        <tr>
+          <td style="width: 62%"><a href="{{ o.url }}">{{ o.title }}</a><br/>
+            {% if o.source == 'portal' %}<span class="ident">{{ o.id }}</span>{% else %}<span class="funder">{{ o.programme }}</span>{% endif %}
+            <span class="hits"> · {% for h in o.interest_hits[:3] %}{{ h.split(': ', 1)[-1] if not h.startswith('(') else t("no_signal") }}{% if not loop.last %} · {% endif %}{% endfor %}</span></td>
+          <td class="date" style="width: 16%">{% if o.deadline %}{{ o.deadline }}<br/><span class="dl">{{ t("in_days", d=o.deadline | days_left) }}</span>{% else %}—{% endif %}</td>
+          <td style="width: 22%"><span class="verdict v-look">{{ o.fit_score }} · {{ t(o.fit_verdict) }}</span>{% if o.ai %} <span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ t("ai_score", n=o.ai.ai_score) }}</span>{% endif %}{% if o.is_full_rate %} <span class="badge badge-full">💯</span>{% endif %}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -191,21 +216,35 @@
             {% if o.action_type %}<span class="sep">·</span>{{ o.action_type }}{% endif %}
             {% if o.tags %}<span class="sep">·</span>{% for t in o.tags[:3] if t != o.country %}<span class="tag">{{ t }}</span>{% endfor %}{% endif %}
             <br/>
-            {% if o.deadline %}{% set d = o.deadline | days_left %}<span class="deadline-chip{{ ' soon' if o.deadline <= soon }}">⏰ {{ o.deadline }} · in {{ d }}d{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>{% else %}<span class="deadline-chip">deadline: see page</span>{% endif %}
+            {% if o.deadline %}{% set d = o.deadline | days_left %}<span class="deadline-chip{{ ' soon' if o.deadline <= soon }}">⏰ {{ o.deadline }} · {{ t("in_days", d=d) }}{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>{% else %}<span class="deadline-chip">{{ t("deadline_see_page") }}</span>{% endif %}
             <span class="sep">·</span>
-            {% if o.contribution_max %}<b>{% if o.contribution_min and o.contribution_min != o.contribution_max %}{{ o.contribution_min | eur }}–{% else %}≤ {% endif %}{{ o.contribution_max | eur }}</b>{% if o.expected_grants %} <span style="color:#888">×{{ o.expected_grants }}</span>{% endif %}{% if o.call_budget %} <span style="color:#999">(call {{ o.call_budget | eur }})</span>{% endif %}{% elif o.call_budget %}call {{ o.call_budget | eur }}{% else %}grant: see page{% endif %}
+            {% if o.contribution_max %}<b>{% if o.contribution_min and o.contribution_min != o.contribution_max %}{{ o.contribution_min | eur }}–{% else %}≤ {% endif %}{{ o.contribution_max | eur }}</b>{% if o.expected_grants %} <span style="color:#888">×{{ o.expected_grants }}</span>{% endif %}{% if o.call_budget %} <span style="color:#999">({{ t("call_budget", b=o.call_budget | eur) }})</span>{% endif %}{% elif o.call_budget %}{{ t("call_budget", b=o.call_budget | eur) }}{% else %}{{ t("grant_see_page") }}{% endif %}
             <span class="sep">·</span>
-            {% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">💯 {{ o.funding_rate }}</span>{% elif o.funding_rate %}<span class="badge badge-rate">{{ o.funding_rate }}</span>{% else %}<span class="badge badge-rate">rate: check</span>{% endif %}
-            {% if o.id in new_ids %} <span class="badge badge-new">🆕 NEW</span>{% endif %}
-            {% if o.status == 'Forthcoming' %} <span class="badge badge-forth">FORTHCOMING</span>{% elif o.status == 'Open' %} <span class="badge badge-open">OPEN</span>{% endif %}
+            {% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">💯 {{ o.funding_rate | rate }}</span>{% elif o.funding_rate %}<span class="badge badge-rate">{{ o.funding_rate | rate }}</span>{% else %}<span class="badge badge-rate">{{ t("rate_check") }}</span>{% endif %}
+            {% if o.id in new_ids %} <span class="badge badge-new">{{ t("NEW") }}</span>{% endif %}
+            {% if o.status == 'Forthcoming' %} <span class="badge badge-forth">{{ t("FORTHCOMING") }}</span>{% elif o.status == 'Open' %} <span class="badge badge-open">{{ t("OPEN") }}</span>{% endif %}
           </div>
-          <div class="why"><span class="lbl">why</span>{% for h in o.interest_hits[:6] %}{% if h.startswith('title:') %}<b>{{ h[7:] }}</b>{% elif h.startswith('tags:') %}{{ h[6:] }}{% elif h.startswith('body:') %}{{ h[6:] }}{% else %}<span class="neg">{{ h }}</span>{% endif %}{% if not loop.last %} · {% endif %}{% endfor %}</div>
+          <div class="why"><span class="lbl">{{ t("why") }}</span>{% for h in o.interest_hits[:6] %}{% if h.startswith('title:') %}<b>{{ h[7:] }}</b>{% elif h.startswith('tags:') %}{{ h[6:] }}{% elif h.startswith('body:') %}{{ h[6:] }}{% else %}<span class="neg">{{ t("no_signal") if h.startswith("(no robot") else h }}</span>{% endif %}{% if not loop.last %} · {% endif %}{% endfor %}</div>
           {% if o.summary and o.source != 'portal' %}<div class="why" style="color:#666">{{ o.summary[:220] }}…</div>{% endif %}
+          {% if o.ai %}
+          <div class="ai{{ ' na' if not o.ai.applicable }}">
+            <span class="h">{{ t("ai_block") }}</span><span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ t("ai_score", n=o.ai.ai_score) }} · {{ t("ai_applicable") if o.ai.applicable else t("ai_not_applicable") }}</span> <span style="color:#7c3aed;font-size:11px">{{ t("ai_conf", n=o.ai.confidence) }}</span>
+            {% if o.ai.summary %}<div>{{ o.ai.summary }}</div>{% endif %}
+            {% if o.ai.applicable %}
+            <div><span class="k">{{ t("ai_angle") }}:</span> {{ o.ai.angle[:320] }}</div>
+            {% if o.ai.entity %}<div><span class="k">{{ t("ai_entity") }}:</span> {{ o.ai.entity }}</div>{% endif %}
+            {% if o.ai.partners %}<div><span class="k">{{ t("ai_partners") }}:</span> {{ o.ai.partners | join(' · ') }}</div>{% endif %}
+            {% if o.ai.risks %}<div><span class="k">{{ t("ai_risks") }}:</span> {{ o.ai.risks[:2] | join(' · ') }}</div>{% endif %}
+            {% if o.ai.next_step %}<div><span class="k">{{ t("ai_next") }}:</span> {{ o.ai.next_step }}</div>{% endif %}
+            {% else %}{% if o.ai.risks %}<div>{{ o.ai.risks | join(' · ') }}</div>{% endif %}{% endif %}
+          </div>
+          {% endif %}
         </td>
         <td class="fit">
-          <span class="score">{{ o.fit_score }}</span> <span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">{{ o.fit_verdict }}</span>
+          <span class="score">{{ o.fit_score }}</span> <span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">{{ t(o.fit_verdict) }}</span>
           <div class="bar"><span style="width: {{ o.fit_score }}%; background: {{ '#16a34a' if o.fit_verdict == 'Strong fit' else '#2563eb' if o.fit_verdict == 'Good fit' else '#9ca3af' }}"></span></div>
-          <div class="bd">theme {{ o.fit_breakdown.theme }}/60 · instrument {{ o.fit_breakdown.instrument }}/15 · conditions {{ o.fit_breakdown.conditions }}/10{% if o.fit_breakdown.packs %} · packs {{ o.fit_breakdown.packs }}{% endif %}{% if o.fit_breakdown.penalty %} · <span style="color:#b91c1c">penalty {{ o.fit_breakdown.penalty }}</span>{% endif %}</div>
+          {% if o.ai %}<div style="margin:4px 0"><span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ t("ai_score", n=o.ai.ai_score) }}</span></div>{% endif %}
+          <div class="bd">{{ t("bd", theme=o.fit_breakdown.theme, instr=o.fit_breakdown.instrument, cond=o.fit_breakdown.conditions) }}{% if o.fit_breakdown.packs %}{{ t("bd_packs", p=o.fit_breakdown.packs) }}{% endif %}{% if o.fit_breakdown.penalty %}<span style="color:#b91c1c">{{ t("bd_penalty", p=o.fit_breakdown.penalty) }}</span>{% endif %}</div>
         </td>
       </tr>
     </table>
@@ -214,55 +253,66 @@
 
     {% if match_groups %}
     <div class="section">
-      <div class="section-header match">⭐ Matches your roadmap<span class="count">{{ matches_total }} opportunities · fit ≥ {{ threshold }} · {{ verdict_counts['Strong fit'] }} strong · {{ verdict_counts['Good fit'] }} good · {{ verdict_counts['Worth a look'] }} worth a look</span></div>
+      <div class="section-header match">{{ t("sec_matches") }}<span class="count">{{ t("sec_matches_count", n=matches_total, t=threshold, strong=verdict_counts["Strong fit"], good=verdict_counts["Good fit"], look=verdict_counts["Worth a look"]) }}</span></div>
       {% for g in match_groups %}
-      <div class="theme-header" style="background: {{ g.color }}">P{{ g.priority }} · {{ g.label }}<span class="count">{{ g.total }} match{{ 'es' if g.total != 1 }}</span></div>
-      {{ fit_table(g['items']) }}
-      {% if g.total > g['items'] | length %}<p class="more">… and {{ g.total - g['items'] | length }} more in this theme{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">full list</a>{% endif %}</p>{% endif %}
+      <div class="theme-header" style="background: {{ g.color }}">P{{ g.priority }} · {{ g.label }}<span class="count">{{ t("matches_in_theme_pl" if g.total != 1 else "matches_in_theme", n=g.total) }}</span></div>
+      {% set cards = g['items'] | selectattr('fit_verdict', 'ne', 'Worth a look') | list %}
+      {% set looks = g['items'] | selectattr('fit_verdict', 'eq', 'Worth a look') | list %}
+      {% if cards %}{{ fit_table(cards) }}{% endif %}
+      {% if looks %}{{ look_rows(looks) }}{% endif %}
+      {% if g.total > g['items'] | length %}<p class="more">{{ t("more_theme", n=g.total - g['items'] | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
       {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if ai_picks %}
+    <div class="section">
+      <div class="section-header ai">{{ t("sec_ai") }}<span class="count">{{ t("sec_ai_count", n=ai_picks_total, t=ai_pick_min) }}</span></div>
+      {{ fit_table(ai_picks) }}
+      {% if ai_picks_total > ai_picks | length %}<p class="more">{{ t("more", n=ai_picks_total - ai_picks | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
     </div>
     {% endif %}
 
     {% if closing_soon %}
     <div class="section">
-      <div class="section-header soon">⏰ Closing within {{ closing_soon_days }} days<span class="count">{{ closing_soon_total }} topics</span></div>
+      <div class="section-header soon">{{ t("sec_soon", d=closing_soon_days) }}<span class="count">{{ t("topics", n=closing_soon_total) }}</span></div>
       {{ opp_table(closing_soon, show_cluster=True) }}
-      {% if closing_soon_total > closing_soon | length %}<p class="more">… and {{ closing_soon_total - closing_soon | length }} more{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">see the full list</a>{% endif %}</p>{% endif %}
+      {% if closing_soon_total > closing_soon | length %}<p class="more">{{ t("more", n=closing_soon_total - closing_soon | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
     </div>
     {% endif %}
 
     {% if new_items %}
     <div class="section">
-      <div class="section-header new">🆕 New since last digest<span class="count">{{ new_total }} topics</span></div>
+      <div class="section-header new">{{ t("sec_new") }}<span class="count">{{ t("topics", n=new_total) }}</span></div>
       {{ opp_table(new_items, show_cluster=True) }}
-      {% if new_total > new_items | length %}<p class="more">… and {{ new_total - new_items | length }} more{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">see the full list</a>{% endif %}</p>{% endif %}
+      {% if new_total > new_items | length %}<p class="more">{{ t("more", n=new_total - new_items | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
     </div>
     {% endif %}
 
     {% if new_foundations %}
     <div class="section">
-      <div class="section-header found">🏛 New at foundations &amp; national funders<span class="count">{{ new_found_total }} items</span></div>
+      <div class="section-header found">{{ t("sec_found") }}<span class="count">{{ t("items", n=new_found_total) }}</span></div>
       <table>
-        <thead><tr><th style="width: 55%">Call / page</th><th>Funder</th><th>Status</th></tr></thead>
+        <thead><tr><th style="width: 55%">{{ t("col_call") }}</th><th>{{ t("col_funder") }}</th><th>{{ t("col_status") }}</th></tr></thead>
         <tbody>
           {% for o in new_foundations %}
           <tr>
-            <td><a href="{{ o.url }}">{{ o.title }}</a>{% if o.interest_for %}<br/><span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">⭐ {{ o.fit_score }} · {{ o.fit_verdict }}</span> <span class="hits">{{ o.fit_theme_label }}</span>{% endif %}</td>
+            <td><a href="{{ o.url }}">{{ o.title }}</a>{% if o.interest_for %}<br/><span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">⭐ {{ o.fit_score }} · {{ t(o.fit_verdict) }}</span>{% endif %}</td>
             <td class="action">{{ o.programme }} <span class="tag">{{ o.country }}</span></td>
-            <td><span class="badge badge-new">🆕 NEW</span></td>
+            <td><span class="badge badge-new">{{ t("NEW") }}</span></td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-      {% if new_found_total > new_foundations | length %}<p class="more">… and {{ new_found_total - new_foundations | length }} more{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">see the full list</a>{% endif %}</p>{% endif %}
+      {% if new_found_total > new_foundations | length %}<p class="more">{{ t("more", n=new_found_total - new_foundations | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
     </div>
     {% endif %}
 
     {% if compact %}
     <div class="section">
-      <div class="section-header">All open &amp; forthcoming topics by cluster<span class="count">{{ total }} topics</span></div>
+      <div class="section-header">{{ t("sec_all") }}<span class="count">{{ t("topics", n=total) }}</span></div>
       <table>
-        <thead><tr><th>Cluster</th><th>Topics</th><th>Open</th><th>New</th><th>Next deadline</th></tr></thead>
+        <thead><tr><th>{{ t("col_cluster") }}</th><th>{{ t("col_topic") }}</th><th>{{ t("col_open") }}</th><th>{{ t("col_new") }}</th><th>{{ t("col_next") }}</th></tr></thead>
         <tbody>
           {% for c in cluster_summary %}
           <tr>
@@ -275,22 +325,22 @@
           {% endfor %}
         </tbody>
       </table>
-      {% if archive_url %}<p style="margin-top:10px;font-size:13px;color:#555">Full list of all {{ total }} topics: <a href="{{ archive_url }}/{{ date }}.html">{{ archive_url }}/{{ date }}.html</a></p>{% endif %}
+      {% if archive_url %}<p style="margin-top:10px;font-size:13px;color:#555">{{ t("full_list_of", n=total) }} <a href="{{ archive_url }}/{{ date }}.html">{{ archive_url }}/{{ date }}.html</a></p>{% endif %}
     </div>
     {% else %}
     {% for label, items in grouped.items() %}
     <div class="section" id="{{ items[0].cluster }}">
-      <div class="section-header">{{ label }}<span class="count">{{ items | length }} topics{% set n = items | selectattr('id', 'in', new_ids) | list | length %}{% if n %} · +{{ n }} new{% endif %}</span></div>
+      <div class="section-header">{{ label }}<span class="count">{{ t("topics", n=items | length) }}{% set n = items | selectattr('id', 'in', new_ids) | list | length %}{% if n %} · +{{ n }} {{ t("col_new") | lower }}{% endif %}</span></div>
       {{ opp_table(items) }}
     </div>
     {% endfor %}
     {% for label, items in found_grouped.items() %}
     <div class="section" id="found-{{ loop.index }}">
-      <div class="section-header found">🏛 {{ label }}<span class="count">{{ items | length }} items</span></div>
+      <div class="section-header found">🏛 {{ label }}<span class="count">{{ t("items", n=items | length) }}</span></div>
       <table>
         <tbody>
           {% for o in items %}
-          <tr><td><a href="{{ o.url }}">{{ o.title }}</a></td><td>{% if o.id in new_ids %}<span class="badge badge-new">🆕 NEW</span>{% endif %}</td></tr>
+          <tr><td><a href="{{ o.url }}">{{ o.title }}</a></td><td>{% if o.id in new_ids %}<span class="badge badge-new">{{ t("NEW") }}</span>{% endif %}</td></tr>
           {% endfor %}
         </tbody>
       </table>
@@ -299,8 +349,8 @@
     {% endif %}
 
     <div class="footer">
-      Generated {{ date }} by Funding Tracker · sources: <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals">EU Funding &amp; Tenders Portal</a> + {{ found_grouped | length }} foundation / national funder pages · funding rates are your effective rate (non-profit entity where allowed) and indicative — check the call conditions
-      {% if archive_url %} · <a href="{{ archive_url }}">archive</a>{% endif %}
+      {{ t("footer", date=date, n=found_grouped | length) }}
+      {% if archive_url %} · <a href="{{ archive_url }}">{{ t("archive") }}</a>{% endif %}
     </div>
   </div>
 </body>

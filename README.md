@@ -54,6 +54,25 @@ signal from anchor/core terms (a pure clinical-trials call, a space-hardware cal
 
 Verdicts: ≥ 70 **Strong fit** · ≥ 50 **Good fit** · ≥ 35 **Worth a look**.
 
+### AI analyst (`analyst.py`)
+
+Every roadmap match and every foundation / national call is read by an OpenAI model (`gpt-4o-mini` by default)
+against the company brief in `config.yaml → profile.company_brief`. It returns a strict JSON judgement — applicable
+or not, an **AI score** (calibrated: 85+ only when the call explicitly asks for HRI / social robots), the concrete
+**angle** for ETHEA / the humanoid head, **which entity** should apply (rules tied to funder country and funding
+rate), partner types, risks and a concrete **next step** — in the digest language. Calls the model rates ≥ 60 that
+the keyword score missed appear in a separate **🤖 AI picks** section.
+
+Cost control: real token usage from every response is priced and summed; the run **stops at
+`ai.max_eur_per_run`** (default €5). A full run of ~200 calls costs about €0.08. Results are cached per call in
+`outputs/ai_cache.json` (committed by CI), so a weekly run only pays for new or changed calls.
+Needs `OPENAI_API_KEY` (repo secret). Without it the step is skipped.
+
+### Language
+
+`digest.language: hu` renders headings, badges, verdicts, theme names and the AI analysis in Hungarian
+(`en` for English). Call titles and descriptions stay in their source language.
+
 ### Funding rate — 100 % for *your* entities
 
 `funding_rate.py` uses the explicit rate in the call conditions when stated, otherwise the standard rate per action
@@ -102,7 +121,7 @@ Everything lives in `config.yaml`:
 ## CI
 
 `.github/workflows/weekly.yml` runs **Monday 07:30 Europe/Berlin** (two UTC crons + a local-time guard for DST).
-Required repo secrets: `GMAIL_ADDRESS`, `GMAIL_APP_PASSWORD`, `DIGEST_TO_EMAIL` (comma-separated list of recipients).
+Required repo secrets: `GMAIL_ADDRESS`, `GMAIL_APP_PASSWORD`, `DIGEST_TO_EMAIL` (comma-separated list of recipients), `OPENAI_API_KEY`.
 
 ## Related
 

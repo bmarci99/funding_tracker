@@ -74,6 +74,7 @@ class Theme:
     terms: Dict[str, List[Tuple[str, re.Pattern]]]     # tier → [(term, regex)]
     color: str = "#0ea5e9"
     capability: bool = False                            # the "what we build" axis
+    labels: Dict[str, str] = field(default_factory=dict)  # label_<lang> from config
 
 
 @dataclass
@@ -101,6 +102,7 @@ class FitScorer:
                 terms={tier: [(w, _term_regex(w)) for w in t.get(tier, []) or []] for tier in TIER_WEIGHT},
                 color=t.get("color", "#0ea5e9"),
                 capability=bool(t.get("capability", False)),
+                labels={k[6:]: v for k, v in t.items() if k.startswith("label_")},
             ))
         self.themes.sort(key=lambda t: t.priority)
         self.negatives = [(w, _term_regex(w)) for w in profile.get("negative", []) or []]
@@ -236,4 +238,5 @@ class FitScorer:
             self.score(o)
 
     def theme_meta(self) -> List[Dict[str, Any]]:
-        return [{"key": t.key, "label": t.label, "priority": t.priority, "color": t.color} for t in self.themes]
+        return [{"key": t.key, "label": t.label, "priority": t.priority, "color": t.color,
+                 **{f"label_{k}": v for k, v in t.labels.items()}} for t in self.themes]

@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import re
 from datetime import date, datetime, timezone
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -65,9 +65,15 @@ class Opportunity(BaseModel):
     interest_score: float = 0.0                # = fit_score (kept for the renderers)
     interest_hits: List[str] = Field(default_factory=list)   # "title: humanoid", "body: oncology", "⚠ military"
     interest_for: List[str] = Field(default_factory=list)    # [theme label] when it is a match
+    ai: Dict[str, Any] = Field(default_factory=dict)   # analyst.py output: applicable, ai_score, angle, entity, …
     first_seen: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     content_hash: str = ""
     text: str = Field(default="", exclude=True)  # full description used for matching; not persisted
+
+    @property
+    def ai_pick(self) -> bool:
+        """The analyst thinks we can apply and it is attractive (≥ 60)."""
+        return bool(self.ai.get("applicable")) and int(self.ai.get("ai_score", 0)) >= 60
 
     @property
     def is_full_rate(self) -> bool:

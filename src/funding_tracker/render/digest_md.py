@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import date as dt_date, timedelta
 from typing import List, Set
 
+from ..i18n import Translator
 from ..models import Opportunity
 from .digest_html import fmt_eur, group_by_cluster
 
@@ -15,17 +16,19 @@ def render_markdown(
     closing_soon_days: int = 30,
     threshold: float = 35,
     themes: List[dict] | None = None,
+    lang: str = "en",
 ) -> str:
+    tr = Translator(lang)
     new_ids = new_ids or set()
     today = dt_date.today()
     soon = today + timedelta(days=closing_soon_days)
     lines: List[str] = []
 
     portal = [o for o in opps if o.source == "portal"]
-    lines.append(f"# Funding Digest — {date}")
+    lines.append("# " + tr("md_title", date=date))
     lines.append("")
-    lines.append(f"**{len(portal)}** EU topics · **{sum(1 for o in opps if o.interest_for)}** match your profile · "
-                 f"**{sum(1 for o in portal if o.is_full_rate)}** 100%-funded · **{len(new_ids)}** new")
+    lines.append(tr("md_stats", portal=len(portal), m=sum(1 for o in opps if o.interest_for),
+                    full=sum(1 for o in portal if o.is_full_rate), new=len(new_ids)))
     lines.append("")
 
     def row(o: Opportunity) -> str:
@@ -36,23 +39,25 @@ def render_markdown(
             budget = f" · ≤{fmt_eur(o.contribution_max)}/grant" + (f" ×{o.expected_grants}" if o.expected_grants else "")
         elif o.call_budget:
             budget = f" · call {fmt_eur(o.call_budget)}"
-        rate = f" · 💯 {o.funding_rate}" if o.is_full_rate else (f" · {o.funding_rate}" if o.funding_rate else "")
+        rate = f" · 💯 {tr.rate(o.funding_rate)}" if o.is_full_rate else (f" · {tr.rate(o.funding_rate)}" if o.funding_rate else "")
         score = f" ⭐{o.fit_score}" if o.interest_for else ""
         return f"- [{o.title}]({o.url}) `{o.id}` — {o.action_type or o.programme}{rate}{budget}{dl}{flag}{score}"
 
     matches = sorted((o for o in opps if o.interest_for), key=lambda o: (-o.fit_score, o.id))
     if matches:
-        lines.append(f"## ⭐ Matches your roadmap ({len(matches)})")
+        lines.append(tr("md_matches", n=len(matches)))
         lines.append("")
         for t in themes or []:
             items = [o for o in matches if o.fit_theme == t["key"]]
             if not items:
                 continue
-            lines.append(f"### P{t['priority']} · {t['label']} ({len(items)})")
+            lines.append(f"### P{t['priority']} · {tr.theme_label(t)} ({len(items)})")
             lines.append("")
             for o in items:
                 why = ", ".join(h.split(": ", 1)[-1] for h in o.interest_hits)
-                lines.append(row(o) + f" — **{o.fit_score} {o.fit_verdict}** · {why}")
+                lines.append(row(o) + f" — **{o.fit_score} {tr(o.fit_verdict)}** · {why}")
+                if o.ai.get("applicable"):
+                    lines.append(f"  - 🤖 AI {o.ai.get('ai_score')}: {o.ai.get('angle', '')} — {o.ai.get('next_step', '')}")
             lines.append("")
 
     closing = sorted(
@@ -60,7 +65,7 @@ def render_markdown(
         key=lambda o: o.deadline,
     )
     if closing:
-        lines.append(f"## ⏰ Closing within {closing_soon_days} days")
+        lines.append(tr("md_soon", d=closing_soon_days))
         lines.append("")
         lines.extend(row(o) for o in closing)
         lines.append("")
@@ -75,11 +80,11 @@ def render_markdown(
 
     found_new = [o for o in opps if o.source != "portal" and o.id in new_ids]
     if found_new:
-        lines.append("## 🏛 New at foundations & national funders")
+        lines.append(tr("md_found"))
         lines.append("")
         lines.extend(f"- [{o.title}]({o.url}) — {o.programme}" for o in found_new)
         lines.append("")
 
     lines.append("---")
-    lines.append(f"_Generated {date} by Funding Tracker · sources: EU Funding & Tenders Portal + foundation feeds_")
+    lines.append(tr("md_footer", date=date))
     return "\n".join(lines)

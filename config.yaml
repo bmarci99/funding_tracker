@@ -233,11 +233,30 @@ profile:
     nonprofit: true              # HU non-profit now, DE gGmbH planned → IA/JU-IA count as 100 %
     sme: true                    # DE GmbH, HU for-profit → EIC Accelerator, SME-only calls
   min_grant_eur: 250000          # below this a grant barely pays for a prototype
+  company_brief: |
+    PBN Group (Szombathely, Hungary + Stuttgart, Germany), ~30 engineers/economists, applied R&D and
+    European Digital Innovation Hub since 2006. Entities: Pannon Business Network Association (HU
+    non-profit; eligible for 100% rates), PBN Germany GmbH (Stuttgart, for-profit R&D in robotics/AI/
+    humanoids, HRB 799279), am-LAB (HU, Factory-of-the-Future lab, for-profit), at.home (HU, elderly
+    digitalisation), a German gGmbH (non-profit) is planned. ISO 9001 + ISO 27001 certified HRI lab.
+    What we build: ETHEA — a hardware-agnostic "Human–Humanoid Interaction Intelligence" platform
+    (functional empathy engine, multimodal human-state estimation from speech prosody, face, posture and
+    wearables; on-device; ROS 2) at TRL 6, validated in four waves with 70+ older adults on an Engineered
+    Arts Ameca; and, since Sep 2026, our own expressive humanoid head "ETHEA Face" (silicone face,
+    30+ FACS action units target, eye cameras, mic array, on-board compute, published ROS 2 interface),
+    TRL 2–3, with a Budapest film-industry prosthetics team and HLRS (Stuttgart supercomputing) as partners.
+    Roadmap priorities: (1) the humanoid head and expressive HRI; (1) social companion in healthcare,
+    especially oncology, with Markusovszky University Teaching Hospital (Szombathely) as clinical partner;
+    (2) teacher / learning companion; (3) companion for war veterans and trauma; (3) astronaut / space crew
+    companion (ESA OSIP proposal exists). Track record: Interreg BrAIn (ETHEA software), Villum Fonden
+    grant (€800k), EDIH, Szombathely2030 programme, SPRIND Next Frontier Robotics application (Oct 2026).
+    We want 100%-funded grants; we can lead small consortia or join larger ones as the HRI/companion partner.
   negative: ["defence", "military", "weapon", "verteidigung", "katonai", "gambling", "glücksspiel"]
   negative_exempt_themes: ["veterans"]   # "military veterans" must not be penalised
   themes:
     humanoid_head:                 # CAPABILITY axis — what you build (ETHEA Face + ETHEA platform)
       label: "Humanoid head & expressive HRI"
+      label_hu: "Humanoid fej és kifejező HRI"
       priority: 1
       capability: true
       color: "#7c3aed"
@@ -260,6 +279,7 @@ profile:
                 "trustworthy ai", "human-centred ai", "human-centric ai", "conversational ai", "foundation model", "foundation models", "large language model", "large language models", "digital twin"]
     health_companion:
       label: "Healthcare social companion (oncology)"
+      label_hu: "Egészségügyi szociális társ (onkológia)"
       priority: 1
       color: "#db2777"
       anchor: ["oncology", "cancer patient", "cancer patients", "cancer care", "psycho-oncology", "chemotherapy", "palliative",
@@ -278,6 +298,7 @@ profile:
                 "wellbeing", "quality of life", "ageing", "elderly", "living lab", "robot", "ai"]
     teacher_companion:
       label: "Teacher & learning companion"
+      label_hu: "Tanár- és tanulótárs"
       priority: 2
       color: "#0891b2"
       anchor: ["educational robot", "educational robotics", "robot tutor", "robotic tutor", "learning companion",
@@ -292,6 +313,7 @@ profile:
                 "lifelong learning", "vocational", "robot", "ai", "artificial intelligence", "interaction", "engagement"]
     veterans:
       label: "Companion for war veterans & trauma"
+      label_hu: "Társ háborús veteránoknak és traumakezelés"
       priority: 3
       color: "#b45309"
       anchor: ["veteran", "veterans", "ptsd", "post-traumatic", "posttraumatic", "war trauma", "war-affected",
@@ -304,6 +326,7 @@ profile:
       context: ["resilience", "rehabilitation", "sleep", "therapy", "companion", "robot", "digital", "ai", "support"]
     space_companion:
       label: "Space crew companion"
+      label_hu: "Űrhajós-társ"
       priority: 3
       color: "#1d4ed8"
       anchor: ["astronaut", "astronauts", "crew support", "crew health", "human spaceflight", "long-duration mission",
@@ -315,6 +338,24 @@ profile:
              "mars", "human exploration", "space robotics",
                "weltraum", "dlr", "raumstation", "űrállomás", "űrkutatás", "raumfahrt"]
       context: ["space", "autonomy", "exploration", "robot", "ai", "companion", "interaction", "monitoring"]
+
+# ---------------------------------------------------------------------------
+# AI analyst (OpenAI). Reads every roadmap match and every foundation call against the company
+# brief below and answers: can we apply, with what project, which entity, which partners, risks,
+# next step. Needs OPENAI_API_KEY (repo secret in CI). Cached per call in outputs/ai_cache.json.
+# ---------------------------------------------------------------------------
+ai:
+  enabled: true
+  model: gpt-4o-mini
+  api_key_env: OPENAI_API_KEY
+  max_concurrent: 4
+  max_call_chars: 3500
+  max_items: 300                   # safety cap per run
+  max_eur_per_run: 5.0             # HARD budget: real token usage is priced per response; the run stops at this
+  analyse_all_foundations: true    # foundations are thin on keywords → let the model judge them all
+  min_fit_for_portal: 35           # portal topics: only those already matching the roadmap
+  pick_min_score: 60               # ai_score needed for the "AI picks" section
+  cache: "outputs/ai_cache.json"
 
 # ---------------------------------------------------------------------------
 # Secondary signal (0–15 pts): the PBN company keyword packs from Tender Radar.
@@ -394,6 +435,7 @@ filters:
   only_full_rate: true             # keep only topics that are 100 %-funded *for your entities* (foundations count as 100 %)
 
 digest:
+  language: hu                     # "en" or "hu" — headings, badges, verdicts; call titles stay in their source language
   match_min_score: 35              # fit score needed for the ⭐ section (35 Worth a look · 50 Good · 70 Strong)
   closing_soon_days: 30
   max_rows_per_section: 40         # email only; overflow links to the archive
@@ -412,7 +454,7 @@ output:
 
 email:
   send_on_empty: true
-  subject_prefix: "Funding Digest"
+  subject_prefix: ""                # empty → uses the digest title in the chosen language
 
 http:
   timeout_s: 60.0

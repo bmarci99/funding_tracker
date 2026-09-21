@@ -6,6 +6,7 @@ from typing import Dict, List, Set
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from ..i18n import Translator
 from ..models import Opportunity
 
 _TEMPLATE_DIR = Path(__file__).parent / "templates"
@@ -40,6 +41,8 @@ def render_html(
     threshold: float = 35,
     themes: List[Dict] | None = None,
     max_per_theme: int = 10,
+    lang: str = "en",
+    ai_pick_min: int = 60,
 ) -> str:
     """Render the digest.
 
@@ -55,7 +58,10 @@ def render_html(
         loader=FileSystemLoader(str(_TEMPLATE_DIR)),
         autoescape=select_autoescape(["html"]),
     )
+    tr = Translator(lang)
     env.filters["eur"] = fmt_eur
+    env.filters["rate"] = tr.rate
+    env.globals["t"] = tr
     env.filters["days_left"] = lambda d: days_left(d, today)
     tmpl = env.get_template("email.html")
 
@@ -84,20 +90,25 @@ def render_html(
     for o in matches:
         by_theme.setdefault(o.fit_theme, []).append(o)
     match_groups = [
-        {"key": k, "label": theme_info.get(k, {}).get("label", k), "color": theme_info.get(k, {}).get("color", "#7c3aed"),
+        {"key": k, "label": tr.theme_label(theme_info.get(k, {"key": k})), "color": theme_info.get(k, {}).get("color", "#7c3aed"),
          "priority": theme_info.get(k, {}).get("priority", 9),
          "items": by_theme[k][:max_per_theme] if compact and max_per_theme else by_theme[k],
          "total": sum(1 for o in opps if o.interest_for and o.fit_theme == k)}
         for k in sorted(by_theme, key=lambda k: (theme_order.index(k) if k in theme_order else 99))
     ]
     all_matches = [o for o in opps if o.interest_for]
+    ai_picks = sorted((o for o in opps if o.ai_pick and not o.interest_for),
+                      key=lambda o: (-int(o.ai.get("ai_score", 0)), o.deadline or dt_date.max, o.id))
+    ai_picks_total = len(ai_picks)
+    if compact and max_rows:
+        ai_picks = ai_picks[:max_rows]
     verdict_counts = {
         "Strong fit": sum(1 for o in all_matches if o.fit_verdict == "Strong fit"),
         "Good fit": sum(1 for o in all_matches if o.fit_verdict == "Good fit"),
         "Worth a look": sum(1 for o in all_matches if o.fit_verdict == "Worth a look"),
     }
     focus_strip = [
-        {"label": t["label"], "color": t["color"], "priority": t["priority"],
+        {"label": tr.theme_label(t), "color": t["color"], "priority": t["priority"],
          "count": sum(1 for o in all_matches if o.fit_theme == t["key"])}
         for t in themes
     ]
@@ -117,11 +128,14 @@ def render_html(
     ]
 
     return tmpl.render(
+        lang=lang,
         compact=compact,
         cluster_summary=cluster_summary,
         matches=matches, matches_total=matches_total, threshold=threshold,
         match_groups=match_groups, verdict_counts=verdict_counts, focus_strip=focus_strip,
         match_count=len(all_matches),
+        ai_picks=ai_picks, ai_picks_total=ai_picks_total, ai_pick_min=ai_pick_min,
+        ai_pick_count=sum(1 for o in opps if o.ai_pick),
         full_rate_count=sum(1 for o in opps if o.is_full_rate),
         new_foundations=new_foundations, new_found_total=new_found_total,
         found_grouped=found_grouped, foundations_total=len(foundations),

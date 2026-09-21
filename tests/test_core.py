@@ -135,3 +135,16 @@ def test_enrich_extractors():
     assert extract_amount_eur("bis zu 2,5 Mio. Euro") == 2500000.0
     html = "<html><body><nav>Home Contact</nav><main><h1>Call</h1><p>Apply now © sdecoret – stock.adobe.com Deadline 1 May 2027</p></main></body></html>"
     assert main_text(html) == "Call Apply now Deadline 1 May 2027"
+
+
+def test_analyst_normalise_and_budget(monkeypatch, tmp_path):
+    from funding_tracker.analyst import Analyst
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    a = Analyst({"model": "gpt-4o-mini", "max_eur_per_run": 0.0001, "cache": str(tmp_path / "c.json")}, "brief", "hu")
+    n = Analyst._normalise({"applicable": "yes", "ai_score": "72.4", "confidence": 500, "partners": "ETH", "risks": None})
+    assert n["applicable"] is True and n["ai_score"] == 72 and n["confidence"] == 100
+    assert n["partners"] == ["ETH"] and n["risks"] == []
+    a._account({"prompt_tokens": 1_000_000, "completion_tokens": 0})     # €0.14 → over the tiny budget
+    assert a._over_budget() and a.spent_eur > 0.1
+    o = _opp(title="Humanoid", content_hash="abc")
+    assert "gpt-4o-mini" in a._key(o) and "Hungarian" == a.lang

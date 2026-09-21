@@ -9,7 +9,9 @@ from typing import Any, Dict, List
 
 import yaml
 
+from .analyst import Analyst
 from .delivery.email_sender import send_digest_email
+from .i18n import Translator
 from .ingest.foundations import FoundationsIngester
 from .ingest.ft_portal import FTPortalIngester
 from .scoring import FitScorer
@@ -85,6 +87,18 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
     n_full = sum(1 for o in opps if o.is_full_rate)
     logger.info(f"[bold]{n_match}[/bold] match your profile · [bold]{n_full}[/bold] are 100%-funded")
 
+    # --- 1c. AI analyst ---
+    ai_cfg = cfg.get("ai", {})
+    analyst = Analyst(ai_cfg, cfg.get("profile", {}).get("company_brief", ""), dg.get("language", "en"))
+    if analyst.enabled:
+        section(console, "AI ANALYST")
+        cands = [o for o in opps if (o.source != "portal" and ai_cfg.get("analyse_all_foundations", True))
+                 or o.fit_score >= int(ai_cfg.get("min_fit_for_portal", 35))]
+        cands.sort(key=lambda o: (-o.fit_score, o.id))
+        analyst.analyse(cands[: int(ai_cfg.get("max_items", 300))])
+        n_picks = sum(1 for o in opps if o.ai_pick)
+        logger.info(f"[bold]{n_picks}[/bold] AI picks (applicable · score ≥ {ai_cfg.get('pick_min_score', 60)})")
+
     # --- 2. Diff against history ---
     section(console, "DIFF")
     hist_cfg = cfg.get("history", {})
@@ -119,7 +133,7 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
         encoding="utf-8",
     )
     md_text = render_markdown(opps, new_ids=new_ids, date=today, closing_soon_days=dg.get("closing_soon_days", 30),
-                              threshold=min_score, themes=scorer.theme_meta())
+                              threshold=min_score, themes=scorer.theme_meta(), lang=dg.get("language", "en"))
     (out_dir / "digest.md").write_text(md_text, encoding="utf-8")
     render_kw = dict(
         new_ids=new_ids, date=today,
@@ -128,6 +142,8 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
         archive_url=archive_url,
         threshold=min_score,
         themes=scorer.theme_meta(),
+        lang=dg.get("language", "en"),
+        ai_pick_min=int(ai_cfg.get("pick_min_score", 60)),
     )
     html_text = render_html(opps, compact=True, max_rows=dg.get("max_rows_per_section", 40),
                             max_per_theme=dg.get("max_matches_per_theme", 10), **render_kw)       # email: compact
@@ -146,9 +162,10 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
     has_changes = bool(new_items or changed_items)
     if send_email and (has_changes or cfg.get("email", {}).get("send_on_empty", False)):
         section(console, "EMAIL")
-        prefix = cfg.get("email", {}).get("subject_prefix", "Funding Digest")
-        bits = [f"{n_match} matches"] + ([f"+{len(new_items)} new"] if new_items else [])
-        subj = f"{prefix} — {today} ({' · '.join(bits)})"
+        tr = Translator(dg.get("language", "en"))
+        prefix = cfg.get("email", {}).get("subject_prefix") or tr("title")
+        bits = [tr("subject_matches", n=n_match)] + ([tr("subject_new", n=len(new_items))] if new_items else [])
+        subj = tr("subject", prefix=prefix, date=today, bits=" · ".join(bits))
         send_digest_email(html_text, subject=subj, text_fallback=md_text)
     elif send_email:
         logger.info("No changes — skipping email")
@@ -158,7 +175,7 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
     stats = {
         "date": today, "elapsed_s": round(elapsed, 1), "total": len(opps),
         "new": len(new_items), "changed": len(changed_items), "removed": len(removed_items),
-        "matches": n_match, "full_rate": n_full,
+        "matches": n_match, "full_rate": n_full, "ai_picks": sum(1 for o in opps if o.ai_pick),
         "per_cluster": {},
     }
     for o in opps:
