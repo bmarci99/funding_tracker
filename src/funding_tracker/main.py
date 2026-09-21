@@ -10,7 +10,9 @@ from typing import Any, Dict, List
 import yaml
 
 from .delivery.email_sender import send_digest_email
+from .ingest.foundations import FoundationsIngester
 from .ingest.ft_portal import FTPortalIngester
+from .interests import InterestScorer
 from .models import Opportunity
 from .render.digest_html import render_html
 from .render.digest_md import render_markdown
@@ -30,6 +32,7 @@ def apply_filters(opps: List[Opportunity], f: Dict[str, Any]) -> List[Opportunit
     inc = [k.lower() for k in f.get("include_keywords", []) or []]
     exc = [k.lower() for k in f.get("exclude_keywords", []) or []]
     horizon = int(f.get("deadline_within_days", 0) or 0)
+    only_full = bool(f.get("only_full_rate", False))
     cutoff = date.today() + timedelta(days=horizon) if horizon else None
 
     def blob(o: Opportunity) -> str:
@@ -44,6 +47,10 @@ def apply_filters(opps: List[Opportunity], f: Dict[str, Any]) -> List[Opportunit
             continue
         if cutoff and o.deadline and o.deadline > cutoff:
             continue
+        if o.deadline and o.deadline < date.today():   # stale portal entries (status never updated)
+            continue
+        if only_full and o.source == "portal" and not o.is_full_rate:
+            continue
         out.append(o)
     return out
 
@@ -55,10 +62,23 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
 
     # --- 1. Ingest ---
     section(console, "INGEST")
-    opps = FTPortalIngester(cfg["portal"], cfg.get("http", {})).safe_fetch()
+    http_cfg = cfg.get("http", {})
+    opps: List[Opportunity] = []
+    if cfg.get("portal", {}).get("enabled", True):
+        opps += FTPortalIngester(cfg["portal"], http_cfg).safe_fetch()
+    if cfg.get("foundations", {}).get("enabled", False):
+        logger.info("foundations & national funders:")
+        opps += FoundationsIngester(cfg["foundations"], http_cfg).safe_fetch()
     before = len(opps)
     opps = apply_filters(opps, cfg.get("filters", {}))
     logger.info(f"{before} fetched → [bold]{len(opps)}[/bold] after filters")
+
+    # --- 1b. Relevance scoring ---
+    scorer = InterestScorer(cfg.get("relevance", {}))
+    scorer.score_all(opps)
+    n_match = sum(1 for o in opps if o.interest_for)
+    n_full = sum(1 for o in opps if o.is_full_rate)
+    logger.info(f"[bold]{n_match}[/bold] match your profile · [bold]{n_full}[/bold] are 100%-funded")
 
     # --- 2. Diff against history ---
     section(console, "DIFF")
@@ -94,13 +114,15 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
             ensure_ascii=False, indent=2, default=str),
         encoding="utf-8",
     )
-    md_text = render_markdown(opps, new_ids=new_ids, date=today, closing_soon_days=dg.get("closing_soon_days", 30))
+    md_text = render_markdown(opps, new_ids=new_ids, date=today, closing_soon_days=dg.get("closing_soon_days", 30),
+                              threshold=scorer.threshold)
     (out_dir / "digest.md").write_text(md_text, encoding="utf-8")
     render_kw = dict(
         new_ids=new_ids, date=today,
         closing_soon_days=dg.get("closing_soon_days", 30),
         max_per_cluster=dg.get("max_per_cluster", 0),
         archive_url=archive_url,
+        threshold=scorer.threshold,
     )
     html_text = render_html(opps, compact=True, max_rows=dg.get("max_rows_per_section", 40), **render_kw)       # email: compact
     html_full = render_html(opps, compact=False, **render_kw)      # archive: everything
@@ -118,8 +140,9 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
     has_changes = bool(new_items or changed_items)
     if send_email and (has_changes or cfg.get("email", {}).get("send_on_empty", False)):
         section(console, "EMAIL")
-        prefix = cfg.get("email", {}).get("subject_prefix", "Horizon Funding Digest")
-        subj = f"{prefix} — {today}" + (f" (+{len(new_items)} new)" if new_items else "")
+        prefix = cfg.get("email", {}).get("subject_prefix", "Funding Digest")
+        bits = [f"{n_match} matches"] + ([f"+{len(new_items)} new"] if new_items else [])
+        subj = f"{prefix} — {today} ({' · '.join(bits)})"
         send_digest_email(html_text, subject=subj, text_fallback=md_text)
     elif send_email:
         logger.info("No changes — skipping email")
@@ -129,6 +152,7 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
     stats = {
         "date": today, "elapsed_s": round(elapsed, 1), "total": len(opps),
         "new": len(new_items), "changed": len(changed_items), "removed": len(removed_items),
+        "matches": n_match, "full_rate": n_full,
         "per_cluster": {},
     }
     for o in opps:

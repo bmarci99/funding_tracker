@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Horizon Funding Digest — {{ date }}</title>
+  <title>Funding Digest — {{ date }}</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -56,6 +56,14 @@
     .badge-open  { background: #d1fae5; color: #065f46; }
     .badge-forth { background: #ede9fe; color: #5b21b6; }
     .badge-soon  { background: #fee2e2; color: #991b1b; }
+    .badge-full  { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .badge-rate  { background: #f1f3f5; color: #555; }
+    .badge-score { background: #fdf4ff; color: #86198f; }
+    .stat-match  { background: #fdf4ff; color: #86198f; }
+    .stat-full   { background: #dcfce7; color: #166534; }
+    .section-header.match { background: #86198f; color: #fff; }
+    .section-header.found { background: #374151; color: #fff; }
+    .hits { color: #86198f; font-size: 11px; }
     .tag { display: inline-block; font-size: 10px; color: #555; background: #f1f3f5; border-radius: 3px; padding: 0 5px; margin: 2px 2px 0 0; }
 
     .more { margin-top: 8px; font-size: 13px; color: #555; }
@@ -73,10 +81,12 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>🇪🇺 Horizon Funding Digest</h1>
-      <div class="subtitle">Weekly digest — {{ date }} · open &amp; forthcoming Horizon Europe topics</div>
+      <h1>🇪🇺 Funding Digest</h1>
+      <div class="subtitle">Weekly digest — {{ date }} · EU programmes (Horizon Europe, Digital Europe, LIFE, CEF, Erasmus+ …) + {{ foundations_total }} foundation calls</div>
       <div class="stats">
-        <span class="stat stat-total">{{ total }} topics</span>
+        <span class="stat stat-match">⭐ {{ match_count }} match your profile</span>
+        <span class="stat stat-full">💯 {{ full_rate_count }} at 100% funding</span>
+        <span class="stat stat-total">{{ total }} EU topics</span>
         <span class="stat stat-open">{{ open_count }} open</span>
         <span class="stat stat-forth">{{ forthcoming_count }} forthcoming</span>
         {% if new_count > 0 %}<span class="stat stat-new">+{{ new_count }} new this week</span>{% endif %}
@@ -103,6 +113,7 @@
             <span class="ident">{{ o.id }}</span>
             {% if show_cluster %}<span class="tag">{{ o.cluster }}</span>{% endif %}
             {% for t in o.tags[:3] %}<span class="tag">{{ t }}</span>{% endfor %}
+            {% if o.interest_for %}<br/><span class="hits">⭐ {{ o.interest_score }} · {{ o.interest_for | join(', ') }} — {{ o.interest_hits | join(', ') }}</span>{% endif %}
           </td>
           <td class="action hide-sm">{{ o.action_type or '—' }}</td>
           <td class="money">
@@ -121,6 +132,8 @@
             {% else %}—{% endif %}
           </td>
           <td>
+            {% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">💯 {{ o.funding_rate }}</span>
+            {% elif o.funding_rate %}<span class="badge badge-rate" title="{{ o.funding_rate_note }}">{{ o.funding_rate }}</span>{% endif %}
             {% if o.id in new_ids %}<span class="badge badge-new">🆕 NEW</span> {% endif %}
             {% if o.deadline and o.deadline <= soon and o.deadline >= today %}<span class="badge badge-soon">⏰ SOON</span>
             {% elif o.status == 'Open' %}<span class="badge badge-open">OPEN</span>
@@ -132,6 +145,14 @@
       </tbody>
     </table>
     {%- endmacro %}
+
+    {% if matches %}
+    <div class="section">
+      <div class="section-header match">⭐ Matches your profile<span class="count">{{ matches_total }} topics · score ≥ {{ threshold }}</span></div>
+      {{ opp_table(matches, show_cluster=True) }}
+      {% if matches_total > matches | length %}<p class="more">… and {{ matches_total - matches | length }} more{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">see the full list</a>{% endif %}</p>{% endif %}
+    </div>
+    {% endif %}
 
     {% if closing_soon %}
     <div class="section">
@@ -146,6 +167,25 @@
       <div class="section-header new">🆕 New since last digest<span class="count">{{ new_total }} topics</span></div>
       {{ opp_table(new_items, show_cluster=True) }}
       {% if new_total > new_items | length %}<p class="more">… and {{ new_total - new_items | length }} more{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">see the full list</a>{% endif %}</p>{% endif %}
+    </div>
+    {% endif %}
+
+    {% if new_foundations %}
+    <div class="section">
+      <div class="section-header found">🏛 New at foundations &amp; national funders<span class="count">{{ new_found_total }} items</span></div>
+      <table>
+        <thead><tr><th style="width: 55%">Call / page</th><th>Funder</th><th>Status</th></tr></thead>
+        <tbody>
+          {% for o in new_foundations %}
+          <tr>
+            <td><a href="{{ o.url }}">{{ o.title }}</a>{% if o.interest_for %}<br/><span class="hits">⭐ {{ o.interest_score }} · {{ o.interest_hits | join(', ') }}</span>{% endif %}</td>
+            <td class="action">{{ o.programme }} <span class="tag">{{ o.country }}</span></td>
+            <td><span class="badge badge-new">🆕 NEW</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% if new_found_total > new_foundations | length %}<p class="more">… and {{ new_found_total - new_foundations | length }} more{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">see the full list</a>{% endif %}</p>{% endif %}
     </div>
     {% endif %}
 
@@ -175,10 +215,22 @@
       {{ opp_table(items) }}
     </div>
     {% endfor %}
+    {% for label, items in found_grouped.items() %}
+    <div class="section" id="found-{{ loop.index }}">
+      <div class="section-header found">🏛 {{ label }}<span class="count">{{ items | length }} items</span></div>
+      <table>
+        <tbody>
+          {% for o in items %}
+          <tr><td><a href="{{ o.url }}">{{ o.title }}</a></td><td>{% if o.id in new_ids %}<span class="badge badge-new">🆕 NEW</span>{% endif %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
     {% endif %}
 
     <div class="footer">
-      Generated {{ date }} by Funding Tracker · source: <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals">EU Funding &amp; Tenders Portal</a>
+      Generated {{ date }} by Funding Tracker · sources: <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals">EU Funding &amp; Tenders Portal</a> + {{ found_grouped | length }} foundation / national funder pages · funding rates are indicative — check the call conditions
       {% if archive_url %} · <a href="{{ archive_url }}">archive</a>{% endif %}
     </div>
   </div>

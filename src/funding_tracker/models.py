@@ -30,16 +30,17 @@ CLUSTER_LABELS = {
     "NEB": "New European Bauhaus",
     "RAISE": "RAISE — AI in Science",
     "CID": "Clean Industrial Deal",
-    "EURATOM": "Euratom",
 }
 
 
 class Opportunity(BaseModel):
-    """Canonical funding-opportunity record (one per portal topic)."""
+    """Canonical funding-opportunity record — one per portal topic or foundation call."""
 
-    id: str                                    # e.g. "HORIZON-CL4-2026-DIGITAL-01-02"
+    id: str                                    # e.g. "HORIZON-CL4-2026-DIGITAL-01-02" or "found:<hash>"
     title: str
     url: str
+    source: str = "portal"                     # "portal" (EU Funding & Tenders) | "foundation"
+    programme: str = "HORIZON"                 # portal programme abbreviation, or foundation name
     call_id: str = ""
     call_title: str = ""
     status: str = ""                           # "Open" / "Forthcoming"
@@ -51,22 +52,36 @@ class Opportunity(BaseModel):
     contribution_min: Optional[float] = None
     contribution_max: Optional[float] = None
     expected_grants: Optional[int] = None
+    funding_rate: str = ""                     # "100%", "70%", "up to 30%", "" = unknown
+    funding_rate_note: str = ""                # where the rate came from / caveats
     tags: List[str] = Field(default_factory=list)
+    summary: str = ""                          # first ~300 chars of the topic description
+    country: str = ""                          # foundations only
+    interest_score: float = 0.0                # keyword-pack relevance (see interests.py)
+    interest_hits: List[str] = Field(default_factory=list)
+    interest_for: List[str] = Field(default_factory=list)  # company packs that matched
     first_seen: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     content_hash: str = ""
+    text: str = Field(default="", exclude=True)  # full description used for matching; not persisted
+
+    @property
+    def is_full_rate(self) -> bool:
+        return self.funding_rate.replace(" ", "").startswith("100%")
 
     @property
     def cluster(self) -> str:
-        """Group key derived from the identifier: HORIZON-CL4-… → 'CL4'."""
+        """Group key: Horizon topics by cluster (HORIZON-CL4-… → 'CL4'), everything else by programme."""
+        if self.source != "portal":
+            return self.programme
+        if self.programme not in ("HORIZON", "EURATOM"):
+            return self.programme
         m = re.match(r"^(?:HORIZON-)?([A-Z0-9]+)", self.id)
-        key = m.group(1) if m else "OTHER"
-        # JU calls look like HORIZON-JU-CBE-…, HORIZON-JU-IHI-… — fold them together
-        if key == "JU":
-            return "JU"
-        return key
+        return m.group(1) if m else self.programme
 
     @property
     def cluster_label(self) -> str:
+        if self.source != "portal":
+            return self.programme
         return CLUSTER_LABELS.get(self.cluster, self.cluster)
 
     def compute_hash(self) -> str:

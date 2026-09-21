@@ -6,8 +6,12 @@ import time
 from datetime import date, datetime
 from typing import Any, Dict, List, Optional
 
+import html as html_lib
+import re
+
 import httpx
 
+from ..funding_rate import infer_funding_rate
 from ..models import Opportunity
 from ..util.logging import setup_logger
 
@@ -18,6 +22,65 @@ STATUS_LABELS = {
     "31094502": "Open",
     "31094503": "Closed",
 }
+
+# Portal frameworkProgramme IDs → abbreviation (from the portal's grantsTenders.json reference data)
+PROGRAMME_IDS = {
+    "43108390": "HORIZON",
+    "43298916": "EURATOM",
+    "43152860": "DIGITAL",
+    "44181033": "EDF",
+    "43252405": "LIFE",
+    "43251567": "CEF",
+    "43353764": "ERASMUS",
+    "43251589": "CERV",
+    "43254019": "ESF",
+    "43251814": "CREA",
+    "44416173": "I3",
+    "43252368": "ISF",
+    "44773066": "JTM",
+    "45532249": "EUBA",
+    "43252386": "JUST",
+    "43637601": "PPPA",
+    "43252476": "SMP",
+    "43252517": "SOCPL",
+    "43254037": "ESC",
+    "43392145": "EMFAF",
+    "43089234": "INNOVFUND",
+    "45876777": "NDICI",
+    "43253967": "RENEWFM",
+}
+PROGRAMME_LABELS = {
+    "HORIZON": "Horizon Europe",
+    "EURATOM": "Euratom",
+    "DIGITAL": "Digital Europe",
+    "EDF": "European Defence Fund",
+    "LIFE": "LIFE — Environment & Climate",
+    "CEF": "Connecting Europe Facility",
+    "ERASMUS": "Erasmus+",
+    "CERV": "Citizens, Equality, Rights & Values",
+    "ESF": "European Social Fund+",
+    "CREA": "Creative Europe",
+    "I3": "Interregional Innovation Investments",
+    "ISF": "Internal Security Fund",
+    "JTM": "Just Transition Mechanism",
+    "EUBA": "EU Bodies & Agencies",
+    "JUST": "Justice Programme",
+    "PPPA": "Pilot Projects & Preparatory Actions",
+    "SMP": "Single Market Programme",
+    "SOCPL": "Social Prerogative Lines",
+    "ESC": "European Solidarity Corps",
+    "EMFAF": "Maritime, Fisheries & Aquaculture Fund",
+    "INNOVFUND": "Innovation Fund",
+    "NDICI": "Global Europe (NDICI)",
+    "RENEWFM": "Renewable Energy Financing Mechanism",
+}
+
+_TAG_RE = re.compile(r"<[^>]+>")
+
+
+def _strip_html(s: str) -> str:
+    return " ".join(_TAG_RE.sub(" ", html_lib.unescape(s or "")).split())
+
 
 TOPIC_URL = (
     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/"
@@ -161,6 +224,11 @@ class FTPortalIngester:
             return None
 
         budget = _parse_budget(_first(meta, "budgetOverview"), ident)
+        programme = PROGRAMME_IDS.get(_first(meta, "frameworkProgramme"), _first(meta, "frameworkProgramme"))
+        action = _clean_action(_first(meta, "typesOfAction"))
+        description = _strip_html(" ".join(meta.get("descriptionByte", []) or []))
+        conditions = _strip_html(" ".join(meta.get("topicConditions", []) or []))
+        rate, rate_note = infer_funding_rate(programme, action, conditions)
         deadline = _parse_date(_first(meta, "deadlineDate"))
         # For multi-deadline topics, prefer the next future date from budget info
         if budget.get("deadline_dates"):
@@ -173,10 +241,11 @@ class FTPortalIngester:
             id=ident,
             title=(_first(meta, "title") or hit.get("summary", ident)).strip(),
             url=hit.get("url") or TOPIC_URL.format(id=ident),
+            programme=programme,
             call_id=_first(meta, "callIdentifier"),
             call_title=_first(meta, "callTitle"),
             status=STATUS_LABELS.get(_first(meta, "status"), _first(meta, "status")),
-            action_type=_clean_action(_first(meta, "typesOfAction")),
+            action_type=action,
             deadline_model=_first(meta, "deadlineModel") or budget.get("deadline_model", ""),
             opening_date=_parse_date(_first(meta, "startDate") or budget.get("opening_date", "")),
             deadline=deadline,
@@ -184,7 +253,11 @@ class FTPortalIngester:
             contribution_min=budget.get("contribution_min"),
             contribution_max=budget.get("contribution_max"),
             expected_grants=budget.get("expected_grants"),
+            funding_rate=rate,
+            funding_rate_note=rate_note,
             tags=[t for t in meta.get("tags", []) if t],
+            summary=description[:300],
+            text=description,
         )
         opp.compute_hash()
         return opp

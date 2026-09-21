@@ -37,6 +37,7 @@ def render_html(
     archive_url: str = "",
     compact: bool = False,
     max_rows: int = 40,
+    threshold: float = 3.0,
 ) -> str:
     """Render the digest.
 
@@ -56,14 +57,22 @@ def render_html(
     env.filters["days_left"] = lambda d: days_left(d, today)
     tmpl = env.get_template("email.html")
 
-    by_deadline = sorted(opps, key=lambda o: (o.deadline or dt_date.max, o.id))
+    portal = [o for o in opps if o.source == "portal"]
+    foundations = [o for o in opps if o.source != "portal"]
+
+    by_deadline = sorted(portal, key=lambda o: (o.deadline or dt_date.max, o.id))
+    matches = sorted((o for o in opps if o.interest_for),
+                     key=lambda o: (-o.interest_score, o.deadline or dt_date.max, o.id))
     closing_soon = [o for o in by_deadline if o.deadline and today <= o.deadline <= soon]
     new_items = [o for o in by_deadline if o.id in new_ids]
-    closing_soon_total, new_total = len(closing_soon), len(new_items)
+    new_foundations = sorted((o for o in foundations if o.id in new_ids), key=lambda o: (o.programme, o.title))
+    matches_total, closing_soon_total, new_total, new_found_total = len(matches), len(closing_soon), len(new_items), len(new_foundations)
     if compact and max_rows:
-        closing_soon, new_items = closing_soon[:max_rows], new_items[:max_rows]
+        matches, closing_soon, new_items, new_foundations = (
+            matches[:max_rows], closing_soon[:max_rows], new_items[:max_rows], new_foundations[:max_rows])
 
-    grouped = group_by_cluster(opps)
+    grouped = group_by_cluster(portal)
+    found_grouped = group_by_cluster(foundations)
     if max_per_cluster:
         grouped = {k: v[:max_per_cluster] for k, v in grouped.items()}
 
@@ -82,11 +91,16 @@ def render_html(
     return tmpl.render(
         compact=compact,
         cluster_summary=cluster_summary,
+        matches=matches, matches_total=matches_total, threshold=threshold,
+        match_count=sum(1 for o in opps if o.interest_for),
+        full_rate_count=sum(1 for o in portal if o.is_full_rate),
+        new_foundations=new_foundations, new_found_total=new_found_total,
+        found_grouped=found_grouped, foundations_total=len(foundations),
         date=date,
         today=today,
-        total=len(opps),
-        open_count=sum(1 for o in opps if o.status == "Open"),
-        forthcoming_count=sum(1 for o in opps if o.status == "Forthcoming"),
+        total=len(portal),
+        open_count=sum(1 for o in portal if o.status == "Open"),
+        forthcoming_count=sum(1 for o in portal if o.status == "Forthcoming"),
         new_count=len(new_ids),
         closing_soon=closing_soon,
         closing_soon_total=closing_soon_total,

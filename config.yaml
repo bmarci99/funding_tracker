@@ -1,34 +1,286 @@
-# Funding & Tenders Portal (SEDIA) search settings
+# ---------------------------------------------------------------------------
+# Source 1: EU Funding & Tenders Portal (SEDIA search API)
+# ---------------------------------------------------------------------------
 portal:
+  enabled: true
   api_url: "https://api.tech.ec.europa.eu/search-api/prod/rest/search"
   api_key: "SEDIA"
-  # Framework programme IDs on the portal. 43108390 = Horizon Europe (HORIZON).
-  # Others you can add later: 43152860 = Digital Europe, 43251567 = EU4Health, 44181033 = ERASMUS+
-  framework_programmes:
-    - "43108390"
   programme_period: "2021 - 2027"
-  # 31094501 = Forthcoming, 31094502 = Open (31094503 = Closed — not wanted)
+  # Portal frameworkProgramme IDs. Full map in src/funding_tracker/ingest/ft_portal.py.
+  framework_programmes:
+    - "43108390"   # HORIZON   Horizon Europe
+    - "43298916"   # EURATOM
+    - "43152860"   # DIGITAL   Digital Europe
+    - "43252405"   # LIFE
+    - "43251567"   # CEF       Connecting Europe Facility
+    - "43353764"   # ERASMUS+
+    - "44416173"   # I3        Interregional Innovation Investments
+    - "43251589"   # CERV
+    - "43252476"   # SMP       Single Market Programme
+    - "45532249"   # EUBA      EU Bodies & Agencies
+    - "43089234"   # INNOVFUND Innovation Fund
+    - "43392145"   # EMFAF
+    # - "44181033" # EDF — European Defence Fund (excluded: "defence" is a negative keyword in every pack)
+  # 31094501 = Forthcoming, 31094502 = Open  (31094503 = Closed — not wanted)
   statuses:
     - "31094501"
     - "31094502"
   page_size: 100
-  max_pages: 20
+  max_pages: 30
 
+# ---------------------------------------------------------------------------
+# Source 2: private foundations & national funders (index-page scraping)
+# Ported from PBN Tender Radar (URLs re-verified 2026-09-21). No structured deadlines → they feed
+# the "new" section. If a page's CSS selectors find < 3 items, the scraper falls back to collecting
+# every link that looks like a call / grant / programme page.
+# ---------------------------------------------------------------------------
+foundations:
+  enabled: true
+  request_delay_s: 1.5
+  max_items_per_feed: 50
+  feeds:
+    - name: "Villum Fonden — Open calls"
+      country: "DK"
+      url: "https://villumfonden.dk/en/basic-page/current-calls-0"
+      item_selector: "article, .news-item, li.news"
+      title_selector: "h2, h3, .title"
+    - name: "Novo Nordisk Foundation — Grants & calls"
+      country: "DK"
+      url: "https://novonordiskfonden.dk/en/grant/"
+      item_selector: "article, .card, li"
+      title_selector: "h2, h3, .title"
+    - name: "VolkswagenStiftung — Calls for proposals"
+      country: "DE"
+      url: "https://www.volkswagenstiftung.de/en/our-funding-portfolio"
+      item_selector: ".funding-initiative, article"
+      title_selector: "h2, h3"
+    - name: "Robert Bosch Stiftung — Funding"
+      country: "DE"
+      url: "https://www.bosch-stiftung.de/en/funding"
+      item_selector: "article, .teaser"
+      title_selector: "h2, h3"
+    - name: "Baden-Württemberg Stiftung — Programme"
+      country: "DE"
+      url: "https://www.bwstiftung.de/de/ausschreibungen"
+      item_selector: ".programm, article"
+      title_selector: "h2, h3"
+    - name: "Daimler und Benz Stiftung — Förderung"
+      country: "DE"
+      url: "https://www.daimler-benz-stiftung.de/bewerbung/"
+      item_selector: "article, .teaser"
+      title_selector: "h2, h3"
+    - name: "Carlsberg Foundation — Calls"
+      country: "DK"
+      url: "https://www.carlsbergfondet.dk/en/granting-unit/our-support/"
+      item_selector: "article, li"
+      title_selector: "h2, h3"
+    - name: "NKFIH — open calls (HU)"
+      country: "HU"
+      url: "https://nkfih.gov.hu/palyazoknak/palyazatok"
+      item_selector: "article, li, .felhivas"
+      title_selector: "h2, h3, .title"
+    # --- DE foundations (heavy on tech / AI / robotics) -------------------
+    - name: "Klaus Tschira Stiftung — Förderung"
+      country: "DE"
+      url: "https://www.klaus-tschira-stiftung.de/foerderung/"
+      item_selector: "article, .teaser, li"
+      title_selector: "h2, h3"
+    - name: "Körber-Stiftung — News & Calls"
+      country: "DE"
+      url: "https://koerber-stiftung.de/"
+      item_selector: "article, .teaser"
+      title_selector: "h2, h3"
+    - name: "Stiftung Mercator — Förderung"
+      country: "DE"
+      url: "https://www.stiftung-mercator.de/de/wie-wir-foerdern/ausschreibungen/"
+      item_selector: "article, .funding-call"
+      title_selector: "h2, h3"
+    - name: "Hertie-Stiftung — Förderung"
+      country: "DE"
+      url: "https://www.ghst.de/"
+      item_selector: "article, .teaser"
+      title_selector: "h2, h3"
+    - name: "Fritz Thyssen Stiftung — Förderung"
+      country: "DE"
+      url: "https://www.fritz-thyssen-stiftung.de/foerderung/"
+      item_selector: "article, .teaser, li"
+      title_selector: "h2, h3"
+    - name: "Joachim Herz Stiftung — Programme"
+      country: "DE"
+      url: "https://www.joachim-herz-stiftung.de/foerdern/aktuelle-ausschreibungen"
+      item_selector: "article, .programm"
+      title_selector: "h2, h3"
+    # --- Nordic foundations (PBN won 800k EUR from Villum) ---------------
+    - name: "Lundbeck Foundation — Calls"
+      country: "DK"
+      url: "https://lundbeckfonden.com/apply-grants"
+      item_selector: "article, .grant, li"
+      title_selector: "h2, h3"
+    - name: "Knut and Alice Wallenberg Foundation — Calls"
+      country: "SE"
+      url: "https://kaw.wallenberg.org/en/funding-guide/calls"
+      item_selector: "article, li"
+      title_selector: "h2, h3"
+    - name: "Kone Foundation — Calls"
+      country: "FI"
+      url: "https://koneensaatio.fi/en/grants/"
+      item_selector: "article, .grant"
+      title_selector: "h2, h3"
+    - name: "Riksbankens Jubileumsfond — Calls"
+      country: "SE"
+      url: "https://www.rj.se/en/funding/"
+      item_selector: "article, li"
+      title_selector: "h2, h3"
+    # --- International / cross-border ------------------------------------
+    - name: "AXA Research Fund — Calls"
+      country: "FR"
+      url: "https://www.axa-research.org/en/funding"
+      item_selector: "article, .call"
+      title_selector: "h2, h3"
+    - name: "BBVA Foundation — Grants"
+      country: "ES"
+      url: "https://www.fbbva.es/en/bbva-foundation-calls/"
+      item_selector: "article, .ayuda"
+      title_selector: "h2, h3"
+    - name: "Templeton World Charity Foundation — Funding"
+      country: "INT"
+      url: "https://www.templetonworldcharity.org/about-us/our-strategy/core-funding-areas"
+      item_selector: "article, .opportunity"
+      title_selector: "h2, h3"
+    - name: "Wellcome Trust — Funding schemes"
+      country: "UK"
+      url: "https://wellcome.org/grant-funding/schemes"
+      item_selector: "article, .scheme, li"
+      title_selector: "h2, h3"
+    - name: "Schmidt Sciences — Open programs"
+      country: "INT"
+      url: "https://www.schmidtsciences.org/opportunities/"
+      item_selector: "article, .program"
+      title_selector: "h2, h3"
+    # --- NRW funders (NRW SME survey project) ----------------------------
+    - name: "NRW.Bank — Förderprogramme"
+      country: "DE"
+      url: "https://www.nrwbank.de/de/foerderung/"
+      item_selector: "article, .teaser, li.foerderprogramm"
+      title_selector: "h2, h3, .title"
+    - name: "EFRE.NRW — Aufrufe & Wettbewerbe"
+      country: "DE"
+      url: "https://www.efre.nrw/einfach-machen/foerderung-finden"
+      item_selector: "article, .aufruf, li"
+      title_selector: "h2, h3, .title"
+    - name: "KI.NRW — Aktuelles & Calls"
+      country: "DE"
+      url: "https://www.ki.nrw/news/"
+      item_selector: "article, .news-item, .teaser"
+      title_selector: "h2, h3"
+    - name: "Hans-Böckler-Stiftung — Forschungsförderung"
+      country: "DE"
+      url: "https://www.boeckler.de/de/forschungsfoerderung.htm"
+      item_selector: "article, .teaser, li"
+      title_selector: "h2, h3"
+    # --- HPC / VLA compute-access calls ----------------------------------
+    - name: "HLRS — News & Calls (Stuttgart)"
+      country: "DE"
+      url: "https://www.hlrs.de/de/news"
+      item_selector: "article, .news-item, .teaser"
+      title_selector: "h2, h3, .title"
+    - name: "Gauss Centre for Supercomputing — Calls"
+      country: "DE"
+      url: "https://www.gauss-centre.eu/for-users/hpc-access/"
+      item_selector: "article, .call, li"
+      title_selector: "h2, h3"
+    # EuroHPC JU: site blocks scripts (403); its calls are on the F&T portal anyway (HORIZON-EUROHPC-JU-…)
+
+# ---------------------------------------------------------------------------
+# Relevance: keyword packs per company (from PBN Tender Radar) + HORIZONS interests.
+# Score = 3×strong + 1.5×medium + 0.5×soft (each capped at 3 distinct hits) − 5×negative.
+# ---------------------------------------------------------------------------
+relevance:
+  threshold: 4.5          # needs a real strong hit plus something else
+  # Terms that are ubiquitous in EU call texts (they were written for tender notices):
+  # always counted at soft weight (0.5) whatever tier they sit in, so they can't carry a match alone.
+  demote: ["ecosystem", "consortium", "policy", "training", "pilot", "widening", "leadership", "sme", "kkv", "kmu",
+           "horizon europe", "digital europe", "eic", "demonstrator", "mentoring", "accessibility", "automation",
+           "artificial intelligence", "machine learning", "future of work", "change management", "energy efficiency",
+           "circular economy", "data analytics", "technology transfer", "elderly", "ageing", "robotics"]
+  interests:              # regexes ported from HORIZONS category insights; count as strong hits
+    - label: "Humanoid / Social Robotics"
+      pattern: "humanoid|social robot|socially assistive|human-robot interaction|\\bhri\\b"
+    - label: "Core Space"
+      pattern: "HORIZON-[A-Z0-9-]*SPACE"
+  companies:
+    pbn:
+      name: "Pannon Business Network"
+      keywords:
+        strong: ["digital innovation hub", "european digital innovation hub", "edih", "ecosystem", "ökoszisztéma", "ökosystem",
+                 "interreg", "widening", "esa", "european space agency", "hungarian space agency", "magyar űrügynökség", "hunor",
+                 "space programme", "űrprogram", "consortium", "konzorcium", "konsortium", "szombathely2030", "szombathely 2030",
+                 "intelligent city challenge", "100 intelligent cities", "interreg europe", "european health industry test reference",
+                 "vasi kamara", "vas megye"]
+        medium: ["sme", "kkv", "kmu", "technology transfer", "technológia transzfer", "technologietransfer", "policy", "politika"]
+        soft: ["training", "képzés", "weiterbildung", "mentoring", "mentorálás", "pilot", "demonstrator", "demonstrátor",
+               "space ecosystem", "űripari ökoszisztéma"]
+        negative: ["defence", "military", "verteidigung", "katonai", "gambling", "szerencsejáték", "glücksspiel"]
+    amlab:
+      name: "am-LAB — Factory of the Future"
+      keywords:
+        strong: ["humanoid", "social robot", "cobot", "collaborative robot", "kollaboratív", "human-robot interaction", "hri",
+                 "robotika", "space robotics", "astronaut support", "crew support", "industry 4.0", "industry 5.0", "operator 5.0",
+                 "industrie 4.0", "smart factory", "intelligens gyár", "digital twin", "digitális iker", "digitaler zwilling",
+                 "additive manufacturing", "3d printing", "additív gyártás"]
+        medium: ["artificial intelligence", "mesterséges intelligencia", "künstliche intelligenz", "machine learning", "gépi tanulás",
+                 "maschinelles lernen", "predictive maintenance", "prediktív karbantartás", "augmented reality", "virtual reality",
+                 "kiterjesztett valóság", "erweiterte realität", "circular economy", "körforgásos gazdaság", "kreislaufwirtschaft",
+                 "energy efficiency", "energiahatékonyság", "energieeffizienz", "cleanroom", "clean room", "tisztatér", "microbiome",
+                 "mikrobiom", "astronaut", "űrhajós", "space life science", "bioastronautics"]
+        soft: ["automation", "automatizálás", "automatisierung", "computer vision", "data analytics", "adatelemzés", "datenanalyse",
+               "space technology", "űrtechnológia", "esa", "ros", "ros 2", "openvla", "rt-2", "physical intelligence",
+               "manipulation policy", "hpc", "high performance computing", "hlrs"]
+        negative: ["defence", "military", "verteidigung", "katonai"]
+    athome:
+      name: "at.home — Elderly Digitalisation"
+      keywords:
+        strong: ["active and assisted living", "ambient assisted living", "aal", "telecare", "telebetreuung", "telerehab",
+                 "idősellátás", "időskori", "ezüst gazdaság", "silver economy", "astronaut health", "crew health", "space medicine",
+                 "complex rehabilitation", "komplex rehabilitáció", "stroke rehabilitation", "stroke rehabilitáció",
+                 "musculoskeletal rehabilitation", "mozgásszervi rehabilitáció", "vr rehabilitation", "rehabilitation engineering",
+                 "european health industry test reference", "szombathely2030", "szombathely 2030"]
+        medium: ["elderly", "senior care", "ageing", "altern", "accessibility", "akadálymentesítés", "barrierefreiheit", "ehealth",
+                 "telemedicine", "telemedicina", "microbiome", "mikrobiom", "cleanroom", "tisztatér"]
+        soft: ["rehabilitation", "rehabilitáció", "space life science", "bioastronautics"]
+        negative: ["defence", "military"]
+    pbn_germany:
+      name: "PBN Germany GmbH — Humanoid Test Center"
+      keywords:
+        strong: ["humanoid", "human-humanoid", "human-robot interaction", "mensch-roboter", "mensch-humanoid", "social robot", "hri",
+                 "space hri", "astronaut support", "crew support", "behavioural analysis", "verhaltensanalyse", "nrw",
+                 "north rhine-westphalia", "nordrhein-westfalen", "ki.nrw", "efre.nrw", "nrw.bank", "mittelstand-digital",
+                 "mittelstand 4.0", "mittelstand innovativ", "ai maturity", "ki-reifegrad", "workforce shortage", "fachkräftemangel",
+                 "fachkraeftemangel", "human-centric ai", "menschzentrierte ki", "vision-language-action", "vla", "isaac gr00t",
+                 "foundation model for robotics", "hlrs", "höchstleistungsrechenzentrum", "hoechstleistungsrechenzentrum",
+                 "gauss centre for supercomputing", "gcs supercomputing", "eurohpc", "ai factory", "ki-fabrik"]
+        medium: ["stuttgart", "baden-württemberg", "baden-wuerttemberg", "zim", "bmbf", "bmwk", "kmu-innovativ", "eurostars", "eic",
+                 "horizon europe", "digital europe", "esa", "european space agency", "space programme", "space robotics", "astronaut",
+                 "data analytics", "datenanalyse", "interaction design", "interaktionsdesign", "düsseldorf", "duesseldorf", "köln",
+                 "koeln", "aachen", "dortmund", "essen", "bonn", "survey methodology", "likert", "sme survey", "kmu-befragung",
+                 "operational resilience", "resilienzmessung", "operational flexibility", "operative flexibilität",
+                 "production variability", "produktionsvariabilität", "demographic change", "demografischer wandel",
+                 "zukunft der arbeit", "future of work", "change management", "leadership", "führung", "employee acceptance",
+                 "mitarbeiterakzeptanz", "inqa", "hans-böckler", "hans-boeckler"]
+        soft: ["robotics", "robotik", "mittelstand", "kmu"]
+        negative: ["verteidigung", "military", "defence", "glücksspiel"]
+
+# ---------------------------------------------------------------------------
 filters:
-  # Only include topics whose deadline is within this many days (0 = no limit)
-  deadline_within_days: 0
-  # Case-insensitive substrings matched against identifier + title + tags. Empty = keep everything.
-  include_keywords: []
-  # Exclude if any of these match (same fields)
+  deadline_within_days: 0          # 0 = no limit
+  include_keywords: []             # hard include (substring on id/title/tags); empty = keep all
   exclude_keywords: []
+  only_full_rate: false            # true → keep only 100%-funded topics
 
 digest:
-  # "Closing soon" section threshold
   closing_soon_days: 30
-  # Email only: cap rows in the "closing soon" / "new" sections; the rest is linked to the archive
-  max_rows_per_section: 40
-  # Archive page: cap rows per cluster (0 = unlimited)
-  max_per_cluster: 0
+  max_rows_per_section: 40         # email only; overflow links to the archive
+  max_per_cluster: 0               # archive page (0 = unlimited)
 
 history:
   rolling_days: 400
@@ -38,14 +290,14 @@ output:
   dir: "outputs"
   archive: true
   archive_dir: "docs"
-  # Public URL of the archive (GitHub Pages) — used for "full list" links in the email
   archive_url: "https://bmarci99.github.io/funding_tracker"
 
 email:
-  send_on_empty: true   # weekly mail even with no new topics (closing-soon section is still useful)
-  subject_prefix: "Horizon Funding Digest"
+  send_on_empty: true
+  subject_prefix: "Funding Digest"
 
 http:
   timeout_s: 60.0
   max_retries: 3
   backoff_factor: 1.5
+  user_agent: "funding-tracker/0.1 (+https://github.com/bmarci99/funding_tracker)"
