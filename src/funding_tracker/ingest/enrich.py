@@ -141,7 +141,7 @@ def main_text(html: str) -> str:
     node = soup.find("main") or soup.find("article") or soup.find(attrs={"role": "main"}) or soup.body or soup
     for fig in node.find_all(["figcaption", "figure"]):
         fig.decompose()
-    return _CREDIT_RX.sub("", " ".join(node.get_text(" ", strip=True).split()))
+    return " ".join(_CREDIT_RX.sub("", node.get_text(" ", strip=True)).split())
 
 
 class PageCache:
