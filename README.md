@@ -96,8 +96,8 @@ Everything lives in `config.yaml`:
 
 ## CI
 
-`.github/workflows/weekly.yml` runs Monday 08:00 CET. Required repo secrets:
-`GMAIL_ADDRESS`, `GMAIL_APP_PASSWORD`, `DIGEST_TO_EMAIL`.
+`.github/workflows/weekly.yml` runs **Monday 07:30 Europe/Berlin** (two UTC crons + a local-time guard for DST).
+Required repo secrets: `GMAIL_ADDRESS`, `GMAIL_APP_PASSWORD`, `DIGEST_TO_EMAIL` (comma-separated list of recipients).
 
 ## Related
 

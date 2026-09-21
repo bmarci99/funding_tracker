@@ -2,7 +2,10 @@ name: Weekly Funding Digest
 
 on:
   schedule:
-    - cron: "0 6 * * 1"   # Monday 08:00 CEST / 07:00 CET
+    # Monday 07:30 Europe/Berlin. GitHub cron is UTC, so both DST variants are listed and a guard
+    # step lets only the one that lands at 07:xx local time continue.
+    - cron: "30 5 * * 1"   # 07:30 CEST (summer)
+    - cron: "30 6 * * 1"   # 07:30 CET  (winter)
   workflow_dispatch:
 
 permissions:
@@ -11,19 +14,31 @@ permissions:
 jobs:
   digest:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v4
-      - run: uv python install 3.10
-      - run: uv sync
-      - name: Run pipeline + send email
+      - name: Is it 07:xx in Berlin? (skip the off-season cron)
+        id: guard
+        run: |
+          H=$(TZ=Europe/Berlin date +%H)
+          echo "berlin_hour=$H"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$H" = "07" ]; then echo "run=true" >> "$GITHUB_OUTPUT"; else echo "run=false" >> "$GITHUB_OUTPUT"; fi
+      - if: steps.guard.outputs.run == 'true'
+        uses: actions/checkout@v4
+      - if: steps.guard.outputs.run == 'true'
+        uses: astral-sh/setup-uv@v4
+      - if: steps.guard.outputs.run == 'true'
+        run: uv python install 3.10
+      - if: steps.guard.outputs.run == 'true'
+        run: uv sync
+      - if: steps.guard.outputs.run == 'true'
+        name: Run pipeline + send email
         env:
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           GMAIL_TO: ${{ secrets.DIGEST_TO_EMAIL }}
         run: uv run python -m funding_tracker --send-email
-      - name: Commit history & archive
+      - if: steps.guard.outputs.run == 'true'
+        name: Commit history & archive
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
