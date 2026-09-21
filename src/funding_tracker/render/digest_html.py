@@ -1,0 +1,110 @@
+from __future__ import annotations
+
+from datetime import date as dt_date, timedelta
+from pathlib import Path
+from typing import Dict, List, Set
+
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+from ..models import Opportunity
+
+_TEMPLATE_DIR = Path(__file__).parent / "templates"
+
+
+def fmt_eur(v: float | None) -> str:
+    """1500000 → '€1.5M', 200000 → '€200k'."""
+    if not v:
+        return "—"
+    if v >= 1_000_000:
+        s = f"{v / 1_000_000:.1f}".rstrip("0").rstrip(".")
+        return f"€{s}M"
+    if v >= 1_000:
+        return f"€{v / 1_000:.0f}k"
+    return f"€{v:.0f}"
+
+
+def days_left(d: dt_date | None, today: dt_date) -> int | None:
+    return (d - today).days if d else None
+
+
+def render_html(
+    opps: List[Opportunity],
+    *,
+    new_ids: Set[str] | None = None,
+    date: str = "",
+    closing_soon_days: int = 30,
+    max_per_cluster: int = 0,
+    archive_url: str = "",
+    compact: bool = False,
+    max_rows: int = 40,
+) -> str:
+    """Render the digest.
+
+    compact=True  → email version: closing-soon + new + one summary row per cluster
+                    (keeps the mail well under Gmail's ~100 KB clipping limit).
+    compact=False → full archive page with every topic listed per cluster.
+    """
+    new_ids = new_ids or set()
+    today = dt_date.today()
+    soon = today + timedelta(days=closing_soon_days)
+
+    env = Environment(
+        loader=FileSystemLoader(str(_TEMPLATE_DIR)),
+        autoescape=select_autoescape(["html"]),
+    )
+    env.filters["eur"] = fmt_eur
+    env.filters["days_left"] = lambda d: days_left(d, today)
+    tmpl = env.get_template("email.html")
+
+    by_deadline = sorted(opps, key=lambda o: (o.deadline or dt_date.max, o.id))
+    closing_soon = [o for o in by_deadline if o.deadline and today <= o.deadline <= soon]
+    new_items = [o for o in by_deadline if o.id in new_ids]
+    closing_soon_total, new_total = len(closing_soon), len(new_items)
+    if compact and max_rows:
+        closing_soon, new_items = closing_soon[:max_rows], new_items[:max_rows]
+
+    grouped = group_by_cluster(opps)
+    if max_per_cluster:
+        grouped = {k: v[:max_per_cluster] for k, v in grouped.items()}
+
+    cluster_summary = [
+        {
+            "label": label,
+            "key": items[0].cluster,
+            "count": len(items),
+            "open": sum(1 for o in items if o.status == "Open"),
+            "new": sum(1 for o in items if o.id in new_ids),
+            "next_deadline": next((o.deadline for o in items if o.deadline and o.deadline >= today), None),
+        }
+        for label, items in grouped.items()
+    ]
+
+    return tmpl.render(
+        compact=compact,
+        cluster_summary=cluster_summary,
+        date=date,
+        today=today,
+        total=len(opps),
+        open_count=sum(1 for o in opps if o.status == "Open"),
+        forthcoming_count=sum(1 for o in opps if o.status == "Forthcoming"),
+        new_count=len(new_ids),
+        closing_soon=closing_soon,
+        closing_soon_total=closing_soon_total,
+        closing_soon_days=closing_soon_days,
+        new_items=new_items,
+        new_total=new_total,
+        grouped=grouped,
+        new_ids=new_ids,
+        soon=soon,
+        archive_url=archive_url,
+    )
+
+
+def group_by_cluster(opps: List[Opportunity]) -> Dict[str, List[Opportunity]]:
+    """cluster label → [opps sorted by deadline]. Keys ordered by earliest deadline."""
+    groups: Dict[str, List[Opportunity]] = {}
+    for o in opps:
+        groups.setdefault(o.cluster_label, []).append(o)
+    for k in groups:
+        groups[k].sort(key=lambda o: (o.deadline or dt_date.max, o.id))
+    return dict(sorted(groups.items(), key=lambda kv: (kv[1][0].deadline or dt_date.max, kv[0])))

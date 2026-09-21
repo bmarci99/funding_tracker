@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Horizon Funding Digest — {{ date }}</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: #1a1a1a; background: #f8f9fa; line-height: 1.5;
+    }
+    .container { max-width: 860px; margin: 0 auto; padding: 24px 20px; background: #fff; }
+
+    .header { border-bottom: 3px solid #003399; padding-bottom: 16px; margin-bottom: 24px; }
+    .header h1 { font-size: 22px; font-weight: 700; color: #003399; }
+    .header .subtitle { font-size: 14px; color: #555; margin-top: 4px; }
+    .stats { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+    .stat { padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+    .stat-total { background: #e8f0fe; color: #1a56db; }
+    .stat-open  { background: #d1fae5; color: #065f46; }
+    .stat-forth { background: #ede9fe; color: #5b21b6; }
+    .stat-new   { background: #fef3c7; color: #92400e; }
+    .stat-soon  { background: #fee2e2; color: #991b1b; }
+
+    .section { margin-top: 28px; }
+    .section-header {
+      font-size: 17px; font-weight: 700; padding: 8px 14px; border-radius: 6px;
+      margin-bottom: 12px; background: #003399; color: #fecb00;
+    }
+    .section-header.soon { background: #b91c1c; color: #fff; }
+    .section-header.new  { background: #065f46; color: #fff; }
+    .section-header .count { font-weight: 400; font-size: 13px; opacity: .85; margin-left: 8px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      text-align: left; padding: 6px 8px; background: #f1f3f5; font-weight: 600;
+      font-size: 12px; color: #444; border-bottom: 2px solid #dee2e6;
+    }
+    td { padding: 7px 8px; border-bottom: 1px solid #f1f3f5; vertical-align: top; }
+    tr:hover td { background: #f8f9fa; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .ident { color: #666; font-size: 11px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .action { color: #666; font-size: 12px; }
+    .money { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .date { color: #555; font-size: 12px; white-space: nowrap; }
+    .date .dl { color: #999; font-size: 11px; }
+
+    .badge {
+      display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11px;
+      font-weight: 600; vertical-align: middle; white-space: nowrap;
+    }
+    .badge-new   { background: #fef3c7; color: #92400e; }
+    .badge-open  { background: #d1fae5; color: #065f46; }
+    .badge-forth { background: #ede9fe; color: #5b21b6; }
+    .badge-soon  { background: #fee2e2; color: #991b1b; }
+    .tag { display: inline-block; font-size: 10px; color: #555; background: #f1f3f5; border-radius: 3px; padding: 0 5px; margin: 2px 2px 0 0; }
+
+    .more { margin-top: 8px; font-size: 13px; color: #555; }
+    .footer {
+      margin-top: 32px; padding-top: 16px; border-top: 1px solid #eee;
+      font-size: 12px; color: #888; text-align: center;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 12px; }
+      table { font-size: 12px; }
+      .hide-sm { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🇪🇺 Horizon Funding Digest</h1>
+      <div class="subtitle">Weekly digest — {{ date }} · open &amp; forthcoming Horizon Europe topics</div>
+      <div class="stats">
+        <span class="stat stat-total">{{ total }} topics</span>
+        <span class="stat stat-open">{{ open_count }} open</span>
+        <span class="stat stat-forth">{{ forthcoming_count }} forthcoming</span>
+        {% if new_count > 0 %}<span class="stat stat-new">+{{ new_count }} new this week</span>{% endif %}
+        {% if closing_soon_total %}<span class="stat stat-soon">{{ closing_soon_total }} closing ≤ {{ closing_soon_days }}d</span>{% endif %}
+      </div>
+    </div>
+
+    {% macro opp_table(items, show_cluster=False) -%}
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 46%">Topic</th>
+          <th class="hide-sm">Action</th>
+          <th>Grant</th>
+          <th>Deadline</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for o in items %}
+        <tr>
+          <td>
+            <a href="{{ o.url }}">{{ o.title }}</a><br/>
+            <span class="ident">{{ o.id }}</span>
+            {% if show_cluster %}<span class="tag">{{ o.cluster }}</span>{% endif %}
+            {% for t in o.tags[:3] %}<span class="tag">{{ t }}</span>{% endfor %}
+          </td>
+          <td class="action hide-sm">{{ o.action_type or '—' }}</td>
+          <td class="money">
+            {% if o.contribution_max %}
+              {% if o.contribution_min and o.contribution_min != o.contribution_max %}{{ o.contribution_min | eur }}–{% else %}≤ {% endif %}{{ o.contribution_max | eur }}{% if o.expected_grants %} <span style="color:#888">×{{ o.expected_grants }}</span>{% endif %}
+              {% if o.call_budget %}<br/><span style="color:#999;font-size:11px">call {{ o.call_budget | eur }}</span>{% endif %}
+            {% elif o.call_budget %}
+              <span style="color:#666">call {{ o.call_budget | eur }}</span>
+            {% else %}—{% endif %}
+          </td>
+          <td class="date">
+            {% if o.deadline %}
+              {{ o.deadline }}
+              {% set d = o.deadline | days_left %}
+              <br/><span class="dl">{% if d is not none and d >= 0 %}in {{ d }}d{% elif d is not none %}{{ -d }}d ago{% endif %}{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>
+            {% else %}—{% endif %}
+          </td>
+          <td>
+            {% if o.id in new_ids %}<span class="badge badge-new">🆕 NEW</span> {% endif %}
+            {% if o.deadline and o.deadline <= soon and o.deadline >= today %}<span class="badge badge-soon">⏰ SOON</span>
+            {% elif o.status == 'Open' %}<span class="badge badge-open">OPEN</span>
+            {% elif o.status == 'Forthcoming' %}<span class="badge badge-forth">FORTHCOMING</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {%- endmacro %}
+
+    {% if closing_soon %}
+    <div class="section">
+      <div class="section-header soon">⏰ Closing within {{ closing_soon_days }} days<span class="count">{{ closing_soon_total }} topics</span></div>
+      {{ opp_table(closing_soon, show_cluster=True) }}
+      {% if closing_soon_total > closing_soon | length %}<p class="more">… and {{ closing_soon_total - closing_soon | length }} more{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">see the full list</a>{% endif %}</p>{% endif %}
+    </div>
+    {% endif %}
+
+    {% if new_items %}
+    <div class="section">
+      <div class="section-header new">🆕 New since last digest<span class="count">{{ new_total }} topics</span></div>
+      {{ opp_table(new_items, show_cluster=True) }}
+      {% if new_total > new_items | length %}<p class="more">… and {{ new_total - new_items | length }} more{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">see the full list</a>{% endif %}</p>{% endif %}
+    </div>
+    {% endif %}
+
+    {% if compact %}
+    <div class="section">
+      <div class="section-header">All open &amp; forthcoming topics by cluster<span class="count">{{ total }} topics</span></div>
+      <table>
+        <thead><tr><th>Cluster</th><th>Topics</th><th>Open</th><th>New</th><th>Next deadline</th></tr></thead>
+        <tbody>
+          {% for c in cluster_summary %}
+          <tr>
+            <td>{% if archive_url %}<a href="{{ archive_url }}/{{ date }}.html#{{ c.key }}">{{ c.label }}</a>{% else %}{{ c.label }}{% endif %}</td>
+            <td>{{ c.count }}</td>
+            <td>{{ c.open }}</td>
+            <td>{% if c.new %}<span class="badge badge-new">+{{ c.new }}</span>{% else %}—{% endif %}</td>
+            <td class="date">{{ c.next_deadline or '—' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% if archive_url %}<p style="margin-top:10px;font-size:13px;color:#555">Full list of all {{ total }} topics: <a href="{{ archive_url }}/{{ date }}.html">{{ archive_url }}/{{ date }}.html</a></p>{% endif %}
+    </div>
+    {% else %}
+    {% for label, items in grouped.items() %}
+    <div class="section" id="{{ items[0].cluster }}">
+      <div class="section-header">{{ label }}<span class="count">{{ items | length }} topics{% set n = items | selectattr('id', 'in', new_ids) | list | length %}{% if n %} · +{{ n }} new{% endif %}</span></div>
+      {{ opp_table(items) }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="footer">
+      Generated {{ date }} by Funding Tracker · source: <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals">EU Funding &amp; Tenders Portal</a>
+      {% if archive_url %} · <a href="{{ archive_url }}">archive</a>{% endif %}
+    </div>
+  </div>
+</body>
+</html>

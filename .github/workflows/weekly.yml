@@ -1,0 +1,32 @@
+name: Weekly Funding Digest
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # Monday 08:00 CEST / 07:00 CET
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+      - run: uv python install 3.10
+      - run: uv sync
+      - name: Run pipeline + send email
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GMAIL_TO: ${{ secrets.DIGEST_TO_EMAIL }}
+        run: uv run python -m funding_tracker --send-email
+      - name: Commit history & archive
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add outputs/history.json docs/
+          git diff --cached --quiet || git commit -m "chore: weekly digest $(date -u +%Y-%m-%d)"
+          git push

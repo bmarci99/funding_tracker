@@ -1,0 +1,51 @@
+# Funding & Tenders Portal (SEDIA) search settings
+portal:
+  api_url: "https://api.tech.ec.europa.eu/search-api/prod/rest/search"
+  api_key: "SEDIA"
+  # Framework programme IDs on the portal. 43108390 = Horizon Europe (HORIZON).
+  # Others you can add later: 43152860 = Digital Europe, 43251567 = EU4Health, 44181033 = ERASMUS+
+  framework_programmes:
+    - "43108390"
+  programme_period: "2021 - 2027"
+  # 31094501 = Forthcoming, 31094502 = Open (31094503 = Closed — not wanted)
+  statuses:
+    - "31094501"
+    - "31094502"
+  page_size: 100
+  max_pages: 20
+
+filters:
+  # Only include topics whose deadline is within this many days (0 = no limit)
+  deadline_within_days: 0
+  # Case-insensitive substrings matched against identifier + title + tags. Empty = keep everything.
+  include_keywords: []
+  # Exclude if any of these match (same fields)
+  exclude_keywords: []
+
+digest:
+  # "Closing soon" section threshold
+  closing_soon_days: 30
+  # Email only: cap rows in the "closing soon" / "new" sections; the rest is linked to the archive
+  max_rows_per_section: 40
+  # Archive page: cap rows per cluster (0 = unlimited)
+  max_per_cluster: 0
+
+history:
+  rolling_days: 400
+  path: "outputs/history.json"
+
+output:
+  dir: "outputs"
+  archive: true
+  archive_dir: "docs"
+  # Public URL of the archive (GitHub Pages) — used for "full list" links in the email
+  archive_url: "https://bmarci99.github.io/funding_tracker"
+
+email:
+  send_on_empty: false
+  subject_prefix: "Horizon Funding Digest"
+
+http:
+  timeout_s: 60.0
+  max_retries: 3
+  backoff_factor: 1.5
