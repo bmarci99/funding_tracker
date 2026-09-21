@@ -42,7 +42,7 @@ output:
   archive_url: "https://bmarci99.github.io/funding_tracker"
 
 email:
-  send_on_empty: false
+  send_on_empty: true   # weekly mail even with no new topics (closing-soon section is still useful)
   subject_prefix: "Horizon Funding Digest"
 
 http:
