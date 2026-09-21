@@ -240,7 +240,7 @@ class FTPortalIngester:
         opp = Opportunity(
             id=ident,
             title=(_first(meta, "title") or hit.get("summary", ident)).strip(),
-            url=hit.get("url") or TOPIC_URL.format(id=ident),
+            url=TOPIC_URL.format(id=ident),  # hit["url"] is sometimes a raw .json data link
             programme=programme,
             call_id=_first(meta, "callIdentifier"),
             call_title=_first(meta, "callTitle"),
