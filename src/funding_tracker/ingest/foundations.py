@@ -24,7 +24,19 @@ logger, _ = setup_logger()
 _SKIP_TITLES = {"read more", "more", "mehr", "weiterlesen", "læs mere", "tovább", "details", "learn more", "mehr informationen"}
 _FUNDING_HREF = re.compile(
     r"call|grant|funding|foerder|förder|ausschreib|bewerb|stipend|fellowship|anslag|utlysning|ans[oø]g|"
-    r"palyaz|pályáz|convocator|opportunit|programme|program|award|access",
+    r"palyaz|pályáz|convocator|opportunit|programme|program|award|access|challenge|funke|wettbewerb|aufruf|"
+    r"competition|prize|preis|tender|initiative",
+    re.I,
+)
+# card teasers often glue status text onto the title: "Next Frontier Robotics Apply now We need…"
+_TEASER_RX = re.compile(
+    r"\s+(apply now|jetzt bewerben|1st stage|2nd stage|3rd stage|application period|we need|we are looking|open\b|"
+    r"deadline|frist|ansøg nu|jelentkezz).*$",
+    re.I,
+)
+_CLOSED_RX = re.compile(
+    r"application period closed|closed for applications|challenge complete|funke complete|completed|"
+    r"geschlossen|abgeschlossen|beendet|lezárult|afsluttet|avslutad",
     re.I,
 )
 _NAV_WORDS = re.compile(r"^(home|kontakt|contact|impressum|datenschutz|privacy|login|newsletter|english|deutsch|dansk|search)$", re.I)
@@ -103,7 +115,10 @@ class FoundationsIngester:
 
         for title, href, snippet_raw in candidates:
             title = re.split(r"\s[©®]\s|\s©", title)[0].strip()   # drop trailing image credits
-            if not title or len(title) < 12 or title.lower() in _SKIP_TITLES:
+            if _CLOSED_RX.search(title):
+                continue
+            title = _TEASER_RX.sub("", title).strip() or title
+            if not title or len(title) < 12 or title.lower() in _SKIP_TITLES or _CLOSED_RX.search(title):
                 continue
             url = urljoin(str(r.url), href)
             if url in out or url.rstrip("/") == str(r.url).rstrip("/"):

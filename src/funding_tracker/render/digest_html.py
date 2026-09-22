@@ -42,7 +42,8 @@ def render_html(
     themes: List[Dict] | None = None,
     max_per_theme: int = 10,
     lang: str = "en",
-    ai_pick_min: int = 60,
+    ai_pick_min: int = 55,
+    foundation_rows: int = 12,
 ) -> str:
     """Render the digest.
 
@@ -97,6 +98,9 @@ def render_html(
         for k in sorted(by_theme, key=lambda k: (theme_order.index(k) if k in theme_order else 99))
     ]
     all_matches = [o for o in opps if o.interest_for]
+    # foundations ranked by the analyst (fit as tie-break) — the email always shows the top of this list
+    found_ranked = sorted(foundations, key=lambda o: (-int(o.ai.get("ai_score", 0)), -o.fit_score, o.deadline or dt_date.max, o.title))
+    found_top = found_ranked[:foundation_rows] if compact else found_ranked
     ai_picks = sorted((o for o in opps if o.ai_pick and not o.interest_for),
                       key=lambda o: (-int(o.ai.get("ai_score", 0)), o.deadline or dt_date.max, o.id))
     ai_picks_total = len(ai_picks)
@@ -136,6 +140,7 @@ def render_html(
         match_count=len(all_matches),
         ai_picks=ai_picks, ai_picks_total=ai_picks_total, ai_pick_min=ai_pick_min,
         ai_pick_count=sum(1 for o in opps if o.ai_pick),
+        found_top=found_top, found_ranked=found_ranked,
         full_rate_count=sum(1 for o in opps if o.is_full_rate),
         new_foundations=new_foundations, new_found_total=new_found_total,
         found_grouped=found_grouped, foundations_total=len(foundations),

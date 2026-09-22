@@ -142,7 +142,8 @@ class FitScorer:
                 n_anchor += tier == "anchor"
                 n_core += tier == "core"
                 core_in_title |= tier == "core" and best_loc == "title"
-                hits.append((TIER_WEIGHT[tier] * LOC_WEIGHT[best_loc], f"{best_loc}: {term.removeprefix('re:')}"))
+                shown = f"★ {theme.label}" if term.startswith("re:") else term
+                hits.append((TIER_WEIGHT[tier] * LOC_WEIGHT[best_loc], f"{best_loc}: {shown}"))
         # a core term in the *title* is as good as an anchor: a call named "…Robotik…" is a robotics call
         active = n_anchor >= 1 or core_in_title or n_core >= 3
         hits.sort(key=lambda h: -h[0])

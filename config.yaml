@@ -209,6 +209,8 @@ foundations:
     - name: "SPRIND — Challenges & funding (DE)"
       country: "DE"
       url: "https://www.sprind.org/en/actions/challenges"
+      link_pattern: "/actions/challenges/[a-z0-9-]+$"
+      detail_pages: 20
     - name: "BMFTR (ex-BMBF) — Bekanntmachungen"
       country: "DE"
       url: "https://www.bmftr.bund.de/SiteGlobals/Forms/Suche/Bekanntmachungsuche/Bekanntmachungsuche_Formular.html"
@@ -354,7 +356,7 @@ ai:
   max_eur_per_run: 5.0             # HARD budget: real token usage is priced per response; the run stops at this
   analyse_all_foundations: true    # foundations are thin on keywords → let the model judge them all
   min_fit_for_portal: 35           # portal topics: only those already matching the roadmap
-  pick_min_score: 60               # ai_score needed for the "AI picks" section
+  pick_min_score: 55               # ai_score needed for the "AI picks" section (the model sets applicable at ≥ 55)
   cache: "outputs/ai_cache.json"
 
 # ---------------------------------------------------------------------------
@@ -440,6 +442,7 @@ digest:
   closing_soon_days: 30
   max_rows_per_section: 40         # email only; overflow links to the archive
   max_matches_per_theme: 10        # email only
+  foundation_ranking_rows: 12      # email: top foundation / national calls by AI score, always shown
   max_per_cluster: 0               # archive page (0 = unlimited)
 
 history:

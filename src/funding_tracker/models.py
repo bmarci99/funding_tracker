@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import re
 from datetime import date, datetime, timezone
-from typing import Any, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -70,10 +70,12 @@ class Opportunity(BaseModel):
     content_hash: str = ""
     text: str = Field(default="", exclude=True)  # full description used for matching; not persisted
 
+    AI_PICK_MIN: ClassVar[int] = 55
+
     @property
     def ai_pick(self) -> bool:
-        """The analyst thinks we can apply and it is attractive (≥ 60)."""
-        return bool(self.ai.get("applicable")) and int(self.ai.get("ai_score", 0)) >= 60
+        """The analyst thinks we can apply and it is attractive (≥ AI_PICK_MIN)."""
+        return bool(self.ai.get("applicable")) and int(self.ai.get("ai_score", 0)) >= self.AI_PICK_MIN
 
     @property
     def is_full_rate(self) -> bool:

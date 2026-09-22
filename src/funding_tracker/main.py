@@ -89,6 +89,7 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
 
     # --- 1c. AI analyst ---
     ai_cfg = cfg.get("ai", {})
+    Opportunity.AI_PICK_MIN = int(ai_cfg.get("pick_min_score", 55))
     analyst = Analyst(ai_cfg, cfg.get("profile", {}).get("company_brief", ""), dg.get("language", "en"))
     if analyst.enabled:
         section(console, "AI ANALYST")
@@ -143,7 +144,8 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
         threshold=min_score,
         themes=scorer.theme_meta(),
         lang=dg.get("language", "en"),
-        ai_pick_min=int(ai_cfg.get("pick_min_score", 60)),
+        ai_pick_min=int(ai_cfg.get("pick_min_score", 55)),
+        foundation_rows=int(dg.get("foundation_ranking_rows", 12)),
     )
     html_text = render_html(opps, compact=True, max_rows=dg.get("max_rows_per_section", 40),
                             max_per_theme=dg.get("max_matches_per_theme", 10), **render_kw)       # email: compact

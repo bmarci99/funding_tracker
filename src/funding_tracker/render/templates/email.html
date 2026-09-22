@@ -205,6 +205,25 @@
     </table>
     {%- endmacro %}
 
+    {% macro found_rows(items) -%}
+    <table>
+      <thead><tr><th style="width: 46%">{{ t("col_call") }}</th><th style="width: 8%">{{ t("col_ai") }}</th><th style="width: 12%">{{ t("col_grant") }}</th><th style="width: 12%">{{ t("col_deadline") }}</th><th style="width: 22%">{{ t("ai_verdict_short") }}</th></tr></thead>
+      <tbody>
+        {% for o in items %}
+        <tr>
+          <td><a href="{{ o.url }}">{{ o.title }}</a><br/><span class="funder">{{ o.programme }}</span> <span class="tag">{{ o.country }}</span>
+            {% if o.interest_for %} <span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">⭐ {{ o.fit_score }}</span>{% endif %}
+            {% if o.id in new_ids %} <span class="badge badge-new">{{ t("NEW") }}</span>{% endif %}</td>
+          <td>{% if o.ai %}<span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ o.ai.ai_score }}</span>{% else %}—{% endif %}</td>
+          <td class="money">{% if o.contribution_max %}≤ {{ o.contribution_max | eur }}{% else %}<span class="dl">{{ t("see_page") }}</span>{% endif %}</td>
+          <td class="date">{% if o.deadline %}{{ o.deadline }}<br/><span class="dl">{{ t("in_days", d=o.deadline | days_left) }}</span>{% else %}<span class="dl">{{ t("see_page") }}</span>{% endif %}</td>
+          <td class="hits" style="font-size:11px">{% if o.ai %}{{ o.ai.summary[:140] }}{% if o.ai.applicable and o.ai.angle %}<br/><span style="color:#5b21b6">→ {{ o.ai.angle[:160] }}</span>{% elif o.ai.risks %}<br/><span style="color:#888">{{ o.ai.risks[0][:120] }}</span>{% endif %}{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {%- endmacro %}
+
     {% macro fit_table(items) -%}
     {% for o in items %}
     <table class="card">
@@ -273,6 +292,14 @@
     </div>
     {% endif %}
 
+    {% if found_top %}
+    <div class="section">
+      <div class="section-header found">{{ t("sec_found_rank") }}<span class="count">{{ t("sec_found_rank_count", n=found_top | length, total=found_ranked | length) }}</span></div>
+      {{ found_rows(found_top) }}
+      {% if compact and found_ranked | length > found_top | length %}<p class="more">{{ t("more", n=found_ranked | length - found_top | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html#foundations">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
+    </div>
+    {% endif %}
+
     {% if closing_soon %}
     <div class="section">
       <div class="section-header soon">{{ t("sec_soon", d=closing_soon_days) }}<span class="count">{{ t("topics", n=closing_soon_total) }}</span></div>
@@ -334,18 +361,10 @@
       {{ opp_table(items) }}
     </div>
     {% endfor %}
-    {% for label, items in found_grouped.items() %}
-    <div class="section" id="found-{{ loop.index }}">
-      <div class="section-header found">🏛 {{ label }}<span class="count">{{ t("items", n=items | length) }}</span></div>
-      <table>
-        <tbody>
-          {% for o in items %}
-          <tr><td><a href="{{ o.url }}">{{ o.title }}</a></td><td>{% if o.id in new_ids %}<span class="badge badge-new">{{ t("NEW") }}</span>{% endif %}</td></tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="section" id="foundations">
+      <div class="section-header found">{{ t("sec_found_all") }}<span class="count">{{ t("items", n=found_ranked | length) }}</span></div>
+      {{ found_rows(found_ranked) }}
     </div>
-    {% endfor %}
     {% endif %}
 
     <div class="footer">
