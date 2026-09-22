@@ -44,13 +44,15 @@ foundations:
     - name: "Villum Fonden — Open calls"
       country: "DK"
       url: "https://villumfonden.dk/en/basic-page/current-calls-0"
-      item_selector: "article, .news-item, li.news"
-      title_selector: "h2, h3, .title"
+      link_pattern: "/group/channel/"      # each open call is a "channel" page
+      detail_pages: 30
     - name: "Novo Nordisk Foundation — Grants & calls"
       country: "DK"
-      url: "https://novonordiskfonden.dk/en/grant/"
-      item_selector: "article, .card, li"
-      title_selector: "h2, h3, .title"
+      type: "wp-json"                        # WordPress REST API — structured, no scraping
+      url: "https://novonordiskfonden.dk"
+      post_type: "grant"
+      per_page: 100
+      detail_pages: 60
     - name: "VolkswagenStiftung — Calls for proposals"
       country: "DE"
       url: "https://www.volkswagenstiftung.de/en/our-funding-portfolio"
@@ -125,9 +127,7 @@ foundations:
       title_selector: "h2, h3"
     - name: "Kone Foundation — Calls"
       country: "FI"
-      url: "https://koneensaatio.fi/en/grants/"
-      item_selector: "article, .grant"
-      title_selector: "h2, h3"
+      url: "https://koneensaatio.fi/en/grants/"   # (its wp-json "apuraha" type lists funded projects, not calls)
     - name: "Riksbankens Jubileumsfond — Calls"
       country: "SE"
       url: "https://www.rj.se/en/funding/"

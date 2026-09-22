@@ -171,14 +171,14 @@ class PageCache:
 
 
 def enrich(opps: List[Opportunity], client: httpx.Client, cache: PageCache, *, per_feed: int = 12,
-           delay_s: float = 1.0, max_chars: int = 5000) -> List[Opportunity]:
+           per_feed_override: Optional[Dict[str, int]] = None, delay_s: float = 1.0, max_chars: int = 5000) -> List[Opportunity]:
     """Fetch detail pages for foundation items; drop pages without any funding signal."""
     kept: List[Opportunity] = []
     per_feed_count: Dict[str, int] = {}
     fetched = 0
     for o in opps:
         n = per_feed_count.get(o.programme, 0)
-        if n >= per_feed:
+        if n >= (per_feed_override or {}).get(o.programme, per_feed):
             continue
         per_feed_count[o.programme] = n + 1
         entry = cache.get(o.url)

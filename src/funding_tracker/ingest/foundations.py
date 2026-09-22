@@ -39,7 +39,39 @@ class FoundationsIngester:
         self.cfg = cfg
         self.http_cfg = http_cfg
 
+    def _make(self, feed: Dict[str, Any], title: str, url: str, snippet: str) -> Opportunity:
+        opp = Opportunity(
+            id=f"found:{hashlib.sha1(url.encode()).hexdigest()[:10]}",
+            title=title[:200], url=url, source="foundation", programme=feed["name"], status="Open",
+            funding_rate=feed.get("funding_rate", "100% (typ.)"),
+            funding_rate_note="foundations and national programmes usually fund full project costs — check the call",
+            country=feed.get("country", ""), tags=[feed["country"]] if feed.get("country") else [],
+            summary=snippet[:300], text=snippet,
+        )
+        opp.compute_hash()
+        return opp
+
+    def _fetch_wp_json(self, client: httpx.Client, feed: Dict[str, Any]) -> List[Opportunity]:
+        """WordPress REST API: {site}/wp-json/wp/v2/{post_type} — structured list, no scraping."""
+        base = feed["url"].rstrip("/")
+        post_type = feed.get("post_type", "posts")
+        per_page = int(feed.get("per_page", 100))
+        r = client.get(f"{base}/wp-json/wp/v2/{post_type}",
+                       params={"per_page": per_page, "_fields": "id,link,title,excerpt,modified"})
+        r.raise_for_status()
+        out: List[Opportunity] = []
+        for it in r.json():
+            title = BeautifulSoup(it.get("title", {}).get("rendered", ""), "html.parser").get_text(" ", strip=True)
+            url = it.get("link", "")
+            if not title or not url:
+                continue
+            excerpt = BeautifulSoup((it.get("excerpt") or {}).get("rendered", ""), "html.parser").get_text(" ", strip=True)
+            out.append(self._make(feed, title, url, excerpt))
+        return out
+
     def _fetch_feed(self, client: httpx.Client, feed: Dict[str, Any]) -> List[Opportunity]:
+        if feed.get("type") == "wp-json":
+            return self._fetch_wp_json(client, feed)
         r = client.get(feed["url"])
         r.raise_for_status()
         soup = BeautifulSoup(r.text, "html.parser")
@@ -56,7 +88,8 @@ class FoundationsIngester:
             link = node.find("a", href=True)
             if link:
                 candidates.append((title, link[feed.get("link_attr", "href")], node.get_text(" ", strip=True)))
-        if len(candidates) < 3:
+        link_rx = re.compile(feed["link_pattern"], re.I) if feed.get("link_pattern") else _FUNDING_HREF
+        if len(candidates) < 3 or feed.get("link_pattern"):
             base_host = urlparse(str(r.url)).netloc
             for a in soup.find_all("a", href=True):
                 href = urljoin(str(r.url), a["href"])
@@ -64,7 +97,7 @@ class FoundationsIngester:
                 if urlparse(href).scheme not in ("http", "https") or urlparse(href).netloc != base_host \
                         or "#" in a["href"] or _NAV_WORDS.match(title):
                     continue
-                if _FUNDING_HREF.search(href) or _FUNDING_HREF.search(title):
+                if link_rx.search(href) or (link_rx is _FUNDING_HREF and link_rx.search(title)):
                     parent = a.find_parent(["li", "article", "div"]) or a
                     candidates.append((title, href, parent.get_text(" ", strip=True)))
 
@@ -75,23 +108,8 @@ class FoundationsIngester:
             url = urljoin(str(r.url), href)
             if url in out or url.rstrip("/") == str(r.url).rstrip("/"):
                 continue
-            key = hashlib.sha1(url.encode()).hexdigest()[:10]
             snippet = " ".join(snippet_raw.split())[:600]
-            opp = Opportunity(
-                id=f"found:{key}",
-                title=title[:200],
-                url=url,
-                source="foundation",
-                programme=feed["name"],
-                status="Open",
-                funding_rate=feed.get("funding_rate", "100% (typ.)"),
-                funding_rate_note="foundations and national programmes usually fund full project costs — check the call",
-                country=feed.get("country", ""),
-                tags=[feed.get("country", "")] if feed.get("country") else [],
-                summary=snippet[:300],
-                text=snippet,
-            )
-            opp.compute_hash()
+            opp = self._make(feed, title, url, snippet)
             out[url] = opp
             if len(out) >= limit:
                 break
@@ -117,8 +135,10 @@ class FoundationsIngester:
             if self.cfg.get("fetch_details", True):
                 cache = PageCache(self.cfg.get("page_cache", "outputs/page_cache.json"),
                                   int(self.cfg.get("cache_days", 30)))
+                per_feed = {f["name"]: int(f["detail_pages"]) for f in self.cfg.get("feeds", []) if f.get("detail_pages")}
                 all_items = enrich(all_items, client, cache,
-                                   per_feed=int(self.cfg.get("detail_pages_per_feed", 12)), delay_s=delay)
+                                   per_feed=int(self.cfg.get("detail_pages_per_feed", 12)), per_feed_override=per_feed,
+                                   delay_s=delay)
                 cache.save()
         return all_items
 
