@@ -7491,7 +7491,7 @@
       },
       "interest_score": 49.0,
       "interest_hits": [
-        "body: HORIZON-[A-Z0-9-]*SPACE",
+        "body: ★ Space crew companion",
         "body: esa",
         "body: european space agency",
         "title: space",
@@ -7559,7 +7559,7 @@
       },
       "interest_score": 40.0,
       "interest_hits": [
-        "body: HORIZON-[A-Z0-9-]*SPACE",
+        "body: ★ Space crew companion",
         "body: in-orbit",
         "title: space",
         "body: monitoring",
@@ -7625,7 +7625,7 @@
       },
       "interest_score": 49.0,
       "interest_hits": [
-        "body: HORIZON-[A-Z0-9-]*SPACE",
+        "body: ★ Space crew companion",
         "body: esa",
         "body: european space agency",
         "body: in-orbit",
@@ -7695,7 +7695,7 @@
       },
       "interest_score": 49.0,
       "interest_hits": [
-        "body: HORIZON-[A-Z0-9-]*SPACE",
+        "body: ★ Space crew companion",
         "body: esa",
         "body: european space agency",
         "body: in-orbit",
@@ -7766,7 +7766,7 @@
       },
       "interest_score": 40.0,
       "interest_hits": [
-        "body: HORIZON-[A-Z0-9-]*SPACE",
+        "body: ★ Space crew companion",
         "body: in-orbit",
         "title: space",
         "body: monitoring",
@@ -7827,7 +7827,7 @@
       },
       "interest_score": 36.0,
       "interest_hits": [
-        "body: HORIZON-[A-Z0-9-]*SPACE",
+        "body: ★ Space crew companion",
         "title: space",
         "body: autonomy",
         "(no robot / HRI signal)"
@@ -7887,7 +7887,7 @@
       },
       "interest_score": 36.0,
       "interest_hits": [
-        "body: HORIZON-[A-Z0-9-]*SPACE",
+        "body: ★ Space crew companion",
         "title: space",
         "body: autonomy",
         "(no robot / HRI signal)"
@@ -15053,7 +15053,7 @@
       },
       "interest_score": 20.0,
       "interest_hits": [
-        "body: HORIZON-[A-Z0-9-]*SPACE",
+        "body: ★ Space crew companion",
         "title: space",
         "(no robot / HRI signal)"
       ],
@@ -22408,7 +22408,7 @@
     },
     {
       "id": "found:79c23c6de3",
-      "title": "European youth and education Enabling Capable Citizens 2027 Call available in English only Deadline 11 January 2027 14:00 Open",
+      "title": "European youth and education Enabling Capable Citizens 2027 Call available in English only",
       "url": "https://villumfonden.dk/en/group/channel/enabling-capable-citizens-2027",
       "source": "foundation",
       "programme": "Villum Fonden — Open calls",
@@ -22455,31 +22455,31 @@
         "Teacher & learning companion"
       ],
       "first_seen": "2026-09-21T15:11:24.465895Z",
-      "content_hash": "bb4af5843c2e",
+      "content_hash": "9a2a1b223063",
       "ai": {
         "applicable": false,
         "ai_score": 41,
         "confidence": 60,
-        "angle": "A projektötletünk a tanulási társunk, az ETHEA, amely segíthet a hátrányos helyzetű fiataloknak a zöld átmenethez kapcsolódó készségek elsajátításában, különösen a tanárok kompetenciáinak fejlesztésén keresztül. A humanoid fejünk és az ETHEA platformunk integrálható lenne a tanulási környezetekbe, hogy támogassa a fiatalokat a fenntarthatósággal kapcsolatos ismeretek megszerzésében.",
-        "entity": "Pannon Business Network Association (HU non-profit), mivel 100%-os finanszírozási arányt biztosítanak.",
+        "angle": "A humanoid fej és az ETHEA társalgó platformunk alkalmazása a tanulási környezetekben segíthetne a fiatalok motivációjának növelésében, különösen a hátrányos helyzetű csoportok számára, de a pályázat fő fókusza nem a technológiai fejlesztésekre irányul.",
+        "entity": "Pannon Business Network Association, mivel a pályázat non-profit szervezeteket céloz meg és a legjobb eséllyel indulhatunk a 100%-os finanszírozásért.",
         "partners": [
           "iskolák",
           "helyi közösségi szervezetek",
           "oktatási intézmények",
-          "zöld átmenettel foglalkozó alapítványok"
+          "szakmai fejlesztési programokat kínáló szervezetek"
         ],
         "risks": [
-          "A pályázat célja nem közvetlenül a technológiai fejlesztésekre összpontosít.",
-          "A pályázat a zöld átmenethez kapcsolódó kezdeményezésekre korlátozódik, ami nem illeszkedik a fő tevékenységünkhöz.",
-          "A verseny erős lehet a helyi szervezetek között."
+          "A pályázat nem technológiai fejlesztéseket céloz meg, így a versenyképességünk alacsony lehet.",
+          "A pályázat fókusza a zöld átmenetre és a társadalmi kihívásokra irányul, nem pedig a humanoid robotikára.",
+          "A pályázat célcsoportja szűkebb, mint a mi általunk megcélzott felhasználók."
         ],
-        "next_step": "Regisztráljunk a 2026. november 3-i online tájékoztatóra.",
-        "summary": "A pályázat célja a hátrányos helyzetű fiatalok oktatási és foglalkoztatási lehetőségeinek javítása a zöld átmenet keretein belül."
+        "next_step": "Regisztráljunk a 2026. november 3-i online tájékoztatóra, hogy további információkat szerezzünk a pályázatról.",
+        "summary": "A pályázat célja, hogy támogassa a hátrányos helyzetű fiatalok oktatási és foglalkoztatási lehetőségeit a zöld átmenet keretein belül."
       }
     },
     {
       "id": "found:bc259c3075",
-      "title": "European youth and education European Vocational Education and Training Initiative 2027 Call available in English only Deadline 20 May 2027 14:00 Open",
+      "title": "European youth and education European Vocational Education and Training Initiative 2027 Call available in English only",
       "url": "https://villumfonden.dk/en/group/channel/european-vocational-education-and-training-initiative-2027",
       "source": "foundation",
       "programme": "Villum Fonden — Open calls",
@@ -22526,25 +22526,25 @@
         "Teacher & learning companion"
       ],
       "first_seen": "2026-09-21T15:11:24.465940Z",
-      "content_hash": "286748bc4514",
+      "content_hash": "a71c3ddc458d",
       "ai": {
         "applicable": false,
         "ai_score": 42,
         "confidence": 60,
-        "angle": "A pályázat célja a zöld átmenethez szükséges szakmai készségek fejlesztése, ami nem illeszkedik közvetlenül a humanoid fej vagy az ETHEA társaságunkhoz. A tanulási segítőként való részvételünk nem elég erős ahhoz, hogy versenyképes pályázatot nyújtsunk be.",
-        "entity": "Pannon Business Network Association (HU non-profit), mivel a pályázat a nem-profit szervezetek számára elérhető.",
+        "angle": "A pályázat célja a zöld átmenethez szükséges szakmai készségek fejlesztése, ami nem illeszkedik közvetlenül a humanoid fej vagy az ETHEA társaságunkhoz. A tanulási segéd szerepünk a zöld átmenethez kapcsolódóan nem elég hangsúlyos a pályázati szövegben.",
+        "entity": "Pannon Business Network Association (HU non-profit), mivel a pályázat a non-profit szervezetek számára 100%-os támogatást kínál.",
         "partners": [
           "oktatási intézmények",
           "helyi munkaadók",
           "szakmai fejlesztési szervezetek"
         ],
         "risks": [
-          "a pályázat nem közvetlenül a technológiai fejlesztésre összpontosít",
-          "a zöld átmenethez kapcsolódó készségek nem a mi fő profilunk",
-          "a verseny erős lehet a pályázaton"
+          "a pályázat nem fókuszál a humanoid robotokra vagy AI platformokra",
+          "a pályázati célok nem illeszkednek a mi technológiai fejlesztéseinkhez",
+          "a verseny erős lehet a zöld átmenethez kapcsolódó projektek között"
         ],
-        "next_step": "Regisztráljunk a következő online információs találkozóra, amely 2027. január 28-án lesz.",
-        "summary": "A pályázat a zöld átmenethez szükséges szakmai készségek fejlesztésére és a szakképzés modernizálására összpontosít."
+        "next_step": "Regisztráljunk a következő online tájékoztatóra, amely 2027. április 1-jén lesz.",
+        "summary": "A pályázat a zöld átmenethez szükséges szakmai készségek fejlesztését és a modern tanulási környezetek kialakítását támogatja."
       }
     },
     {
@@ -29652,7 +29652,7 @@
     },
     {
       "id": "found:2d0ad354c7",
-      "title": "Call for Experts Open for applications Deadline: Ongoing Join our expert pool to assess EU funding applications, monitor projects, and advise on health innovation, digital health, and medical technolo",
+      "title": "Call for Experts",
       "url": "https://eithealth.eu/opportunity/call-for-experts/",
       "source": "foundation",
       "programme": "EIT Health — Opportunities",
@@ -29674,49 +29674,37 @@
       ],
       "summary": "Home | Events & Opportunities | Call for Experts Apply now Call for Experts EIT Health – Call for Exp ression of interest for experts EIT Health has launched its Call for Experts and is inviting professionals with experience across a range of areas to join the pool of experts to assist EIT Health su",
       "country": "EU",
-      "fit_score": 34,
+      "fit_score": 0,
       "fit_verdict": "",
-      "fit_theme": "health_companion",
-      "fit_theme_label": "Healthcare social companion (oncology)",
+      "fit_theme": "",
+      "fit_theme_label": "",
       "fit_breakdown": {
-        "theme": 17,
+        "theme": 0,
         "packs": 0,
-        "instrument": 8,
-        "conditions": 8,
+        "instrument": 0,
+        "conditions": 0,
         "penalty": 0
       },
-      "interest_score": 34.0,
-      "interest_hits": [
-        "title: digital health",
-        "title: health",
-        "title: medical",
-        "(no robot / HRI signal)"
-      ],
+      "interest_score": 0.0,
+      "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:26.510227Z",
-      "content_hash": "bb161a62b80c",
+      "content_hash": "2caeb46c8884",
       "ai": {
         "applicable": false,
-        "ai_score": 34,
-        "confidence": 60,
-        "angle": "A humanoid társaságunk, az ETHEA, potenciálisan alkalmazható lenne az egészségügyi innovációk értékelésében, de a felhívás nem közvetlenül a technológiai fejlesztésünkre vonatkozik, hanem szakértői szerepkörökre.",
-        "entity": "Pannon Business Network Association, mivel a felhívás non-profit szervezeteket céloz meg.",
-        "partners": [
-          "egészségügyi innovációs szakértők",
-          "digitális egészségügyi technológiai cégek",
-          "egyetemi kutatóintézetek"
-        ],
-        "risks": [
-          "a felhívás nem közvetlenül a technológiai fejlesztésre vonatkozik",
-          "a verseny erős lehet a szakértői pozíciókért"
-        ],
-        "next_step": "Jelentkezni kell a szakértői poolba az EIT Health weboldalán.",
-        "summary": "A felhívás szakértők jelentkezését várja az EU-s egészségügyi innovációk értékelésére és támogatására."
+        "ai_score": 0,
+        "confidence": 20,
+        "angle": "Ez a felhívás szakértők toborzására irányul, nem pedig konkrét projektfinanszírozásra, így nem illeszkedik a humanoid fej vagy az ETHEA társaságunkhoz kapcsolódó terveinkhez.",
+        "entity": "Nincs megfelelő entitás, mivel a felhívás nem technológiai fejlesztéseket támogat.",
+        "partners": [],
+        "risks": [],
+        "next_step": "Nincs további lépés, mivel a felhívás nem releváns számunkra.",
+        "summary": "A felhívás szakértők toborzására vonatkozik az egészségügyi innováció támogatására Európában."
       }
     },
     {
       "id": "found:156a57202e",
-      "title": "Healthcare Entrepreneurship Levelling Online Course Open for applications Deadline: 02 Nov Develop the next generation of healthcare entrepreneurship education",
+      "title": "Healthcare Entrepreneurship Levelling Online Course",
       "url": "https://eithealth.eu/opportunity/healthcare-entrepreneurship-levelling-course/",
       "source": "foundation",
       "programme": "EIT Health — Opportunities",
@@ -29753,25 +29741,22 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:26.510274Z",
-      "content_hash": "d585c04e09cb",
+      "content_hash": "5befd69405e1",
       "ai": {
         "applicable": false,
         "ai_score": 1,
-        "confidence": 20,
-        "angle": "A pályázat a healthcare entrepreneurship oktatás fejlesztésére összpontosít, ami nem illeszkedik a humanoid robotok vagy a társas AI platformunk fejlesztési irányába.",
-        "entity": "Nincs megfelelő entitásunk, mivel a pályázat nem technológiai fejlesztésre vonatkozik.",
+        "confidence": 10,
+        "angle": "A pályázat a healthcare entrepreneurship online kurzus kidolgozására vonatkozik, amely nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, így nem tudunk releváns projektötlettel előállni.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
         "partners": [],
-        "risks": [
-          "A pályázat nem a mi szakterületünkre vonatkozik.",
-          "Nincs releváns technológiai vagy innovációs elem a projektben."
-        ],
+        "risks": [],
         "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat célja egy online kurzus kidolgozása az egészségügyi vállalkozói ismeretek fejlesztésére."
+        "summary": "A pályázat célja egy online kurzus kidolgozása az egészségügyi innováció és vállalkozás témakörében."
       }
     },
     {
       "id": "found:3bdf7c49a0",
-      "title": "Technology Transfer Offices & Entrepreneurship Support Call Open for applications Deadline: 02 Nov Partner with EIT Health to accelerate research commercialisation",
+      "title": "Technology Transfer Offices & Entrepreneurship Support Call",
       "url": "https://eithealth.eu/opportunity/tto-entrepreneurhsip/",
       "source": "foundation",
       "programme": "EIT Health — Opportunities",
@@ -29808,25 +29793,26 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:26.510313Z",
-      "content_hash": "0472323dd827",
+      "content_hash": "133712cc124c",
       "ai": {
         "applicable": false,
         "ai_score": 0,
         "confidence": 20,
-        "angle": "A pályázat a kutatás kereskedelmi hasznosításának támogatására irányul, és nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, amelyeket fejlesztünk.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
+        "angle": "A pályázat a kutatók vállalkozásba való átmenetét támogatja, de nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, amelyeket fejlesztünk.",
+        "entity": "Nincs megfelelő entitásunk, mivel a pályázat nem illeszkedik a tevékenységeinkhez.",
         "partners": [],
         "risks": [
-          "A pályázat nem a technológiai fejlesztésre összpontosít, hanem a kutatási eredmények vállalkozásokká alakítására.",
-          "Nincs releváns tapasztalatunk a technológiai transzfer irodák és vállalkozásfejlesztési szolgáltatók terén."
+          "A pályázat nem a mi szakterületünkre összpontosít.",
+          "Nincs releváns technológiai vagy innovációs szál.",
+          "A pályázat célja nem a robotika vagy AI fejlesztése."
         ],
         "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat célja a kutatási innovációk kereskedelmi hasznosításának támogatása a vállalkozásfejlesztés révén."
+        "summary": "A pályázat célja a kutatók vállalkozásba való átmenetének támogatása a technológiai transzfer irodák és vállalkozásfejlesztő szervezetek révén."
       }
     },
     {
       "id": "found:5ddf926d2b",
-      "title": "University Incubators & Entrepreneurship Support Call Open for applications Deadline: 02 Nov Help Master’s and PhD innovators bring their solutions to the market",
+      "title": "University Incubators & Entrepreneurship Support Call",
       "url": "https://eithealth.eu/opportunity/university-incubators/",
       "source": "foundation",
       "programme": "EIT Health — Opportunities",
@@ -29863,28 +29849,25 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:26.510351Z",
-      "content_hash": "00f618e49a77",
+      "content_hash": "076d00964d93",
       "ai": {
         "applicable": false,
-        "ai_score": 20,
-        "confidence": 60,
-        "angle": "A pályázat célja, hogy MSc és PhD hallgatók innovációit támogassa a piaci megvalósítás során, ami nem illeszkedik a humanoid robotfej vagy az ETHEA társaságunk által fejlesztett megoldásokhoz.",
-        "entity": "Pannon Business Network Association (HU non-profit), mivel a pályázat non-profit szervezeteket céloz meg.",
-        "partners": [
-          "Egyetemek, Incubátorok, Vállalkozásfejlesztő szervezetek"
-        ],
+        "ai_score": 0,
+        "confidence": 20,
+        "angle": "A pályázat célja egyetemi inkubátorok és vállalkozásfejlesztési támogatók konzorciumának létrehozása, amely a hallgatók vállalkozói készségeit fejleszti. A humanoid fej és az ETHEA társalgó AI platformunk nem illeszkedik a pályázat által megcélzott tevékenységekhez.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
+        "partners": [],
         "risks": [
-          "Nem releváns a pályázat témája a humanoid robotok számára",
-          "A pályázat nem támogatja a technológiai fejlesztéseket",
-          "A pályázat célcsoportja nem illeszkedik a mi céljainkhoz"
+          "A pályázat nem a technológiai fejlesztésre összpontosít, hanem inkább az egyetemi inkubátorokra és vállalkozásfejlesztésre.",
+          "Nincs releváns tapasztalatunk az egyetemi inkubátorokkal való együttműködésben."
         ],
-        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat célja, hogy támogassa az MSc és PhD hallgatók vállalkozásainak létrehozását és fejlesztését."
+        "next_step": "Nincs konkrét lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja, hogy támogassa az MSc és PhD hallgatókat a vállalkozás létrehozásának folyamatában."
       }
     },
     {
       "id": "found:026478ff0f",
-      "title": "Fostering Opportunity in Regional Growth Across Europe (FORGE) Open for applications Deadline: 02 Nov Help equip innovation agencies, universities, TTOs, accelerators, and clusters with the knowledge ",
+      "title": "Fostering Opportunity in Regional Growth Across Europe (FORGE)",
       "url": "https://eithealth.eu/opportunity/fostering-opportunity-in-regional-growth-across-europe/",
       "source": "foundation",
       "programme": "EIT Health — Opportunities",
@@ -29921,22 +29904,26 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:26.510387Z",
-      "content_hash": "288e0bf1215e",
+      "content_hash": "22facad5f62f",
       "ai": {
         "applicable": false,
-        "ai_score": 0,
-        "confidence": 10,
-        "angle": "A FORGE pályázat célja a regionális egészségügyi innovációs ökoszisztémák fejlesztése, ami nem illeszkedik a humanoid robot fejlesztésére és a társadalmi AI platformunkra vonatkozó projektjeinkhez.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
+        "ai_score": 20,
+        "confidence": 60,
+        "angle": "A FORGE program célja a regionális egészségügyi innovációs ökoszisztémák fejlesztése, ami nem illeszkedik a humanoid robot fejlesztéséhez vagy a társas AI platformunkhoz. A projektünk nem felel meg a felhívás által megcélzott kapacitásépítési programoknak.",
+        "entity": "Pannon Business Network Association, mivel non-profit szervezetként 100%-os finanszírozásra jogosult, de a felhívás nem releváns számunkra.",
         "partners": [],
-        "risks": [],
-        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat a regionális innovációs ökoszisztémák fejlesztésére és kapacitásépítő programok tervezésére és megvalósítására vonatkozik."
+        "risks": [
+          "A felhívás nem a technológiai innovációra összpontosít, így nem tudunk releváns partnereket találni.",
+          "A felhívás célja nem illeszkedik a humanoid robotok vagy társas AI fejlesztéséhez.",
+          "A pályázati feltételek nem teszik lehetővé a technológiai pilotok indítását."
+        ],
+        "next_step": "Nincs további lépés, mivel a felhívás nem releváns számunkra.",
+        "summary": "A felhívás célja a regionális egészségügyi innovációs ökoszisztémák fejlesztésére irányuló kapacitásépítési programok tervezése és megvalósítása."
       }
     },
     {
       "id": "found:17141c491d",
-      "title": "Summer Schools and Certified Innovation Path Residentials Open for applications Deadline: 02 Nov Equip the next generation of healthcare innovators with entrepreneurial and innovation skills through o",
+      "title": "Summer Schools and Certified Innovation Path Residentials",
       "url": "https://eithealth.eu/opportunity/summer-schools-innovation-residentials/",
       "source": "foundation",
       "programme": "EIT Health — Opportunities",
@@ -29973,22 +29960,25 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:26.510422Z",
-      "content_hash": "85c9abc65ff7",
+      "content_hash": "69d3e06d9d04",
       "ai": {
         "applicable": false,
-        "ai_score": 1,
+        "ai_score": 0,
         "confidence": 20,
-        "angle": "A pályázat a következő generációs egészségügyi innovátorok képzésére összpontosít, ami nem illeszkedik a humanoid robot fejünk vagy az ETHEA társalgó platformunk fejlesztéséhez, mivel a téma nem kapcsolódik közvetlenül a társadalmi robotikához vagy az AI-hoz.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
+        "angle": "A pályázat nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, így nem tudunk releváns projektötlettel előállni.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
         "partners": [],
-        "risks": [],
+        "risks": [
+          "Nincs releváns téma, így nem tudunk versenyezni a pályázaton.",
+          "A pályázat célja nem illeszkedik a technológiai fejlesztéseinkhez."
+        ],
         "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat célja, hogy támogassa az egészségügyi innovátorok képzését különböző tematikus területeken."
+        "summary": "A pályázat célja nyári iskolák és innovációs programok kidolgozása az egészségügyi innováció területén."
       }
     },
     {
       "id": "found:63374ab3bd",
-      "title": "Design and Deliver the Next EIT Health Bootcamps Open for applications Deadline: 02 Nov Build Healthcare Innovation Bootcamps with EIT Health",
+      "title": "Design and Deliver the Next EIT Health Bootcamps",
       "url": "https://eithealth.eu/opportunity/bootcamps-providers/",
       "source": "foundation",
       "programme": "EIT Health — Opportunities",
@@ -30025,26 +30015,26 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:26.510456Z",
-      "content_hash": "248454b8228a",
+      "content_hash": "2e3a2d753f42",
       "ai": {
         "applicable": false,
         "ai_score": 20,
         "confidence": 60,
-        "angle": "A humanoid fej és az ETHEA társaságunk nem illeszkedik a pályázat céljához, amely az egészségügyi innovációs bootcampek tervezésére és lebonyolítására vonatkozik. A pályázat nem keres technológiai partnereket, hanem inkább oktatási és innovációs tapasztalattal rendelkező konzorciumokat.",
-        "entity": "Pannon Business Network Association (HU non-profit) lenne a legmegfelelőbb, de a pályázat nem illik a profilunkba.",
+        "angle": "A pályázat célja az egészségügyi innovációk piaci bevezetésének támogatása, ami nem illeszkedik a humanoid fejünk vagy az ETHEA társaságunk fejlesztési irányvonalához. A humanoid robotok és a társas AI platformunk nem kapcsolódik közvetlenül az egészségügyi bootcamp programokhoz.",
+        "entity": "Pannon Business Network Association (HU non-profit), mivel a pályázat non-profit szervezeteket keres, de a projekt nem releváns számunkra.",
         "partners": [],
         "risks": [
-          "Nincs releváns tapasztalatunk az oktatási bootcampek lebonyolításában.",
-          "A pályázat nem keres technológiai partnereket, így nem tudunk versenyezni.",
-          "A pályázat célja nem illeszkedik a humanoid robotok és az AI platformunkhoz."
+          "A pályázat nem illeszkedik a technológiai fejlesztéseinkhez.",
+          "Nincs releváns tapasztalatunk az egészségügyi bootcamp programok terén.",
+          "A pályázat célja nem a technológiai innovációk fejlesztése."
         ],
-        "next_step": "Nincs szükség további lépésre, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat egészségügyi innovációs bootcampek tervezésére és lebonyolítására vonatkozik."
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja az egészségügyi innovációk piaci bevezetésének támogatása bootcamp programok keretében."
       }
     },
     {
       "id": "found:7e99e83016",
-      "title": "EIT Health RIS Country Representatives Open for applications Deadline: 02 Nov Become an EIT Health Country Representative and help shape the future of healthcare innovation in your country.",
+      "title": "EIT Health RIS Country Representatives",
       "url": "https://eithealth.eu/opportunity/eit-health-country-representatives/",
       "source": "foundation",
       "programme": "EIT Health — Opportunities",
@@ -30081,20 +30071,20 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:26.510488Z",
-      "content_hash": "a68399392be1",
+      "content_hash": "16ce5d7f84bd",
       "ai": {
         "applicable": false,
         "ai_score": 20,
         "confidence": 60,
-        "angle": "A pályázat nem illeszkedik a humanoid robot fejlesztésünkhöz és az ETHEA társalgó AI platformhoz, mivel a fókusz a nemzeti egészségügyi innovációs ökoszisztémák fejlesztésén van, nem pedig technológiai pilot projekteken.",
+        "angle": "A pályázat célja a helyi egészségügyi innovációs ökoszisztémák megerősítése, ami nem illeszkedik a humanoid fej vagy az ETHEA társaságunkhoz kapcsolódó projektjeinkhez.",
         "entity": "Pannon Business Network Association, mivel a pályázat non-profit szervezetek számára van nyitva.",
         "partners": [],
         "risks": [
-          "A pályázat nem a technológiai fejlesztésekre összpontosít, így nem releváns számunkra.",
-          "A pályázat célja a nemzeti innovációs ökoszisztémák támogatása, nem pedig konkrét technológiai megoldások."
+          "A pályázat nem a technológiai fejlesztésekre összpontosít, hanem az egészségügyi innovációs ökoszisztémák fejlesztésére.",
+          "A pályázat nem támogatja a humanoid robotok vagy AI platformok közvetlen fejlesztését."
         ],
         "next_step": "Nincs konkrét lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat célja a nemzeti egészségügyi innovációs ökoszisztémák fejlesztése és támogatása."
+        "summary": "A pályázat célja az egészségügyi innovációs ökoszisztémák megerősítése és a helyi szereplők közötti együttműködés elősegítése."
       }
     },
     {
@@ -30280,7 +30270,7 @@
     },
     {
       "id": "found:17c0d5e01d",
-      "title": "2027 European Prize for Women Innovators: Apply now!",
+      "title": "2027 European Prize for Women Innovators:",
       "url": "https://www.eit.europa.eu/our-activities/opportunities/2027-european-prize-women-innovators-apply-now",
       "source": "foundation",
       "programme": "EIT — Current opportunities (all KICs)",
@@ -30317,16 +30307,20 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:28.598876Z",
-      "content_hash": "d1ac82624661",
+      "content_hash": "f35911dc6ec2",
       "ai": {
         "applicable": false,
         "ai_score": 2,
-        "confidence": 90,
-        "angle": "Ez a pályázat a női innovátorok elismerésére összpontosít, és nem kapcsolódik közvetlenül a humanoid robotok vagy a társas AI platformok fejlesztéséhez. A mi projektjeink, mint az ETHEA vagy az ETHEA Face, nem illeszkednek a pályázat célkitűzéseihez.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
+        "confidence": 80,
+        "angle": "Ez a pályázat a női innovátorok elismerésére összpontosít, és nem kapcsolódik közvetlenül a humanoid robotok vagy a társadalmi kísérő AI fejlesztéséhez. A PBN csoport nem tudna releváns projektet benyújtani a pályázat keretein belül.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
         "partners": [],
-        "risks": [],
-        "next_step": "Nincs további lépés, mivel a pályázat nem alkalmazható számunkra.",
+        "risks": [
+          "Nincs releváns projektötlet a pályázathoz.",
+          "A pályázat nem technológiai fejlesztésekre összpontosít.",
+          "A pályázat célja nem a humanoid robotok vagy AI fejlesztése."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
         "summary": "A pályázat a női innovátorok elismerésére irányul, akik társadalmi, gazdasági és környezeti értéket teremtenek."
       }
     },
@@ -30388,7 +30382,7 @@
     },
     {
       "id": "found:c3344ea569",
-      "title": "Urban Mobility Explained (UMX) Open Call",
+      "title": "Urban Mobility Explained (UMX)",
       "url": "https://www.eit.europa.eu/our-activities/opportunities/urban-mobility-explained-umx-open-call-0",
       "source": "foundation",
       "programme": "EIT — Current opportunities (all KICs)",
@@ -30425,20 +30419,21 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:28.598923Z",
-      "content_hash": "33795622bb01",
+      "content_hash": "b707c44b30b0",
       "ai": {
         "applicable": false,
-        "ai_score": 1,
+        "ai_score": 0,
         "confidence": 20,
-        "angle": "A pályázat a városi mobilitás tudásának fejlesztésére és a fenntartható szakmai képzések támogatására összpontosít, ami nem illeszkedik a humanoid robot fejlesztéséhez vagy a társas AI platformunkhoz.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
+        "angle": "A pályázat a városi mobilitás oktatására és támogatására összpontosít, ami nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz. Nincs releváns átfedés a projektjeink és a pályázat céljai között.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
         "partners": [],
         "risks": [
           "A pályázat témája nem kapcsolódik a humanoid robotokhoz vagy a társas AI-hoz.",
-          "Nincs lehetőségünk a pályázat keretein belül releváns projektet benyújtani."
+          "Nincs releváns tapasztalatunk a városi mobilitás oktatásában.",
+          "A pályázat célcsoportja eltér a mi célcsoportunktól."
         ],
-        "next_step": "Nincs konkrét lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat a városi mobilitás tudásának fejlesztésére és fenntartható képzések támogatására irányul."
+        "next_step": "Nincs szükség további lépésre, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a városi mobilitás tudásának fejlesztésére és oktatására irányul."
       }
     },
     {
@@ -30547,7 +30542,7 @@
     },
     {
       "id": "found:5cecffe910",
-      "title": "Student Entrepreneur Grant Scheme (SEGS) Open Call",
+      "title": "Student Entrepreneur Grant Scheme (SEGS)",
       "url": "https://www.eit.europa.eu/our-activities/opportunities/student-entrepreneur-grant-scheme-segs-open-call",
       "source": "foundation",
       "programme": "EIT — Current opportunities (all KICs)",
@@ -30584,17 +30579,17 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:28.598982Z",
-      "content_hash": "24b0aec5f540",
+      "content_hash": "daa33f57c889",
       "ai": {
         "applicable": false,
         "ai_score": 0,
-        "confidence": 90,
-        "angle": "Ez a pályázat diákoknak és friss diplomásoknak szól, akik innovatív projekteken dolgoznak, így nem illeszkedik a humanoid robot fejünkhöz vagy az ETHEA társaságunkhoz kapcsolódó terveinkhez.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem a mi célcsoportunk.",
+        "confidence": 10,
+        "angle": "Ez a pályázat diákoknak és friss diplomásoknak szól, akik innovatív projekteken dolgoznak, és nem kapcsolódik a humanoid robotokhoz vagy a társas AI platformokhoz.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem a mi szakterületünkre vonatkozik.",
         "partners": [],
         "risks": [],
         "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat célja, hogy anyagi támogatást nyújtson diákoknak innovatív projektjeik fejlesztéséhez."
+        "summary": "A pályázat célja, hogy pénzügyi támogatást nyújtson diákoknak innovatív projektek fejlesztésére."
       }
     },
     {
@@ -30759,7 +30754,7 @@
     },
     {
       "id": "found:9a42f8b847",
-      "title": "Skills-based Continuous Professional Development (CPD) courses Open Call",
+      "title": "Skills-based Continuous Professional Development (CPD) courses",
       "url": "https://www.eit.europa.eu/our-activities/opportunities/skills-based-continuous-professional-development-cpd-courses-open-call",
       "source": "foundation",
       "programme": "EIT — Current opportunities (all KICs)",
@@ -30796,22 +30791,22 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:28.599091Z",
-      "content_hash": "b499d46adc13",
+      "content_hash": "8e6bad43e06e",
       "ai": {
         "applicable": false,
-        "ai_score": 0,
-        "confidence": 20,
-        "angle": "A pályázat a hang- és audiovizuális média szektorban történő készségfejlesztésre összpontosít, amely nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz. A mi projektjeink, mint az ETHEA vagy a humanoid fej, nem illeszkednek a pályázat által megcélzott területekhez.",
+        "ai_score": 1,
+        "confidence": 10,
+        "angle": "A pályázat a folyamatos szakmai fejlődéshez szükséges képzések támogatására vonatkozik az audiovizuális média szektorban, amely nem illeszkedik a humanoid robotok vagy a társas AI platform fejlesztéséhez.",
         "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
         "partners": [],
         "risks": [],
-        "next_step": "Nincs szükség további lépésre, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat célja a készségfejlesztő képzések támogatása az audiovizuális média szektorban."
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns.",
+        "summary": "A pályázat az audiovizuális média szektor számára készített folyamatos szakmai fejlődési képzések támogatására vonatkozik."
       }
     },
     {
       "id": "found:a57e7501b8",
-      "title": "Financial Support To Startups Open Call 2026",
+      "title": "Financial Support To Startups",
       "url": "https://www.eit.europa.eu/our-activities/opportunities/financial-support-startups-open-call-2026",
       "source": "foundation",
       "programme": "EIT — Current opportunities (all KICs)",
@@ -30848,17 +30843,21 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:28.599111Z",
-      "content_hash": "1de33122bfc8",
+      "content_hash": "5a35b067fc8c",
       "ai": {
         "applicable": false,
         "ai_score": 10,
         "confidence": 70,
-        "angle": "A pályázat városi mobilitási kihívásokra összpontosít, míg a mi projektjeink, mint az ETHEA társaság és a humanoid fej, inkább az egészségügyre és az oktatásra vonatkoznak. Nincs releváns átfedés a városi mobilitás és a humanoid robotika között, így nem tudunk hitelesen pályázni.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
+        "angle": "A pályázat a városi mobilitásra összpontosít, amely nem illeszkedik a humanoid robotok vagy a társas AI fejlesztéséhez. Jelenleg nem látunk releváns kapcsolatot a mi projektjeink és a pályázat célkitűzései között.",
+        "entity": "Nincs megfelelő entitásunk, mivel a pályázat kifejezetten startupokra vonatkozik, és nem illeszkedik a mi tevékenységi körünkhöz.",
         "partners": [],
-        "risks": [],
-        "next_step": "Nincs további lépés, mivel a pályázat nem alkalmazható számunkra.",
-        "summary": "A pályázat célja, hogy pénzügyi támogatást nyújtson startupoknak, amelyek innovatív megoldásokat fejlesztenek a városi mobilitás terén."
+        "risks": [
+          "A pályázat nem a mi szakterületünkre vonatkozik.",
+          "A pályázat célja a városi mobilitás, amely nem kapcsolódik a humanoid robotokhoz.",
+          "A pályázat startupokra vonatkozik, nem alkalmazható a mi szervezetünkre."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja a városi mobilitási kihívásokra irányuló innovatív megoldások támogatása startupok számára."
       }
     },
     {
@@ -31308,7 +31307,7 @@
     },
     {
       "id": "found:cfc469a8bc",
-      "title": "Culture and society Other projects 2026 Open",
+      "title": "Culture and society Other projects 2026",
       "url": "https://villumfonden.dk/en/group/channel/other-projects-2026",
       "source": "foundation",
       "programme": "Villum Fonden — Open calls",
@@ -31348,19 +31347,19 @@
         "applicable": false,
         "ai_score": 1,
         "confidence": 20,
-        "angle": "A pályázat a kultúra és társadalom területén jelentős kezdeményezések támogatására vonatkozik, amelyek nem kapcsolódnak közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, így a mi projektötleteink nem illeszkednek a felhívás céljaihoz.",
+        "angle": "A pályázat a kultúra és társadalom területén valósít meg projekteket, amelyek nem kapcsolódnak közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, így a mi projektötleteink, mint az ETHEA vagy az ETHEA Face, nem illeszkednek ide.",
         "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
         "partners": [],
         "risks": [],
-        "next_step": "Nincs további lépés, mivel a pályázat nem alkalmazható számunkra.",
-        "summary": "A pályázat a kultúra és társadalom területén innovatív projekteket támogat, amelyek a fenntarthatóságra és a közegészségügyre összpontosítanak."
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a kultúra és társadalom területén jelentős kezdeményezések támogatására irányul, amelyek a friss levegő és a fenntarthatóság aspektusait hangsúlyozzák."
       },
       "first_seen": "2026-09-22T07:15:56.154975Z",
-      "content_hash": "b73fc4e38f02"
+      "content_hash": "34faa88390eb"
     },
     {
       "id": "found:42d4fcd30e",
-      "title": "Children, youth and science in Denmark GRO - Inspiring science and technology courses 2026 Open",
+      "title": "Children, youth and science in Denmark GRO - Inspiring science and technology courses 2026",
       "url": "https://villumfonden.dk/en/group/channel/gro-inspiring-science-and-technology-courses-2026",
       "source": "foundation",
       "programme": "Villum Fonden — Open calls",
@@ -31399,20 +31398,20 @@
       "ai": {
         "applicable": false,
         "ai_score": 0,
-        "confidence": 20,
-        "angle": "A pályázat a dán gyermekek és fiatalok tudományos és technológiai oktatásának inspirálására összpontosít, ami nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, így nem tudunk releváns projektötlettel előállni.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
+        "confidence": 10,
+        "angle": "Ez a pályázat a dán gyermekek és fiatalok tudományos és technológiai oktatásának inspirálására összpontosít, ami nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, amelyeket fejlesztünk.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
         "partners": [],
         "risks": [],
-        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat célja a gyermekek és fiatalok tudományos és technológiai oktatásának támogatása Dániában."
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns.",
+        "summary": "A pályázat a dán gyermekek és fiatalok tudományos és technológiai kurzusainak inspirálására vonatkozik."
       },
       "first_seen": "2026-09-22T07:15:56.155043Z",
-      "content_hash": "87e9795f6c3a"
+      "content_hash": "0e4f78e16bdc"
     },
     {
       "id": "found:84719cb9e7",
-      "title": "Children, youth and science in Denmark Makerspace 2027 Technology and hands-on expertise Deadline 12 January 2027 14:00 Open",
+      "title": "Children, youth and science in Denmark Makerspace 2027 Technology and hands-on expertise",
       "url": "https://villumfonden.dk/en/group/channel/makerspace-2027",
       "source": "foundation",
       "programme": "Villum Fonden — Open calls",
@@ -31451,16 +31450,16 @@
       "ai": {
         "applicable": false,
         "ai_score": 0,
-        "confidence": 20,
-        "angle": "A pályázat a dániai gyerekek, fiatalok és tudomány témájára összpontosít, amely nem illeszkedik a humanoid robotok vagy a társas AI fejlesztéséhez. Nincs releváns kapcsolat a mi projektjeinkkel.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
+        "confidence": 10,
+        "angle": "A pályázat a dániai gyerekek, fiatalok és tudomány témájában készült, amely nem kapcsolódik a humanoid robotokhoz vagy a társas AI platformokhoz. Nincs relevancia a mi projektjeink számára.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
         "partners": [],
         "risks": [],
-        "next_step": "Nincs további lépés, mivel a pályázat nem alkalmazható számunkra.",
-        "summary": "A pályázat a gyerekek, fiatalok és tudomány témájában technológiai és gyakorlati szakértelmet támogat Dánia területén."
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a gyerekek, fiatalok és tudomány témájában készült dániai makerspace technológiákra és gyakorlati tapasztalatokra vonatkozik."
       },
       "first_seen": "2026-09-22T07:15:56.155100Z",
-      "content_hash": "a2eb4be942ca"
+      "content_hash": "f82b6865c05f"
     },
     {
       "id": "found:c544206961",
@@ -34680,6 +34679,737 @@
       },
       "first_seen": "2026-09-22T07:15:59.285822Z",
       "content_hash": "f12870f50b1a"
+    },
+    {
+      "id": "found:86c4aef41d",
+      "title": "Antragstellung möglich ab dem 01.11.2026",
+      "url": "https://www.daimler-benz-stiftung.de/format/bertha-benz-preis/",
+      "source": "foundation",
+      "programme": "Daimler und Benz Stiftung — Förderung",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 15000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "Die Daimler und Benz Stiftung zeichnet mit dem „Bertha-Benz-Preis“ jährlich eine Ingenieurin aus, die eine herausragende Promotion in Deutschland mit Dr.-Ing. abgeschlossen hat. Ziel ist es, auf die Leistungen von Frauen in den Ingenieurwissenschaften hinzuweisen und diese zu ermuntern, nach einem S",
+      "country": "DE",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 10,
+        "angle": "Ez a pályázat a női mérnökök elismerésére és ösztönzésére irányul, nem kapcsolódik a humanoid robotokhoz vagy a társas AI platformokhoz, így nem tudunk releváns projektötlettel jelentkezni.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem a mi szakterületünkhöz kapcsolódik.",
+        "partners": [],
+        "risks": [],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja a női mérnökök elismerése és ösztönzése a mérnöki tudományok területén."
+      },
+      "first_seen": "2026-09-22T08:04:46.060807Z",
+      "content_hash": "65004affa679"
+    },
+    {
+      "id": "found:8291bea6ab",
+      "title": "Körber-Preis für die Europäische Wissenschaft Die finnische Medizinerin und Zellbiologin Sara Wickström hat für ihre Forschung am 18. September im Hamburger Rathaus den mit einer Million Euro dotierte",
+      "url": "https://koerber-stiftung.de/projekte/koerber-preis-fuer-die-europaeische-wissenschaft/alle-preistraeger-innen/2026-sara-wickstroem/",
+      "source": "foundation",
+      "programme": "Körber-Stiftung — News & Calls",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "Foto: Marcus Gloger/Körber-Stiftung i Sara Wickström Sara Wickström erhält Körber-Preis 2026 Die finnische Medizinerin und Zellbiologin Sara Wickström erhält den mit einer Million Euro dotierten Körber-Preis für die Europäische Wissenschaft. Sie entdeckte einen bislang unbekannten Mechanismus, mit d",
+      "country": "DE",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 20,
+        "angle": "A Körber-Preis a mechanobiológia területén végzett kutatásokra összpontosít, amelyek nem kapcsolódnak közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, így nem tudunk releváns projektötlettel előállni.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
+        "partners": [],
+        "risks": [
+          "A pályázat témája nem illeszkedik a technológiai fejlesztéseinkhez.",
+          "Nincs releváns projektötlet, amely a pályázat céljait szolgálná."
+        ],
+        "next_step": "Figyelni kell a jövőbeli pályázati lehetőségeket, amelyek jobban illeszkednek a profilunkhoz.",
+        "summary": "A Körber-Preis a mechanobiológiai kutatásokra és új terápiák fejlesztésére összpontosít."
+      },
+      "first_seen": "2026-09-22T08:04:59.903886Z",
+      "content_hash": "81d07614158b"
+    },
+    {
+      "id": "found:49318e17f5",
+      "title": "Neue KI.Stimme: Prof. Dr. Karin Küffmann (Hochschule Gelsenkirchen), Mitglied des Leitungsgremiums der KI-Initiative für Kommunen »URBAN.KI«",
+      "url": "https://www.ki.nrw/neue-ki-stimme-karin-kueffmann/",
+      "source": "foundation",
+      "programme": "KI.NRW — Aktuelles & Calls",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "Prof. Dr. Karin Küffmann Prof. Dr. Karin Küffmann ist Professorin für Wirtschaftsinformatik an der Westfälischen Hochschule in Gelsenkirchen und Mitglied des Leitungsgremiums der deutschen KI-Initiative für Kommunen »URBAN.KI« zurück »Eingebettete KI, insbesondere im industriellen Umfeld, bietet für",
+      "country": "DE",
+      "fit_score": 4,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 4,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 4.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 20,
+        "confidence": 50,
+        "angle": "A pályázat a városi intelligens megoldásokra összpontosít, míg a humanoid robot fej és a társas AI platformunk nem illeszkedik a városi környezetek digitális megoldásainak fejlesztéséhez. A projektünk nem találkozik a városi kihívásokkal, amelyeket a pályázat céloz.",
+        "entity": "PBN Germany GmbH, mivel a pályázat német alapítvány által van kiírva.",
+        "partners": [],
+        "risks": [
+          "A pályázat témája nem kapcsolódik a humanoid robotikához vagy a társas AI-hoz.",
+          "A pályázat célja a városi intelligens megoldások, ami nem a mi szakterületünk.",
+          "Nincs konkrét partneri lehetőség a projektünk számára."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat városi intelligens megoldások fejlesztésére összpontosít, különösen a mesterséges intelligencia alkalmazására a városi környezetekben."
+      },
+      "first_seen": "2026-09-22T08:05:45.360250Z",
+      "content_hash": "505151f7ac22"
+    },
+    {
+      "id": "found:79e0448cd6",
+      "title": "Zweite Konferenz der KI.NRW-Flagship-Initiative bringt nordrhein-westfälische KI-Leuchtturmprojekte nach Bonn",
+      "url": "https://www.ki.nrw/zweite-konferenz-der-ki-nrw-flagship-initiative-bringt-nordrhein-westfaelische-ki-leuchtturmprojekte-nach-bonn/",
+      "source": "foundation",
+      "programme": "KI.NRW — Aktuelles & Calls",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "News-Eintrag · KI.NRW-Flagships Zweite Konferenz der KI.NRW-Flagship-Initiative bringt nordrhein-westfälische KI-Leuchtturmprojekte nach Bonn 26.06.2024 Acht Konsortialvorhaben, 47 Projektpartner, ein Ziel: Innovationstreiber »powered by KI.NRW« bündeln Kräfte für projektübergreifende Zusammenarbeit",
+      "country": "DE",
+      "fit_score": 15,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 15,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 15.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 15,
+        "confidence": 30,
+        "angle": "A KI.NRW kezdeményezés célja a különböző iparágakban, például az orvostudományban és a gyártásban végzett alkalmazásorientált mesterséges intelligencia projektek támogatása. A humanoid fej és az ETHEA társaságunk nem illeszkedik a megadott témákhoz, így nem tudunk releváns projektötlettel előállni.",
+        "entity": "PBN Germany GmbH, mivel a németországi alapítványi forrásokhoz való hozzáférés érdekében szükség van egy for-profit entitásra.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem illeszkedik a tevékenységi körünkhöz.",
+          "Nincs releváns projektpartner, akivel együttműködhetnénk."
+        ],
+        "next_step": "Nincs konkrét lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a nordrhein-westfälische KI-Leuchtturmprojekte támogatására irányul."
+      },
+      "first_seen": "2026-09-22T08:05:45.360386Z",
+      "content_hash": "85acd60994a8"
+    },
+    {
+      "id": "found:c96b360293",
+      "title": "Wissenschaftler des HLRS gewinnen Forschungsposter-Preis auf der ISC26",
+      "url": "https://www.hlrs.de/de/news/detail/wissenschaftler-des-hlrs-gewinnen-forschungsposter-preis-auf-der-isc26",
+      "source": "foundation",
+      "programme": "HLRS — News & Calls (Stuttgart)",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "Höchstleistungsrechenzentrum Stuttgart Lösungen Lösungen Rechentypen Höchstleistungsrechnen & Simulation Visualisierung Künstliche Intelligenz Quantencomputing Systeme HPE Cray EX4000 (Hunter) NVIDIA GB200 NVL4 by HPE (HammerHAI) HPE Cray GX5000 (Herder) NEC Cluster (Vulcan) HPE Apollo 6500 Gen10 Pl",
+      "country": "DE",
+      "fit_score": 15,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 15,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 15.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 15,
+        "confidence": 20,
+        "angle": "Ez a pályázat a legújabb kutatási eredmények bemutatására összpontosít a szuperkomputáció és az AI területén, ami nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, amelyeket fejlesztünk.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
+        "partners": [],
+        "risks": [],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a szuperkomputáció és a mesterséges intelligencia kutatásának támogatására irányul."
+      },
+      "first_seen": "2026-09-22T08:05:50.818044Z",
+      "content_hash": "6e5191896930"
+    },
+    {
+      "id": "found:d35f4fcce2",
+      "title": "Next Frontier Robotics",
+      "url": "https://www.sprind.org/en/actions/challenges/next-frontier-robotics",
+      "source": "foundation",
+      "programme": "SPRIND — Challenges & funding (DE)",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-10-22",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 7200000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "Apply now Your Challenge: Next Frontier Robotics Topic Goal Participate Webinar FAQ Contact Hello, innovators! We need technological breakthroughs to unlock the next S-curve of multi-purpose robotics made in Europe. We need bold approaches and the ambition to move from demos to real-world impact. We",
+      "country": "DE",
+      "fit_score": 55,
+      "fit_verdict": "Good fit",
+      "fit_theme": "humanoid_head",
+      "fit_theme_label": "Humanoid head & expressive HRI",
+      "fit_breakdown": {
+        "theme": 35,
+        "packs": 2,
+        "instrument": 8,
+        "conditions": 10,
+        "penalty": 0
+      },
+      "interest_score": 55.0,
+      "interest_hits": [
+        "title: robotics",
+        "body: robot",
+        "body: robots",
+        "body: sensors",
+        "body: ai"
+      ],
+      "interest_for": [
+        "Humanoid head & expressive HRI"
+      ],
+      "ai": {
+        "applicable": true,
+        "ai_score": 65,
+        "confidence": 75,
+        "angle": "A projektünk célja egy moduláris, interoperábilis humanoid robot fej kifejlesztése, amely képes komplex fizikai feladatok elvégzésére valós környezetben, különösen az egészségügyi és oktatási alkalmazások terén. Az ETHEA platformunk integrálása lehetővé tenné a társadalmi interakciók és a funkcionális empátia fejlesztését, amely a demográfiai kihívásokra és a munkaerőhiányra reagál.",
+        "entity": "PBN Germany GmbH, mivel a pályázat for-profit SME-k számára is nyitott, és a németországi székhelyünk révén közvetlenül részt vehetünk a projektben.",
+        "partners": [
+          "egyetemi kutatóintézetek",
+          "egészségügyi intézmények",
+          "robotikai technológiai cégek"
+        ],
+        "risks": [
+          "a pályázat erős versenyben áll más innovatív projektekkel",
+          "a projekt megvalósítása során a technológiai integráció kihívásai",
+          "a pályázati feltételek szigorú értékelése"
+        ],
+        "next_step": "Vegyük fel a kapcsolatot a SPRIND képviselőivel a pályázati követelmények pontosításáért.",
+        "summary": "A pályázat célja áttörő innovációk támogatása a következő generációs robotikai platformok és hardverkomponensek fejlesztésében."
+      },
+      "first_seen": "2026-09-22T08:06:08.159525Z",
+      "content_hash": "d7d60120d2a3"
+    },
+    {
+      "id": "found:9bfa21da1a",
+      "title": "Recoding Medicine",
+      "url": "https://www.sprind.org/en/actions/challenges/recoding-medicine",
+      "source": "foundation",
+      "programme": "SPRIND — Challenges & funding (DE)",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-10-16",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 550000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "Apply now Your Challenge: Recoding Medicine Topic Goal Participate Webinar FAQ Contact Hello, innovators! We need breakthrough innovations to unlock Europe's fragmented health data for AI and to prove its value through concrete medical applications. We need bold teams that turn untapped datasets int",
+      "country": "DE",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 20,
+        "angle": "A hívás a meglévő egészségügyi adatok AI általi felhasználására összpontosít, ami nem illeszkedik a humanoid robotfej vagy az ETHEA társalgó platform fejlesztéséhez, mivel a fókusz a diagnosztikán és a terápiákon van, nem pedig a társadalmi interakciókon.",
+        "entity": "Nincs megfelelő entitás, mivel a hívás nem illeszkedik a profilunkhoz.",
+        "partners": [],
+        "risks": [],
+        "next_step": "Nincs további lépés, mivel a hívás nem releváns számunkra.",
+        "summary": "A hívás célja, hogy áttörő innovációkat támogasson az egészségügyi adatok AI általi felhasználásában, különös figyelmet fordítva a diagnosztikára és a terápiákra."
+      },
+      "first_seen": "2026-09-22T08:06:08.159604Z",
+      "content_hash": "672b60c61714"
+    },
+    {
+      "id": "found:2fbcd15327",
+      "title": "Orbital Bioworks",
+      "url": "https://www.sprind.org/en/actions/challenges/orbital-bioworks",
+      "source": "foundation",
+      "programme": "SPRIND — Challenges & funding (DE)",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 1650000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "1st stage of the Challenge Your Challenge: Orbital Bioworks Topic Goal Teams Jury FAQ Contact Hello, innovators! We need breakthrough innovations to unlock the potential of microgravity for drug development and biomanufacturing. We need bold approaches and the will to put them into orbit. We need yo",
+      "country": "DE",
+      "fit_score": 33,
+      "fit_verdict": "",
+      "fit_theme": "space_companion",
+      "fit_theme_label": "Space crew companion",
+      "fit_breakdown": {
+        "theme": 15,
+        "packs": 0,
+        "instrument": 8,
+        "conditions": 10,
+        "penalty": 0
+      },
+      "interest_score": 33.0,
+      "interest_hits": [
+        "title: orbital",
+        "body: microgravity",
+        "body: in-orbit",
+        "body: space",
+        "body: exploration",
+        "body: monitoring",
+        "(no robot / HRI signal)"
+      ],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 33,
+        "confidence": 50,
+        "angle": "A humanoid fej és az ETHEA platformunk nem illeszkedik a mikrogravitációs gyógyszerfejlesztés és biogyártás területéhez, amely a pályázat középpontjában áll. A projektünk nem felel meg a kihívás által megfogalmazott céloknak, így nem tudnánk hitelesen pályázni.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
+        "partners": [],
+        "risks": [],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja áttörő innovációk fejlesztése a mikrogravitációs gyógyszerfejlesztés és biogyártás területén."
+      },
+      "first_seen": "2026-09-22T08:06:08.159690Z",
+      "content_hash": "ff3ec1339cd9"
+    },
+    {
+      "id": "found:f963bfe34a",
+      "title": "Continuous Hormone Monitoring",
+      "url": "https://www.sprind.org/en/actions/challenges/continuous-hormone-monitoring",
+      "source": "foundation",
+      "programme": "SPRIND — Challenges & funding (DE)",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 25000000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "1st stage of the Challenge Your Challenge: Continuous Hormone Monitoring Topic Goal Teams Jury FAQ Contact Hello people with radical new ideas! We need breakthrough innovations to measure hormones. Continuously. Precisely. Personalized. We need bold ideas. We need you. Copy link to section: Hormones",
+      "country": "DE",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 10,
+        "angle": "A pályázat célja a hormonok folyamatos monitorozásának fejlesztése, ami nem illeszkedik a humanoid robotfej vagy az ETHEA társalgó platformunk fejlesztési irányaihoz.",
+        "entity": "Nincs megfelelő entitásunk, mivel a pályázat nem releváns számunkra.",
+        "partners": [],
+        "risks": [],
+        "next_step": "Nincs további lépés, mivel a pályázat nem alkalmazható számunkra.",
+        "summary": "A pályázat a hormonok folyamatos, pontos és személyre szabott mérésére irányuló áttörő innovációk fejlesztését támogatja."
+      },
+      "first_seen": "2026-09-22T08:06:08.159745Z",
+      "content_hash": "60ed362c67ef"
+    },
+    {
+      "id": "found:76c3560b32",
+      "title": "Next Frontier AI",
+      "url": "https://www.sprind.org/en/actions/challenges/next-frontier-ai",
+      "source": "foundation",
+      "programme": "SPRIND — Challenges & funding (DE)",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 155000000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "1st stage of the Challenge Your Challenge: Next Frontier AI Topic Goal Teams Jury FAQ Contact We are looking for the leap to the next S-curve of artificial intelligence. Disruptive approaches with the potential to fundamentally surpass the capabilities of today's systems. We need bold teams. We need",
+      "country": "DE",
+      "fit_score": 35,
+      "fit_verdict": "Worth a look",
+      "fit_theme": "veterans",
+      "fit_theme_label": "Companion for war veterans & trauma",
+      "fit_breakdown": {
+        "theme": 15,
+        "packs": 1,
+        "instrument": 8,
+        "conditions": 10,
+        "penalty": 0
+      },
+      "interest_score": 35.0,
+      "interest_hits": [
+        "body: veteran",
+        "body: veterans",
+        "title: ai",
+        "body: support",
+        "(no robot / HRI signal)"
+      ],
+      "interest_for": [
+        "Companion for war veterans & trauma"
+      ],
+      "ai": {
+        "applicable": false,
+        "ai_score": 35,
+        "confidence": 60,
+        "angle": "A pályázat célja a következő generációs mesterséges intelligencia rendszerek fejlesztése, amely nem illeszkedik a humanoid robotok és társas AI platformok területéhez, így a mi projektünk nem releváns.",
+        "entity": "PBN Germany GmbH, mivel a pályázat for-profit SME-k számára van nyitva, de a projekt nem illeszkedik a profilunkba.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem a humanoid robotok vagy társas AI fejlesztésére összpontosít.",
+          "A pályázat célja a radikális innováció, ami nem a mi erősségünk.",
+          "A pályázat nem kínál lehetőséget a humanoid robotok alkalmazására."
+        ],
+        "next_step": "Nincs konkrét lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a következő generációs mesterséges intelligencia rendszerek fejlesztésére összpontosít, amelyek radikálisan túllépnek a jelenlegi megoldásokon."
+      },
+      "first_seen": "2026-09-22T08:06:08.159800Z",
+      "content_hash": "a04307111ad0"
+    },
+    {
+      "id": "found:7888e1a8dc",
+      "title": "Tech Metal Transformation",
+      "url": "https://www.sprind.org/en/actions/challenges/tech-metal",
+      "source": "foundation",
+      "programme": "SPRIND — Challenges & funding (DE)",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 2500000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "1st stage of the Challenge Your Challenge: Tech Metal Transformation Topic Goal Teams Jury FAQ Contact Hello, innovators! We need breakthrough innovations to develop processes for recovering critical metals from complex waste streams. We need bold ideas. We need you. Copy link to section: Critical m",
+      "country": "DE",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 20,
+        "angle": "A pályázat a kritikus fémek újrahasznosítására összpontosít, ami nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, így nem tudunk releváns projektötlettel előállni.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
+        "partners": [],
+        "risks": [
+          "Nincs releváns technológiai vagy tematikai átfedés a pályázat és a projektjeink között.",
+          "A pályázat célja nem illeszkedik a humanoid robotok és a társas AI fejlesztéséhez."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja innovatív folyamatok kifejlesztése a kritikus fémek újrahasznosítására komplex hulladékáramokból."
+      },
+      "first_seen": "2026-09-22T08:06:08.159869Z",
+      "content_hash": "4356d1d30c29"
+    },
+    {
+      "id": "found:e5d80ade9d",
+      "title": "Composite Learning",
+      "url": "https://www.sprind.org/en/actions/challenges/composite-learning",
+      "source": "foundation",
+      "programme": "SPRIND — Challenges & funding (DE)",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 600000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "2nd stage of the Challenge Your Challenge: Composite Learning Topic Goal Teams Jury FAQ Contact Hello, innovators! We need breakthrough innovations to train AI models across decentralized and heterogenous nodes. We need bold ideas. We need you. Copy link to section: AI is revolutionizing industries ",
+      "country": "DE",
+      "fit_score": 1,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 1,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 1.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 20,
+        "angle": "A felhívás a decentralizált és heterogén rendszerek közötti AI modellek képzésére összpontosít, ami nem illeszkedik a humanoid robotfej vagy az ETHEA társalgó platformunk fejlesztési irányaihoz.",
+        "entity": "Nincs megfelelő entitás, mivel a felhívás nem releváns számunkra.",
+        "partners": [],
+        "risks": [
+          "A felhívás témája nem kapcsolódik a humanoid robotokhoz vagy a társalgó AI-hoz.",
+          "Nincs lehetőségünk a pályázatban való részvételre, mivel a célok nem egyeznek meg a mi projektjeinkkel."
+        ],
+        "next_step": "Nincs további lépés, mivel a felhívás nem releváns számunkra.",
+        "summary": "A felhívás decentralizált AI modellek képzésére irányul, nem kapcsolódik a humanoid robotokhoz vagy társalgó AI-hoz."
+      },
+      "first_seen": "2026-09-22T08:06:08.159931Z",
+      "content_hash": "551db629d77e"
+    },
+    {
+      "id": "found:caa76edc18",
+      "title": "Circular Biomanufacturing",
+      "url": "https://www.sprind.org/en/actions/challenges/biomanufacturing",
+      "source": "foundation",
+      "programme": "SPRIND — Challenges & funding (DE)",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 25000000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "3rd stage of the Challenge Your Challenge: Circular Biomanufacturing Topic Goal Teams The Jury FAQ Contact Hello people with radical new ideas! We need breakthrough innovations to convert waste streams directly into new products. Local. Environmentally friendly. Sustainable. We need bold ideas. We n",
+      "country": "DE",
+      "fit_score": 4,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 4,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 4.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 4,
+        "confidence": 20,
+        "angle": "A pályázat a körkörös biogyártásra összpontosít, amely nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, így nem tudunk releváns projektötlettel előállni.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
+        "partners": [],
+        "risks": [
+          "A pályázat témája nem illeszkedik a tevékenységeinkhez.",
+          "Nincs releváns technológiai vagy innovációs szál, amelyben részt tudnánk venni."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem alkalmazható számunkra.",
+        "summary": "A pályázat célja, hogy áttörő innovációkat támogasson, amelyek a hulladékáramok közvetlen új termékekké való átalakítására összpontosítanak."
+      },
+      "first_seen": "2026-09-22T08:06:08.160009Z",
+      "content_hash": "0bcd74a66028"
     }
   ]
 }
