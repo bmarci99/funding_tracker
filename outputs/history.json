@@ -22291,12 +22291,12 @@
       "source": "portal",
       "programme": "I3",
       "call_id": "",
-      "call_title": "I3FLOAT 1st Open Call ",
+      "call_title": "IH MIE - Open Call",
       "status": "Open",
       "action_type": "",
       "deadline_model": "single-stage",
-      "opening_date": "2026-09-07",
-      "deadline": "2026-11-10",
+      "opening_date": "2026-07-06",
+      "deadline": "2026-09-25",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -22323,7 +22323,7 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:11:22.788137Z",
-      "content_hash": "7b1eccc1a91a",
+      "content_hash": "bcceb66cd6ad",
       "ai": {}
     },
     {
@@ -24800,7 +24800,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-09-22",
+      "deadline": "2026-09-23",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -24827,17 +24827,17 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:11:53.121457Z",
-      "content_hash": "98b60152a074",
+      "content_hash": "3aac8989d3f4",
       "ai": {
         "applicable": false,
         "ai_score": 4,
         "confidence": 20,
-        "angle": "A pályázat témája a történelmi étkezés és ivás, ami nem kapcsolódik a humanoid robotokhoz vagy a társadalmi AI platformokhoz. Nincs relevancia a projektjeink szempontjából.",
+        "angle": "A pályázat a történelmi kutatásokra összpontosít, különösen az étkezés és ivás történetére, ami nem kapcsolódik a humanoid robotokhoz vagy a társadalmi AI platformokhoz. Nincs relevancia a mi projektjeinkhez, mint például az ETHEA vagy a humanoid fej.",
         "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
         "partners": [],
         "risks": [],
         "next_step": "Nincs további lépés, mivel a pályázat nem alkalmazható.",
-        "summary": "A pályázat a történelmi étkezés és ivás kutatására vonatkozó versenyt hirdet fiatalok számára."
+        "summary": "A pályázat a gyermekek és fiatalok történelmi kutatásait támogatja az étkezés és ivás témájában."
       }
     },
     {
@@ -30500,7 +30500,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-09-22",
+      "deadline": null,
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": 500000.0,
@@ -30527,17 +30527,20 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:13:28.598963Z",
-      "content_hash": "412889c6c205",
+      "content_hash": "2e15090861c9",
       "ai": {
         "applicable": false,
-        "ai_score": 0,
-        "confidence": 90,
-        "angle": "Ez a pályázat a Kulturális és Kreatív Szektorokban működő startupok és skálázódó vállalkozások növekedését és nemzetközi terjeszkedését célozza meg, ami nem illeszkedik a humanoid robotok és társas AI platformok fejlesztéséhez.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
+        "ai_score": 10,
+        "confidence": 70,
+        "angle": "A pályázat a kulturális és kreatív iparban működő startupok és skálázódó vállalkozások növekedését és nemzetközi terjeszkedését célozza, ami nem illeszkedik a humanoid robotfej vagy az ETHEA társaságunkhoz kapcsolódó projektjeinkhez.",
+        "entity": "PBN Germany GmbH, mivel a pályázat for-profit entitások számára van fenntartva.",
         "partners": [],
-        "risks": [],
-        "next_step": "Nincs további lépés, mivel a pályázat nem alkalmazható számunkra.",
-        "summary": "A pályázat célja a kulturális és kreatív szektorokban működő vállalkozások növekedésének és nemzetközi terjeszkedésének támogatása."
+        "risks": [
+          "A pályázat témája nem kapcsolódik a humanoid robotokhoz vagy a társasági AI-hoz.",
+          "A pályázat célcsoportja nem illeszkedik a mi tevékenységi körünkhöz."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a kulturális és kreatív iparban működő startupok és skálázódó vállalkozások növekedését és nemzetközi terjeszkedését támogatja."
       }
     },
     {
@@ -31421,7 +31424,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-09-22",
+      "deadline": "2027-01-12",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": 10720000.0,
@@ -31451,15 +31454,15 @@
         "applicable": false,
         "ai_score": 0,
         "confidence": 10,
-        "angle": "A pályázat a dániai gyerekek, fiatalok és tudomány témájában készült, amely nem kapcsolódik a humanoid robotokhoz vagy a társas AI platformokhoz. Nincs relevancia a mi projektjeink számára.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
+        "angle": "A pályázat a dániai gyerekek, fiatalok és tudomány témájára összpontosít, amely nem kapcsolódik a humanoid robotokhoz vagy a társas AI platformokhoz. Nincs relevancia a mi projektjeink szempontjából.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
         "partners": [],
         "risks": [],
-        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat a gyerekek, fiatalok és tudomány témájában készült dániai makerspace technológiákra és gyakorlati tapasztalatokra vonatkozik."
+        "next_step": "Nincs további lépés, mivel a pályázat nem alkalmazható.",
+        "summary": "A pályázat a dániai gyerekek és fiatalok tudományos és technológiai készségeinek fejlesztésére irányul."
       },
       "first_seen": "2026-09-22T07:15:56.155100Z",
-      "content_hash": "f82b6865c05f"
+      "content_hash": "e1ae13b35f53"
     },
     {
       "id": "found:c544206961",
@@ -35410,6 +35413,225 @@
       },
       "first_seen": "2026-09-22T08:06:08.160009Z",
       "content_hash": "0bcd74a66028"
+    },
+    {
+      "id": "HORIZON-EIT-2025-KIC-IBA-UM",
+      "title": "EITURBANMOBILITY Business Plan 2026",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIT-2025-KIC-IBA-UM",
+      "source": "portal",
+      "programme": "HORIZON",
+      "call_id": "",
+      "call_title": "Strategic Innovation Open Call",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "multiple cut-off",
+      "opening_date": "2026-09-22",
+      "deadline": "2027-01-28",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "",
+      "funding_rate_note": "",
+      "tags": [
+        "cascade funding"
+      ],
+      "summary": "",
+      "country": "",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {},
+      "first_seen": "2026-09-23T08:10:37.793602Z",
+      "content_hash": "b9d0723a754e"
+    },
+    {
+      "id": "found:9398f6a2c0",
+      "title": "AI-Native Chip Design",
+      "url": "https://www.sprind.org/en/actions/challenges/ai-native-chip-design",
+      "source": "foundation",
+      "programme": "SPRIND — Challenges & funding (DE)",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-11-30",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 70000000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "Apply now Your Challenge: AI-Native Chip Design Topic Goal Participate Webinar FAQ Contact Hello, innovators! Chip design is complex, expensive, and takes years, while AI models emerge in just weeks. We need pioneering teams for whom speed is everything. Teams that make tomorrow’s chip development a",
+      "country": "DE",
+      "fit_score": 76,
+      "fit_verdict": "Strong fit",
+      "fit_theme": "humanoid_head",
+      "fit_theme_label": "Humanoid head & expressive HRI",
+      "fit_breakdown": {
+        "theme": 53,
+        "packs": 5,
+        "instrument": 8,
+        "conditions": 10,
+        "penalty": 0
+      },
+      "interest_score": 76.0,
+      "interest_hits": [
+        "body: humanoid",
+        "body: humanoide roboter",
+        "body: robotics",
+        "body: robotik",
+        "body: roboter",
+        "title: ai"
+      ],
+      "interest_for": [
+        "Humanoid head & expressive HRI"
+      ],
+      "ai": {
+        "applicable": false,
+        "ai_score": 40,
+        "confidence": 60,
+        "angle": "A pályázat célja az AI-natív chipek tervezésének felgyorsítása, ami nem illeszkedik közvetlenül a humanoid fejünk vagy az ETHEA társasági platformunk fejlesztési irányába. A projektünk inkább a társadalmi interakcióra és az egészségügyi alkalmazásokra összpontosít, mintsem a chiptervezésre.",
+        "entity": "PBN Germany GmbH, mivel a pályázat német alapú és a for-profit entitásunk alkalmas lehet a pályázat benyújtására, ha a jövőben releváns technológiai együttműködés merülne fel.",
+        "partners": [
+          "chipgyártó cégek",
+          "AI fejlesztő cégek",
+          "egyetemi kutatóintézetek"
+        ],
+        "risks": [
+          "a pályázat nem a humanoid robotikára összpontosít",
+          "a pályázat célja nem illeszkedik a mi technológiai fejlesztéseinkhez",
+          "a verseny erős a chiptervezés területén"
+        ],
+        "next_step": "Olvassuk át a pályázati feltételeket részletesen, hogy megértsük a potenciális együttműködési lehetőségeket.",
+        "summary": "A pályázat célja az AI-natív chipek tervezési folyamatának drámai felgyorsítása."
+      },
+      "first_seen": "2026-09-23T08:12:22.896322Z",
+      "content_hash": "e7994cbb08af"
+    },
+    {
+      "id": "found:f3a1afbc87",
+      "title": "Richtlinie zur Förderung von Projekten zum Thema „Innovative Herstellung von E-Fuels und CCU-basierten Vorprodukten – Neue Wege für klimaneutrale Kraftstoffe der Zukunft“",
+      "url": "https://www.bmftr.bund.de/SharedDocs/Bekanntmachungen/DE/2026/09/2026-09-22-bekanntmachung-e-fuels.html",
+      "source": "foundation",
+      "programme": "BMFTR (ex-BMBF) — Bekanntmachungen",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-11-30",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "22.09.2026 - 30.11.2026 Bekanntmachung Richtlinie zur Förderung von Projekten zum Thema „Innovative Herstellung von E-Fuels und CCU-basierten Vorprodukten – Neue Wege für klimaneutrale Kraftstoffe der Zukunft“, Bundesanzeiger vom 22.09.2026 Vom 10. September 2026 1 Förderziel, Zuwendungszweck, Recht",
+      "country": "DE",
+      "fit_score": 2,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 2,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 2.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 10,
+        "angle": "Ez a pályázat az E-fuel és CCU technológiák innovatív gyártására összpontosít, ami nem kapcsolódik a humanoid robotokhoz vagy a társas AI platformokhoz, amelyeket fejlesztünk.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
+        "partners": [],
+        "risks": [],
+        "next_step": "Nincs további lépés, mivel a pályázat nem alkalmazható számunkra.",
+        "summary": "A pályázat az E-fuel és CCU technológiák innovatív gyártásának támogatására irányul."
+      },
+      "first_seen": "2026-09-23T08:12:26.670160Z",
+      "content_hash": "57c021ae8fd7"
+    },
+    {
+      "id": "found:81b2812658",
+      "title": "EIT Community Officer in Kosovo",
+      "url": "https://www.eit.europa.eu/our-activities/opportunities/eit-community-officer-kosovo",
+      "source": "foundation",
+      "programme": "EIT — Current opportunities (all KICs)",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-11-15",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "EU"
+      ],
+      "summary": "EIT Culture & Creativity is seeking a qualified legal entity or consortium based in Kosovo to act as the EIT Community Officer (ECO) for the EIT Community Hub in Kosovo for the period 15 November 2026 to 31 December 2027, with a possible 12-month extension in 2028. The selected provider will act as ",
+      "country": "EU",
+      "fit_score": 1,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 1,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 1.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 10,
+        "angle": "A pályázat célja egy EIT Közösségi Iroda létrehozása Koszovóban, amely nem kapcsolódik a humanoid robotokhoz vagy a társadalmi kísérő AI platformokhoz, így nem tudunk releváns projektötlettel előállni.",
+        "entity": "Nincs megfelelő entitásunk, mivel a pályázat Koszovóban bejegyzett jogi személyt keres.",
+        "partners": [],
+        "risks": [
+          "Nincs fizikai jelenlétünk Koszovóban",
+          "A pályázat témája nem illeszkedik a tevékenységeinkhez",
+          "Nincs releváns tapasztalatunk a közösségi irodák működtetésében"
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja egy EIT Közösségi Iroda létrehozása Koszovóban."
+      },
+      "first_seen": "2026-09-23T08:12:31.987545Z",
+      "content_hash": "763af56d7879"
     }
   ]
 }
