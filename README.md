@@ -80,6 +80,45 @@ type. With `profile.entities.nonprofit: true` (HU non-profit today, DE gGmbH pla
 "70 % (100 % for non-profit)" is reported as **100 % (as non-profit)**. Foundations are treated as 100 %.
 `filters.only_full_rate: true` (default) drops anything with a known rate below 100 %; unknown rates are kept and shown.
 
+### Finding your way around
+
+- **🆕 New** means *first seen in the last `digest.new_window_days` (7) days*. A mid-week rerun doesn't
+  wipe the flags. New rows and cards get an amber rule and a tint, and new items are listed best-fit first.
+- **The email** stays under Gmail's ~102 KB clipping limit. Long sections show their most relevant rows, and
+  "… and N more" opens the archive with that filter already applied (`?f=soon`, `?f=new`, `?f=ai`).
+- **The archive page** has a sticky bar with section links and counts, a search box (`/`), and filter chips
+  (New · Matches · AI picks · 100 % · Closing soon) that combine and live in the URL, so a view can be shared.
+  `n` jumps to the next new item and `Esc` clears everything. Clusters collapse, and the page works with JS off.
+- **The archive index** (`docs/index.html`) shows matches, strong, new, AI picks and the call count per
+  digest, from `docs/digests.json`. Each digest page links back to the index and to the previous digest.
+
+### Adding and checking sources
+
+```bash
+uv run python -m funding_tracker.probe --all                     # which feeds are alive
+uv run python -m funding_tracker.probe --feed sprind --details 5 # one feed: titles, deadlines, amounts, fit
+uv run python -m funding_tracker.probe --url https://… --type rss --details 5 --yaml   # try a new source
+```
+Feed types: HTML (selectors or `link_pattern`), `wp-json`, `rss` (RSS 2.0 / Atom), plus an optional
+`title_pattern` to keep only call-like titles.
+
+### Claude Code setup (`.claude/`)
+
+| Agents | What they do |
+|:--|:--|
+| `scout-eu-cascade` · `scout-space` · `scout-health-care` · `scout-education-social` · `scout-national` · `scout-prizes-challenges` · `scout-deeptech-philanthropy` | Each one searches one funding beat and returns probe-verified feed candidates. They never edit the repo. |
+| `feed-engineer` | Adds sources to `config.yaml` and extends the ingesters, with tests |
+| `feed-doctor` | Repairs dead or noisy feeds |
+| `scoring-auditor` | Finds false positives and negatives in the fit score and fixes them at the root |
+| `digest-designer` · `digest-qa` | Owns the look and navigation of the digest, and checks a run before it ships |
+| `code-simplifier` | Cleans up recent changes without changing behaviour |
+
+Project skills: `taste` (house design rules), `expand-sources` (runs the scouts, then integrates), `add-feed`,
+`feed-health`, `run-digest`. Third-party skills (vetted copies): `frontend-design` (Anthropic),
+`design-taste-frontend` (Leonxlnx/taste-skill), `web-design-guidelines` (Vercel), and Superpowers' process
+skills (`brainstorming`, `systematic-debugging`, `test-driven-development`, `verification-before-completion`,
+`writing-plans`, `executing-plans`, `subagent-driven-development`, …).
+
 ## Quick start
 
 ```bash

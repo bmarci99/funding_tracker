@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import re
 from datetime import date as dt_date, timedelta
 from pathlib import Path
 from typing import Dict, List, Set
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from markupsafe import Markup
 
+from ..consortium import solo_bonus as _solo_bonus
 from ..i18n import Translator
 from ..models import Opportunity
 
@@ -28,6 +31,26 @@ def days_left(d: dt_date | None, today: dt_date) -> int | None:
     return (d - today).days if d else None
 
 
+def clip(text: str, n: int) -> str:
+    """Cut at a word boundary and add "…" — only when something was actually cut."""
+    text = " ".join(str(text or "").split())
+    if len(text) <= n:
+        return text
+    cut = text[:n].rsplit(" ", 1)[0].rstrip(",;:–—-")
+    return f"{cut}…"
+
+
+def first_sentence(text: str, n: int = 200) -> str:
+    text = " ".join(str(text or "").split())
+    head = text.split(". ", 1)[0]
+    return clip(head if head.endswith(".") or len(head) == len(text) else head + ".", n)
+
+
+def squeeze(html: str) -> str:
+    """Drop template indentation and blank lines — ~25 % of the email, which must stay under Gmail's 102 KB clip."""
+    return re.sub(r"[ \t]*\n\s*", "\n", html)
+
+
 def render_html(
     opps: List[Opportunity],
     *,
@@ -44,6 +67,8 @@ def render_html(
     lang: str = "en",
     ai_pick_min: int = 55,
     foundation_rows: int = 12,
+    solo_bonus: float = 12,
+    solo_rows: int = 8,
 ) -> str:
     """Render the digest.
 
@@ -61,24 +86,48 @@ def render_html(
     )
     tr = Translator(lang)
     env.filters["eur"] = fmt_eur
+    env.filters["clip"] = clip
+    env.filters["first_sentence"] = first_sentence
     env.filters["rate"] = tr.rate
     env.globals["t"] = tr
     env.filters["days_left"] = lambda d: days_left(d, today)
+
+    def flags(o: Opportunity) -> Markup:
+        """data-f tokens the archive page filters on; the email has no JS, so it doesn't carry them."""
+        if compact:
+            return Markup("")
+        f = [name for name, on in (
+            ("new", o.id in new_ids), ("match", bool(o.interest_for)), ("ai", o.ai_pick), ("full", o.is_full_rate),
+            ("soon", bool(o.deadline and today <= o.deadline <= soon)), ("solo", o.solo_ok)) if on]
+        return Markup(' data-f="{}" data-i="{}"').format(" ".join(f), o.id)
+    env.filters["flags"] = flags
     tmpl = env.get_template("email.html")
 
     portal = [o for o in opps if o.source == "portal"]
     foundations = [o for o in opps if o.source != "portal"]
 
+    # calls one organisation can apply for alone rank higher everywhere (consortium.py · digest.solo_bonus)
+    def boost(o: Opportunity) -> float:
+        return _solo_bonus(o, solo_bonus)
+
+    def ai_score(o: Opportunity) -> int:
+        return int(o.ai.get("ai_score", 0)) if o.ai else 0
+
     by_deadline = sorted(portal, key=lambda o: (o.deadline or dt_date.max, o.id))
+    # keyword fit ranks, but a match the analyst has read and rejected sinks below the ones it accepted
     matches = sorted((o for o in opps if o.interest_for),
-                     key=lambda o: (-o.fit_score, o.deadline or dt_date.max, o.id))
+                     key=lambda o: (bool(o.ai) and not o.ai.get("applicable"), -(o.fit_score + boost(o)), o.deadline or dt_date.max, o.id))
     closing_soon = [o for o in by_deadline if o.deadline and today <= o.deadline <= soon]
-    new_items = [o for o in by_deadline if o.id in new_ids]
-    new_foundations = sorted((o for o in foundations if o.id in new_ids), key=lambda o: (o.programme, o.title))
+    # the best new thing is the first new thing: fit (and the analyst's score) before deadline
+    def best_first(o: Opportunity):
+        return (-(o.fit_score + boost(o)), -ai_score(o), o.deadline or dt_date.max, o.id)
+    new_items = sorted((o for o in portal if o.id in new_ids), key=best_first)
+    new_foundations = sorted((o for o in foundations if o.id in new_ids), key=best_first)
     matches_total, closing_soon_total, new_total, new_found_total = len(matches), len(closing_soon), len(new_items), len(new_foundations)
     if compact and max_rows:
-        matches, closing_soon, new_items, new_foundations = (
-            matches[:max_rows], closing_soon[:max_rows], new_items[:max_rows], new_foundations[:max_rows])
+        # email: the most relevant rows that close soon, still listed by deadline; the archive link shows them all
+        closing_soon = sorted(sorted(closing_soon, key=best_first)[:max_rows], key=lambda o: (o.deadline, o.id))
+        matches, new_items, new_foundations = matches[:max_rows], new_items[:max_rows], new_foundations[:max_rows]
 
     grouped = group_by_cluster(portal)
     found_grouped = group_by_cluster(foundations)
@@ -99,13 +148,23 @@ def render_html(
     ]
     all_matches = [o for o in opps if o.interest_for]
     # foundations ranked by the analyst (fit as tie-break) — the email always shows the top of this list
-    found_ranked = sorted(foundations, key=lambda o: (-int(o.ai.get("ai_score", 0)), -o.fit_score, o.deadline or dt_date.max, o.title))
-    found_top = found_ranked[:foundation_rows] if compact else found_ranked
+    found_ranked = sorted(foundations, key=lambda o: (-(ai_score(o) + boost(o)), -o.fit_score, o.deadline or dt_date.max, o.title))
+    found_top = found_ranked[:foundation_rows] if compact else found_ranked   # archive: the full ranking, once
     ai_picks = sorted((o for o in opps if o.ai_pick and not o.interest_for),
-                      key=lambda o: (-int(o.ai.get("ai_score", 0)), o.deadline or dt_date.max, o.id))
+                      key=lambda o: (-(ai_score(o) + boost(o)), o.deadline or dt_date.max, o.id))
     ai_picks_total = len(ai_picks)
     if compact and max_rows:
         ai_picks = ai_picks[:max_rows]
+    # the shortlist that leads the digest: worth applying for (match or AI pick) AND no consortium needed
+    # both signals agreeing beats one loud one: a bare news post with AI 75 / fit 8 must not outrank fit 70 / AI 75
+    def blended(o: Opportunity) -> float:
+        hi, lo = max(o.fit_score, ai_score(o)), min(o.fit_score, ai_score(o))
+        return 0.6 * hi + 0.4 * lo + boost(o)
+    solo = sorted((o for o in opps if o.solo_ok and (o.interest_for or o.ai_pick)),
+                  key=lambda o: (-blended(o), o.deadline or dt_date.max, o.id))
+    solo_total = len(solo)
+    if compact:
+        solo = solo[:solo_rows]
     verdict_counts = {
         "Strong fit": sum(1 for o in all_matches if o.fit_verdict == "Strong fit"),
         "Good fit": sum(1 for o in all_matches if o.fit_verdict == "Good fit"),
@@ -131,7 +190,7 @@ def render_html(
         for label, items in grouped.items()
     ]
 
-    return tmpl.render(
+    return squeeze(tmpl.render(
         lang=lang,
         compact=compact,
         cluster_summary=cluster_summary,
@@ -159,7 +218,9 @@ def render_html(
         new_ids=new_ids,
         soon=soon,
         archive_url=archive_url,
-    )
+        new_window_count=len([o for o in opps if o.id in new_ids]),
+        solo=solo, solo_total=solo_total,
+    ))
 
 
 def group_by_cluster(opps: List[Opportunity]) -> Dict[str, List[Opportunity]]:

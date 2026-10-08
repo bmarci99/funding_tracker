@@ -3,138 +3,239 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light"/>
   <title>{{ t("title") }} — {{ date }}</title>
   <style>
+    /* Tokens — EU navy carries structure, EU gold is the one accent: "you can apply on your own".
+       ink #161a23 · slate #5b6472 · hairline #e3e6ec · canvas #f2f3f6
+       semantic: strong #15803d · good #2557d6 · new #c2410c/#fff7ed · soon #b91c1c · AI #6d28d9 · solo #fecb00 */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      color: #1a1a1a; background: #f8f9fa; line-height: 1.5;
-    }
-    .container { max-width: 860px; margin: 0 auto; padding: 24px 20px; background: #fff; }
-
-    .header { border-bottom: 3px solid #003399; padding-bottom: 16px; margin-bottom: 24px; }
-    .header h1 { font-size: 22px; font-weight: 700; color: #003399; }
-    .header .subtitle { font-size: 14px; color: #555; margin-top: 4px; }
-    .stats { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
-    .stat { padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
-    .stat-total { background: #e8f0fe; color: #1a56db; }
-    .stat-open  { background: #d1fae5; color: #065f46; }
-    .stat-forth { background: #ede9fe; color: #5b21b6; }
-    .stat-new   { background: #fef3c7; color: #92400e; }
-    .stat-soon  { background: #fee2e2; color: #991b1b; }
-
-    .section { margin-top: 28px; }
-    .section-header {
-      font-size: 17px; font-weight: 700; padding: 8px 14px; border-radius: 6px;
-      margin-bottom: 12px; background: #003399; color: #fecb00;
-    }
-    .section-header.soon { background: #b91c1c; color: #fff; }
-    .section-header.new  { background: #065f46; color: #fff; }
-    .section-header .count { font-weight: 400; font-size: 13px; opacity: .85; margin-left: 8px; }
-
-    table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
-    td, th { overflow-wrap: anywhere; }
-    th {
-      text-align: left; padding: 6px 8px; background: #f1f3f5; font-weight: 600;
-      font-size: 12px; color: #444; border-bottom: 2px solid #dee2e6;
-    }
-    td { padding: 7px 8px; border-bottom: 1px solid #f1f3f5; vertical-align: top; }
-    tr:hover td { background: #f8f9fa; }
-    a { color: #0066cc; text-decoration: none; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+           color: #161a23; background: #f2f3f6; line-height: 1.5; -webkit-text-size-adjust: 100%; }
+    .container { max-width: 880px; margin: 0 auto; padding: 28px 28px 32px; background: #fff; }
+    a { color: #0b46c4; text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    .ident { color: #666; font-size: 11px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-    .action { color: #666; font-size: 12px; }
+    /* masthead */
+    .mast { border-top: 6px solid #003399; padding-top: 18px; }
+    .mast h1 { font-size: 26px; line-height: 1.15; font-weight: 700; letter-spacing: -0.015em; color: #003399; }
+    .mast .sub { margin-top: 4px; font-size: 13px; color: #5b6472; max-width: 70ch; }
+    table.kpis { width: 100%; border-collapse: collapse; margin: 18px 0 6px; table-layout: fixed; }
+    .kpis td { padding: 10px 14px 10px 0; vertical-align: top; border: 0; }
+    .kpis td + td { padding-left: 14px; border-left: 1px solid #e3e6ec; }
+    .kpis .n { display: block; font-size: 30px; line-height: 1; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+    .kpis .l { display: block; margin-top: 5px; font-size: 12px; color: #5b6472; line-height: 1.35; }
+    .kpis .solo .n { color: #003399; }
+    .kpis .solo { border-top: 3px solid #fecb00; }
+    .kpis .new .n { color: #c2410c; }
+    .kpis .soon .n { color: #b91c1c; }
+    .legend { margin-top: 10px; font-size: 12px; color: #5b6472; line-height: 1.9; }
+    .legend span { white-space: nowrap; margin-right: 14px; }
+    .legend i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+    .legend b { color: #161a23; font-weight: 600; font-variant-numeric: tabular-nums; margin-left: 3px; }
+    .facts { margin-top: 6px; font-size: 12px; color: #6b7280; }
+
+    /* sections: a coloured rule says what kind of list it is; the heading itself stays ink */
+    .section { margin-top: 34px; }
+    .section-header { display: block; font-size: 19px; line-height: 1.3; font-weight: 700; letter-spacing: -0.01em; color: #161a23;
+                      border-top: 2px solid #003399; padding-top: 10px; margin-bottom: 4px; }
+    .section-header .count { display: block; font-size: 13px; font-weight: 400; letter-spacing: 0; color: #5b6472; margin-top: 2px; }
+    .section-header.solo  { border-top: 4px solid #fecb00; }
+    .section-header.match { border-top-color: #003399; }
+    .section-header.ai    { border-top-color: #6d28d9; }
+    .section-header.found { border-top-color: #5b6472; }
+    .section-header.soon  { border-top-color: #b91c1c; }
+    .section-header.new   { border-top-color: #ea580c; }
+    .lead-in { font-size: 13px; color: #5b6472; margin: 2px 0 12px; }
+    .theme-header { font-size: 14px; font-weight: 700; color: #161a23; margin: 20px 0 8px; padding-bottom: 6px; border-bottom: 1px solid #e3e6ec; }
+    .theme-header .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; }
+    .theme-header .count { font-weight: 400; font-size: 12px; color: #5b6472; margin-left: 8px; }
+
+    /* tables */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+    td { overflow-wrap: anywhere; }
+    th { overflow-wrap: normal; }
+    th { text-align: left; padding: 8px 8px 6px; font-size: 11px; font-weight: 600; color: #5b6472; border-bottom: 1px solid #cfd4dc; }
+    td { padding: 10px 8px; border-bottom: 1px solid #eef0f3; vertical-align: top; }
+    tr:hover td { background: #fafbfc; }
+    td a { font-weight: 600; }
+    .ident { color: #6b7280; font-size: 11px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .action, .funder { color: #5b6472; font-size: 12px; }
     .money { white-space: nowrap; font-variant-numeric: tabular-nums; }
-    .date { color: #555; font-size: 12px; white-space: nowrap; }
-    .date .dl { color: #999; font-size: 11px; }
+    .date { color: #374151; font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .dl { color: #6b7280; font-size: 11px; }
+    .rel { font-weight: 600; color: #374151; }
+    .rel.soon { color: #b91c1c; }
+    .sm-meta, .sm-score { display: none; }
+    .num { font-variant-numeric: tabular-nums; }
+    .hits { color: #5b6472; font-size: 11px; }
+    .next { margin-top: 4px; font-size: 12px; color: #374151; }
+    .next .k { color: #6d28d9; font-weight: 600; }
 
-    .badge {
-      display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11px;
-      font-weight: 600; vertical-align: middle; white-space: nowrap;
-    }
-    .badge-new   { background: #fef3c7; color: #92400e; }
-    .badge-open  { background: #d1fae5; color: #065f46; }
-    .badge-forth { background: #ede9fe; color: #5b21b6; }
-    .badge-soon  { background: #fee2e2; color: #991b1b; }
-    .badge-full  { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
-    .badge-rate  { background: #f1f3f5; color: #555; }
-    .badge-score { background: #fdf4ff; color: #86198f; }
-    .stat-match  { background: #fdf4ff; color: #86198f; }
-    .stat-full   { background: #dcfce7; color: #166534; }
-    .section-header.match { background: #86198f; color: #fff; }
-    .section-header.found { background: #374151; color: #fff; }
-    .hits { color: #555; font-size: 11px; }
-    .hits b { color: #1a1a1a; }
-    .verdict { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 700; white-space: nowrap; }
-    .v-strong { background: #16a34a; color: #fff; }
-    .v-good   { background: #2563eb; color: #fff; }
-    .v-look   { background: #e5e7eb; color: #374151; }
-    .score { font-size: 20px; font-weight: 800; line-height: 1; color: #111; }
-    .bar { height: 5px; background: #e5e7eb; border-radius: 3px; margin: 4px 0 3px; width: 100%; max-width: 90px; }
-    .bar span { display: block; height: 5px; border-radius: 3px; background: #7c3aed; }
-    .bd { font-size: 10px; color: #888; white-space: nowrap; }
-    .theme-header { font-size: 15px; font-weight: 700; padding: 6px 12px; border-radius: 6px; color: #fff; margin: 14px 0 8px; }
-    .theme-header .count { font-weight: 400; font-size: 12px; opacity: .9; margin-left: 8px; }
-    .focus { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
-    .focus span { font-size: 12px; padding: 3px 10px; border-radius: 999px; color: #fff; font-weight: 600; }
-    .focus span i { font-style: normal; opacity: .85; font-weight: 400; margin-left: 5px; }
-    .funder { color: #374151; font-size: 12px; }
-    /* match cards */
-    .card { width: 100%; border: 1px solid #e5e7eb; border-radius: 8px; margin: 0 0 10px; border-collapse: separate; table-layout: fixed; }
-    .card td { border: 0; padding: 12px 14px; vertical-align: top; }
-    .card .main { width: 76%; }
-    .card .fit { width: 24%; border-left: 1px solid #f1f3f5; text-align: left; background: #fafafa; border-radius: 0 8px 8px 0; }
-    .card .title { font-size: 15px; font-weight: 600; line-height: 1.35; }
-    .card .meta { margin-top: 5px; font-size: 12px; color: #555; line-height: 1.7; }
-    .card .meta .sep { color: #c4c4c4; margin: 0 5px; }
-    .card .why { margin-top: 7px; font-size: 12px; color: #444; line-height: 1.6; }
-    .card .why .lbl { color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: .03em; margin-right: 6px; }
-    .card .why b { background: #fef9c3; padding: 0 3px; border-radius: 3px; color: #1a1a1a; }
+    /* badges: pills, tinted, one meaning each */
+    .badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; line-height: 1.6;
+             vertical-align: 1px; white-space: nowrap; }
+    .badge-new   { background: #fff1e6; color: #9a3412; }
+    .badge-open  { background: #eef6f1; color: #166534; }
+    .badge-forth { background: #eef2fb; color: #1e3a8a; }
+    .badge-soon  { background: #fdecec; color: #991b1b; }
+    .badge-full  { background: #eaf6ee; color: #166534; }
+    .badge-rate  { background: #f2f3f6; color: #4b5563; }
+    .badge-solo  { background: #fecb00; color: #002a80; }
+    .badge-opt   { background: #fff6cc; color: #5c4700; }
+    .badge-req   { background: #f2f3f6; color: #4b5563; }
+    .tag { display: inline-block; font-size: 10px; color: #4b5563; background: #f2f3f6; border-radius: 4px; padding: 0 5px; margin: 2px 2px 0 0; }
+    .verdict { display: inline-block; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .v-strong { color: #15803d; } .v-good { color: #2557d6; } .v-look { color: #6b7280; }
+    .pill-score { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: #f2f3f6; color: #374151; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .ai-chip { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 11px; font-weight: 700; background: #f1effa; color: #5b21b6; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .ai-chip.no { background: #f2f3f6; color: #4b5563; }
+
+    /* match cards: the score is the loudest thing, the title the second */
+    .card { width: 100%; border: 1px solid #e3e6ec; border-radius: 10px; margin: 0 0 12px; border-collapse: separate; table-layout: fixed; }
+    .card td { border: 0; padding: 14px 16px; vertical-align: top; }
+    .card tr:hover td { background: transparent; }
+    .card .main { width: 78%; }
+    .card .fit { width: 22%; border-left: 1px solid #eef0f3; }
+    .card .title { font-size: 16px; font-weight: 600; line-height: 1.35; letter-spacing: -0.005em; }
+    .card .meta { margin-top: 6px; font-size: 12px; color: #5b6472; line-height: 1.8; }
+    .card .meta .sep { color: #c9ced6; margin: 0 6px; }
+    .card .why { margin-top: 8px; font-size: 12px; color: #4b5563; line-height: 1.6; }
+    .card .why .lbl { color: #6b7280; margin-right: 6px; }
+    .card .why b { background: #e8edf8; padding: 0 3px; border-radius: 3px; color: #161a23; font-weight: 600; }
     .card .why .neg { color: #b91c1c; }
-    .card .score { font-size: 26px; }
-    .card .bar { max-width: 100%; margin: 6px 0; }
-    .card .bd { white-space: normal; line-height: 1.5; margin-top: 4px; }
-    .ai { margin-top: 10px; padding: 9px 12px; background: #f5f3ff; border-left: 3px solid #7c3aed; border-radius: 4px; font-size: 12px; line-height: 1.55; color: #2e1065; }
+    .score { font-size: 34px; line-height: 1; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+    .score.v-strong { color: #15803d; } .score.v-good { color: #2557d6; } .score.v-look { color: #6b7280; }
+    .bar { height: 4px; background: #eef0f3; border-radius: 2px; margin: 8px 0 8px; width: 100%; }
+    .bar span { display: block; height: 4px; border-radius: 2px; }
+    .bd { font-size: 10px; color: #6b7280; line-height: 1.5; margin-top: 6px; }
+    .ai { margin-top: 12px; padding: 10px 12px; background: #f8f7fc; border-left: 2px solid #6d28d9; border-radius: 0 6px 6px 0;
+          font-size: 12px; line-height: 1.6; color: #2b2540; }
     .ai .h { font-weight: 700; color: #5b21b6; margin-right: 6px; }
-    .ai .k { color: #6d28d9; font-weight: 600; }
-    .ai .na { background: #f3f4f6; border-left-color: #9ca3af; color: #4b5563; }
-    .ai-chip { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 700; background: #ede9fe; color: #5b21b6; white-space: nowrap; }
-    .ai-chip.no { background: #f3f4f6; color: #6b7280; }
-    .section-header.ai { background: #5b21b6; color: #fff; }
-    .stat-ai { background: #ede9fe; color: #5b21b6; }
-    .deadline-chip { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; background: #f1f3f5; color: #374151; }
-    .deadline-chip.soon { background: #fee2e2; color: #991b1b; }
-    .tag { display: inline-block; font-size: 10px; color: #555; background: #f1f3f5; border-radius: 3px; padding: 0 5px; margin: 2px 2px 0 0; }
+    .ai .k { color: #5b21b6; font-weight: 600; }
+    .ai.na { background: #f6f7f9; border-left-color: #b4bac4; color: #4b5563; }
+    .deadline-chip { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; background: #f2f3f6; color: #374151; font-variant-numeric: tabular-nums; }
+    .deadline-chip.soon { background: #fdecec; color: #991b1b; }
 
-    .more { margin-top: 8px; font-size: 13px; color: #555; }
-    .footer {
-      margin-top: 32px; padding-top: 16px; border-top: 1px solid #eee;
-      font-size: 12px; color: #888; text-align: center;
-    }
+    /* new since last week: orange rule + faint wash — calm even with 30 of them */
+    tr.is-new td { background: #fffaf5; }
+    tr.is-new td.lead { border-left: 3px solid #ea580c; }
+    table.card.is-new { border-left: 3px solid #ea580c; }
+    /* solo shortlist rows */
+    tr.solo-row td.lead { border-left: 3px solid #fecb00; }
+    tr.solo-row.is-new td.lead { border-left-color: #ea580c; }
+
+    .more { margin-top: 10px; font-size: 13px; color: #5b6472; }
+    .footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid #e3e6ec; font-size: 12px; color: #6b7280; line-height: 1.6; }
+    {% if not compact %}
+    /* ---- archive page only: navigation, search, filters (the email never gets these) ---- */
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    html { scroll-padding-top: var(--navh, 160px); }
+    .skip { position: absolute; left: -999px; top: 8px; background: #003399; color: #fff; padding: 6px 12px; border-radius: 6px; z-index: 20; }
+    .skip:focus { left: 12px; }
+    .nav { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.96); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+           border-bottom: 1px solid #e3e6ec; margin: -28px -28px 22px; padding: 12px 28px 10px; }
+    .nav-row { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+    .nav-row + .nav-row { margin-top: 10px; }
+    .nav a { color: #374151; white-space: nowrap; font-weight: 500; }
+    .nav a b { color: #6b7280; font-weight: 500; font-variant-numeric: tabular-nums; margin-left: 4px; }
+    .nav a.solo-link { color: #002a80; } .nav a.solo-link b { color: #002a80; background: #fecb00; border-radius: 999px; padding: 0 6px; }
+    .nav .home { font-weight: 700; color: #003399; margin-right: auto; letter-spacing: -0.01em; }
+    .nav input[type=search] { flex: 1 1 240px; min-width: 0; font: inherit; font-size: 14px; padding: 7px 12px;
+           border: 1px solid #cfd4dc; border-radius: 8px; background: #fff; color: #161a23; }
+    .nav input[type=search]:focus-visible { outline: 2px solid #003399; outline-offset: 1px; border-color: #003399; }
+    .chips { display: contents; }
+    .chip { font: inherit; font-size: 12px; font-weight: 500; padding: 4px 11px; border-radius: 999px; border: 1px solid #cfd4dc;
+           background: #fff; color: #374151; cursor: pointer; touch-action: manipulation; transition: background-color .12s, border-color .12s; }
+    .chip:hover { border-color: #6b7280; }
+    .chip[aria-pressed=true] { background: #161a23; border-color: #161a23; color: #fff; }
+    .chip[data-flag=new][aria-pressed=true] { background: #c2410c; border-color: #c2410c; }
+    .chip[data-flag=solo][aria-pressed=true] { background: #fecb00; border-color: #e0b400; color: #002a80; }
+    .nav .count { font-size: 12px; color: #5b6472; font-variant-numeric: tabular-nums; }
+    .nav kbd { font: 11px ui-monospace, Menlo, monospace; border: 1px solid #cfd4dc; border-bottom-width: 2px;
+           border-radius: 4px; padding: 0 4px; color: #4b5563; background: #f8f9fb; }
+    .hint { font-size: 11px; color: #6b7280; }
+    :focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+    details.cl { content-visibility: auto; contain-intrinsic-size: auto 900px; }   /* 600+ rows: render on scroll */
+    details.cl > summary { list-style: none; cursor: pointer; }
+    details.cl > summary::-webkit-details-marker { display: none; }
+    details.cl > summary .section-header::before { content: "▾"; display: inline-block; width: 1.1em; color: #6b7280; transition: transform .15s; }
+    details.cl:not([open]) > summary .section-header::before { transform: rotate(-90deg); }
+    details.cl > summary .section-header { margin-bottom: 10px; }
+    .flash { animation: flash 1.2s ease-out; }
+    @keyframes flash { from { box-shadow: 0 0 0 4px #fdba74; } to { box-shadow: 0 0 0 4px transparent; } }
+    @media (prefers-reduced-motion: reduce) { .flash { animation: none; outline: 3px solid #fdba74; } .chip { transition: none; } }
+    .is-hidden { display: none !important; }
+    .empty { padding: 32px 0; text-align: center; color: #5b6472; font-size: 14px; }
     @media (max-width: 600px) {
-      .container { padding: 12px; }
+      .nav { margin: -16px -16px 16px; padding: 8px 16px; }
+      .nav-row { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .nav-row::-webkit-scrollbar { display: none; }
+      .nav input[type=search] { flex: 0 0 180px; }
+      .chip { flex: 0 0 auto; }
+      .hint { display: none; }
+    }
+    {% endif %}
+    @media (max-width: 600px) {
+      .container { padding: 16px; }
       table { font-size: 12px; }
       .hide-sm { display: none; }
+      .badge, .verdict, .ai-chip, .deadline-chip, .date { white-space: normal; }
+      .kpis td { display: inline-block; width: 50%; border-left: 0 !important; padding: 10px 8px 10px 0 !important; }
+      .kpis .n { font-size: 26px; }
+      .sm-meta { display: block; margin-top: 3px; font-size: 12px; color: #374151; }
+      .sm-score { display: inline-block; margin-left: 6px; vertical-align: 2px; }
+      /* match cards: score panel goes under the text instead of squeezing it */
+      .card .main, .card .fit { display: block; width: auto; }
+      .card .fit { border-left: 0; border-top: 1px solid #eef0f3; }
+      .card .bar { max-width: 180px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>🇪🇺 {{ t("title") }}</h1>
-      <div class="subtitle">{{ t("subtitle", date=date, n=foundations_total) }}</div>
-      <div class="focus">{% for f in focus_strip %}<span style="background: {{ f.color }}">P{{ f.priority }} {{ f.label }}<i>{{ f.count }}</i></span>{% endfor %}</div>
-      <div class="stats">
-        <span class="stat stat-match">{{ t("stat_matches", n=match_count, strong=verdict_counts["Strong fit"], good=verdict_counts["Good fit"]) }}</span>
-        {% if ai_pick_count %}<span class="stat stat-ai">{{ t("stat_ai", n=ai_pick_count) }}</span>{% endif %}
-        <span class="stat stat-full">{{ t("stat_full", n=full_rate_count) }}</span>
-        <span class="stat stat-total">{{ t("stat_total", n=total) }}</span>
-        <span class="stat stat-open">{{ t("stat_open", n=open_count) }}</span>
-        <span class="stat stat-forth">{{ t("stat_forth", n=forthcoming_count) }}</span>
-        {% if new_count > 0 %}<span class="stat stat-new">{{ t("stat_new", n=new_count) }}</span>{% endif %}
-        {% if closing_soon_total %}<span class="stat stat-soon">{{ t("stat_soon", n=closing_soon_total, d=closing_soon_days) }}</span>{% endif %}
+  {%- macro vclass(o) -%}{% if o.fit_verdict == 'Strong fit' %}v-strong{% elif o.fit_verdict == 'Good fit' %}v-good{% else %}v-look{% endif %}{%- endmacro -%}
+  {%- macro vcolor(o) -%}{% if o.fit_verdict == 'Strong fit' %}#15803d{% elif o.fit_verdict == 'Good fit' %}#2557d6{% else %}#b4bac4{% endif %}{%- endmacro -%}
+  {%- macro cbadge(o) -%}{% if o.consortium == 'solo' %}<span class="badge badge-solo">{{ t("c_solo") }}</span>{% elif o.consortium == 'optional' %}<span class="badge badge-opt">{{ t("c_optional") }}</span>{% elif o.consortium == 'required' %}<span class="badge badge-req">{{ t("c_required") }}</span>{% endif %}{%- endmacro -%}
+  {%- macro newbadge(o) -%}{% if o.id in new_ids %}<span class="badge badge-new" title="{{ t('first_seen', d=o.first_seen.date()) }}">{{ t("NEW") }}</span>{% endif %}{%- endmacro -%}
+  {%- macro grant(o) -%}{% if o.contribution_max %}{% if o.contribution_min and o.contribution_min != o.contribution_max %}{{ o.contribution_min | eur }}–{% else %}≤ {% endif %}{{ o.contribution_max | eur }}{% elif o.call_budget %}<span class="dl">{{ t("call_budget", b=o.call_budget | eur) }}</span>{% else %}<span class="dl">{{ t("see_page") }}</span>{% endif %}{%- endmacro -%}
+  {%- macro deadline(o) -%}{% if o.deadline %}{% set d = o.deadline | days_left %}<span class="rel{{ ' soon' if 0 <= d <= closing_soon_days }}">{% if d >= 0 %}{{ t("in_days", d=d) }}{% else %}{{ t("days_ago", d=-d) }}{% endif %}</span><br/><span class="dl">{{ o.deadline }}{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>{% else %}<span class="dl">{{ t("see_page") }}</span>{% endif %}{%- endmacro -%}
+  {%- macro smmeta(o) -%}<span class="sm-meta">{% if o.deadline %}{% set d = o.deadline | days_left %}<span class="rel{{ ' soon' if 0 <= d <= closing_soon_days }}">{% if d >= 0 %}{{ t("in_days", d=d) }}{% else %}{{ t("days_ago", d=-d) }}{% endif %}</span> · {% endif %}{{ grant(o) }}</span>{%- endmacro -%}
+  <div class="container" id="top">
+    {% if not compact %}<a class="skip" href="#main">{{ t("skip_nav") }}</a>{% endif %}
+    {% if not compact %}
+    <nav class="nav" aria-label="{{ t('nav_label') }}">
+      <div class="nav-row">
+        <a class="home" href="#top">{{ t("title") }} · {{ date }}</a>
+        {% if solo %}<a class="solo-link" href="#solo">{{ t("nav_solo") }}<b>{{ solo_total }}</b></a>{% endif %}
+        {% if match_groups %}<a href="#matches">{{ t("nav_matches") }}<b>{{ match_count }}</b></a>{% endif %}
+        {% if new_window_count %}<a href="#new">{{ t("nav_new") }}<b>{{ new_window_count }}</b></a>{% endif %}
+        {% if ai_picks %}<a href="#ai">{{ t("nav_ai") }}<b>{{ ai_picks_total }}</b></a>{% endif %}
+        {% if found_top %}<a href="#foundations">{{ t("nav_found") }}<b>{{ found_ranked | length }}</b></a>{% endif %}
+        {% if closing_soon %}<a href="#soon">{{ t("nav_soon") }}<b>{{ closing_soon_total }}</b></a>{% endif %}
+        <a href="#clusters">{{ t("nav_clusters") }}<b>{{ cluster_summary | length }}</b></a>
+        <!--ARCHIVE_NAV-->
       </div>
+      <div class="nav-row">
+        <input type="search" id="q" name="q" autocomplete="off" spellcheck="false" aria-label="{{ t('search_label') }}" placeholder="{{ t('search_ph') }}"/>
+        <span class="chips" role="group" aria-label="{{ t('filters_label') }}">{% for f in ["solo", "new", "match", "ai", "full", "soon"] %}<button type="button" class="chip" data-flag="{{ f }}" aria-pressed="false">{{ t("chip_" ~ f) }}</button>{% endfor %}</span>
+        <output class="count" id="shown" aria-live="polite"></output>
+        <span class="hint"><kbd>/</kbd> {{ t("key_search") }} · <kbd>n</kbd> {{ t("key_next_new") }} · <kbd>Esc</kbd> {{ t("key_clear") }}</span>
+      </div>
+    </nav>
+    {% endif %}
+
+    <div class="mast">
+      <h1>{{ t("title") }}</h1>
+      <p class="sub">{{ t("subtitle", date=date, n=foundations_total) }}</p>
+      <table class="kpis" role="presentation"><tr>
+        <td><span class="n">{{ match_count }}</span><span class="l">{{ t("kpi_matches", strong=verdict_counts["Strong fit"], good=verdict_counts["Good fit"]) }}</span></td>
+        <td class="solo"><span class="n">{{ solo_total }}</span><span class="l">{{ t("kpi_solo") }}</span></td>
+        <td class="new"><span class="n">{{ new_count }}</span><span class="l">{{ t("kpi_new") }}</span></td>
+        <td class="soon"><span class="n">{{ closing_soon_total }}</span><span class="l">{{ t("kpi_soon", d=closing_soon_days) }}</span></td>
+      </tr></table>
+      <div class="legend">{% for f in focus_strip %}<span><i style="background: {{ f.color }}"></i>P{{ f.priority }} {{ f.label }}<b>{{ f.count }}</b></span>{% endfor %}</div>
+      <p class="facts">{{ t("facts", total=total, open=open_count, forth=forthcoming_count, ai=ai_pick_count, full=full_rate_count) }}</p>
     </div>
 
     {% macro opp_table(items, show_cluster=False) -%}
@@ -143,45 +244,35 @@
         <tr>
           <th style="width: 46%">{{ t("col_topic") }}</th>
           <th class="hide-sm">{{ t("col_action") }}</th>
-          <th style="width: 12%">{{ t("col_grant") }}</th>
-          <th>Deadline</th>
-          <th>Status</th>
+          <th style="width: 13%">{{ t("col_grant") }}</th>
+          <th style="width: 13%">{{ t("col_deadline") }}</th>
+          <th style="width: 15%">{{ t("col_status") }}</th>
         </tr>
       </thead>
       <tbody>
         {% for o in items %}
-        <tr>
-          <td>
+        <tr class="row{{ ' is-new' if o.id in new_ids }}"{{ o | flags }}>
+          <td class="lead">
             <a href="{{ o.url }}">{{ o.title }}</a><br/>
             <span class="ident">{{ o.id }}</span>
             {% if show_cluster %}<span class="tag">{{ o.cluster }}</span>{% endif %}
-            {% for t in o.tags[:3] %}<span class="tag">{{ t }}</span>{% endfor %}
-            {% if o.interest_for %}<br/><span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">⭐ {{ o.fit_score }} · {{ t(o.fit_verdict) }}</span>{% endif %}
+            {% for tg in o.tags[:3] %}<span class="tag">{{ tg }}</span>{% endfor %}
+            {% if o.interest_for %}<br/><span class="verdict {{ vclass(o) }}">★ {{ o.fit_score }} · {{ t(o.fit_verdict) }}</span>{% endif %}
           </td>
           <td class="action hide-sm">{{ o.action_type or '—' }}</td>
           <td class="money">
-            {% if o.contribution_max %}
-              {% if o.contribution_min and o.contribution_min != o.contribution_max %}{{ o.contribution_min | eur }}–{% else %}≤ {% endif %}{{ o.contribution_max | eur }}{% if o.expected_grants %} <span style="color:#888">×{{ o.expected_grants }}</span>{% endif %}
-              {% if o.call_budget %}<br/><span style="color:#999;font-size:11px">{{ t("call_budget", b=o.call_budget | eur) }}</span>{% endif %}
-            {% elif o.call_budget %}
-              <span style="color:#666">{{ t("call_budget", b=o.call_budget | eur) }}</span>
-            {% else %}—{% endif %}
+            {{ grant(o) }}{% if o.expected_grants and o.contribution_max %} <span class="dl">×{{ o.expected_grants }}</span>{% endif %}
+            {% if o.contribution_max and o.call_budget %}<br/><span class="dl">{{ t("call_budget", b=o.call_budget | eur) }}</span>{% endif %}
           </td>
-          <td class="date">
-            {% if o.deadline %}
-              {{ o.deadline }}
-              {% set d = o.deadline | days_left %}
-              <br/><span class="dl">{% if d is not none and d >= 0 %}{{ t("in_days", d=d) }}{% elif d is not none %}{{ t("days_ago", d=-d) }}{% endif %}{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>
-            {% else %}—{% endif %}
-          </td>
+          <td class="date">{{ deadline(o) }}</td>
           <td>
-            {% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">💯 {{ o.funding_rate | rate }}</span>
-            {% elif o.funding_rate %}<span class="badge badge-rate" title="{{ o.funding_rate_note }}">{{ o.funding_rate | rate }}</span>{% endif %}
-            {% if o.id in new_ids %}<span class="badge badge-new">{{ t("NEW") }}</span> {% endif %}
+            {{ newbadge(o) }}
             {% if o.deadline and o.deadline <= soon and o.deadline >= today %}<span class="badge badge-soon">{{ t("SOON") }}</span>
             {% elif o.status == 'Open' %}<span class="badge badge-open">{{ t("OPEN") }}</span>
-            {% elif o.status == 'Forthcoming' %}<span class="badge badge-forth">{{ t("FORTHCOMING") }}</span>
-            {% endif %}
+            {% elif o.status == 'Forthcoming' %}<span class="badge badge-forth">{{ t("FORTHCOMING") }}</span>{% endif %}
+            {% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">{{ o.funding_rate | rate }}</span>
+            {% elif o.funding_rate %}<span class="badge badge-rate" title="{{ o.funding_rate_note }}">{{ o.funding_rate | rate }}</span>{% endif %}
+            {{ cbadge(o) }}
           </td>
         </tr>
         {% endfor %}
@@ -190,15 +281,15 @@
     {%- endmacro %}
 
     {% macro look_rows(items) -%}
-    <table>
+    <table role="presentation">
       <tbody>
         {% for o in items %}
-        <tr>
-          <td style="width: 62%"><a href="{{ o.url }}">{{ o.title }}</a><br/>
+        <tr class="row{{ ' is-new' if o.id in new_ids }}"{{ o | flags }}>
+          <td class="lead" style="width: 60%"><a href="{{ o.url }}">{{ o.title }}</a> {{ newbadge(o) }}<br/>
             {% if o.source == 'portal' %}<span class="ident">{{ o.id }}</span>{% else %}<span class="funder">{{ o.programme }}</span>{% endif %}
             <span class="hits"> · {% for h in o.interest_hits[:3] %}{{ h.split(': ', 1)[-1] if not h.startswith('(') else t("no_signal") }}{% if not loop.last %} · {% endif %}{% endfor %}</span></td>
-          <td class="date" style="width: 16%">{% if o.deadline %}{{ o.deadline }}<br/><span class="dl">{{ t("in_days", d=o.deadline | days_left) }}</span>{% else %}—{% endif %}</td>
-          <td style="width: 22%"><span class="verdict v-look">{{ o.fit_score }} · {{ t(o.fit_verdict) }}</span>{% if o.ai %} <span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ t("ai_score", n=o.ai.ai_score) }}</span>{% endif %}{% if o.is_full_rate %} <span class="badge badge-full">💯</span>{% endif %}</td>
+          <td class="date" style="width: 15%">{{ deadline(o) }}</td>
+          <td style="width: 25%"><span class="pill-score">{{ o.fit_score }}</span>{% if o.ai %} <span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ t("ai_score", n=o.ai.ai_score) }}</span>{% endif %} {{ cbadge(o) }}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -207,17 +298,17 @@
 
     {% macro found_rows(items) -%}
     <table>
-      <thead><tr><th style="width: 46%">{{ t("col_call") }}</th><th style="width: 8%">{{ t("col_ai") }}</th><th style="width: 12%">{{ t("col_grant") }}</th><th style="width: 12%">{{ t("col_deadline") }}</th><th style="width: 22%">{{ t("ai_verdict_short") }}</th></tr></thead>
+      <thead><tr><th style="width: 44%">{{ t("col_call") }}</th><th style="width: 8%">{{ t("col_ai") }}</th><th class="hide-sm" style="width: 12%">{{ t("col_grant") }}</th><th class="hide-sm" style="width: 12%">{{ t("col_deadline") }}</th><th class="hide-sm" style="width: 24%">{{ t("ai_verdict_short") }}</th></tr></thead>
       <tbody>
         {% for o in items %}
-        <tr>
-          <td><a href="{{ o.url }}">{{ o.title }}</a><br/><span class="funder">{{ o.programme }}</span> <span class="tag">{{ o.country }}</span>
-            {% if o.interest_for %} <span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">⭐ {{ o.fit_score }}</span>{% endif %}
-            {% if o.id in new_ids %} <span class="badge badge-new">{{ t("NEW") }}</span>{% endif %}</td>
+        <tr class="row{{ ' is-new' if o.id in new_ids }}"{{ o | flags }}>
+          <td class="lead"><a href="{{ o.url }}">{{ o.title }}</a><br/><span class="funder">{{ o.programme }}</span> <span class="tag">{{ o.country }}</span>
+            {% if o.interest_for %} <span class="verdict {{ vclass(o) }}">★ {{ o.fit_score }}</span>{% endif %}
+            {{ newbadge(o) }} {{ cbadge(o) }}{{ smmeta(o) }}</td>
           <td>{% if o.ai %}<span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ o.ai.ai_score }}</span>{% else %}—{% endif %}</td>
-          <td class="money">{% if o.contribution_max %}≤ {{ o.contribution_max | eur }}{% else %}<span class="dl">{{ t("see_page") }}</span>{% endif %}</td>
-          <td class="date">{% if o.deadline %}{{ o.deadline }}<br/><span class="dl">{{ t("in_days", d=o.deadline | days_left) }}</span>{% else %}<span class="dl">{{ t("see_page") }}</span>{% endif %}</td>
-          <td class="hits" style="font-size:11px">{% if o.ai %}{{ o.ai.summary[:140] }}{% if o.ai.applicable and o.ai.angle %}<br/><span style="color:#5b21b6">→ {{ o.ai.angle[:160] }}</span>{% elif o.ai.risks %}<br/><span style="color:#888">{{ o.ai.risks[0][:120] }}</span>{% endif %}{% endif %}</td>
+          <td class="money hide-sm">{{ grant(o) }}</td>
+          <td class="date hide-sm">{{ deadline(o) }}</td>
+          <td class="hits hide-sm">{% if o.ai %}{{ o.ai.summary | clip(140) }}{% if o.ai.applicable and o.ai.angle %}<br/><span style="color:#5b21b6">→ {{ o.ai.angle | clip(160) }}</span>{% elif o.ai.risks %}<br/><span class="dl">{{ o.ai.risks[0] | clip(120) }}</span>{% endif %}{% endif %}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -226,33 +317,30 @@
 
     {% macro fit_table(items) -%}
     {% for o in items %}
-    <table class="card">
+    <table role="presentation" class="card row{{ ' is-new' if o.id in new_ids }}"{{ o | flags }}>
       <tr>
         <td class="main">
-          <div class="title"><a href="{{ o.url }}">{{ o.title }}</a></div>
+          <div class="title"><a href="{{ o.url }}">{{ o.title }}</a><span class="sm-score"><span class="pill-score {{ vclass(o) }}">{{ o.fit_score }}</span>{% if o.ai %} <span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ t("ai_score", n=o.ai.ai_score) }}</span>{% endif %}</span></div>
           <div class="meta">
             {% if o.source == 'portal' %}<span class="ident">{{ o.id }}</span><span class="sep">·</span>{{ o.cluster_label }}{% else %}<span class="funder">{{ o.programme }}</span>{% if o.country %} <span class="tag">{{ o.country }}</span>{% endif %}{% endif %}
             {% if o.action_type %}<span class="sep">·</span>{{ o.action_type }}{% endif %}
-            {% if o.tags %}<span class="sep">·</span>{% for t in o.tags[:3] if t != o.country %}<span class="tag">{{ t }}</span>{% endfor %}{% endif %}
             <br/>
-            {% if o.deadline %}{% set d = o.deadline | days_left %}<span class="deadline-chip{{ ' soon' if o.deadline <= soon }}">⏰ {{ o.deadline }} · {{ t("in_days", d=d) }}{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>{% else %}<span class="deadline-chip">{{ t("deadline_see_page") }}</span>{% endif %}
-            <span class="sep">·</span>
-            {% if o.contribution_max %}<b>{% if o.contribution_min and o.contribution_min != o.contribution_max %}{{ o.contribution_min | eur }}–{% else %}≤ {% endif %}{{ o.contribution_max | eur }}</b>{% if o.expected_grants %} <span style="color:#888">×{{ o.expected_grants }}</span>{% endif %}{% if o.call_budget %} <span style="color:#999">({{ t("call_budget", b=o.call_budget | eur) }})</span>{% endif %}{% elif o.call_budget %}{{ t("call_budget", b=o.call_budget | eur) }}{% else %}{{ t("grant_see_page") }}{% endif %}
-            <span class="sep">·</span>
-            {% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">💯 {{ o.funding_rate | rate }}</span>{% elif o.funding_rate %}<span class="badge badge-rate">{{ o.funding_rate | rate }}</span>{% else %}<span class="badge badge-rate">{{ t("rate_check") }}</span>{% endif %}
-            {% if o.id in new_ids %} <span class="badge badge-new">{{ t("NEW") }}</span>{% endif %}
-            {% if o.status == 'Forthcoming' %} <span class="badge badge-forth">{{ t("FORTHCOMING") }}</span>{% elif o.status == 'Open' %} <span class="badge badge-open">{{ t("OPEN") }}</span>{% endif %}
+            {% if o.deadline %}{% set d = o.deadline | days_left %}<span class="deadline-chip{{ ' soon' if o.deadline <= soon }}">{{ t("in_days", d=d) }} · {{ o.deadline }}{% if o.deadline_model %} · {{ o.deadline_model }}{% endif %}</span>{% else %}<span class="deadline-chip">{{ t("deadline_see_page") }}</span>{% endif %}
+            <span class="sep">·</span><b class="money">{{ grant(o) }}</b>{% if o.expected_grants and o.contribution_max %} <span class="dl">×{{ o.expected_grants }}</span>{% endif %}{% if o.contribution_max and o.call_budget %} <span class="dl">({{ t("call_budget", b=o.call_budget | eur) }})</span>{% endif %}
+            <span class="sep">·</span>{% if o.is_full_rate %}<span class="badge badge-full" title="{{ o.funding_rate_note }}">{{ o.funding_rate | rate }}</span>{% elif o.funding_rate %}<span class="badge badge-rate">{{ o.funding_rate | rate }}</span>{% else %}<span class="badge badge-rate">{{ t("rate_check") }}</span>{% endif %}
+            {{ cbadge(o) }} {{ newbadge(o) }}
+            {% if o.status == 'Forthcoming' %}<span class="badge badge-forth">{{ t("FORTHCOMING") }}</span>{% endif %}
           </div>
           <div class="why"><span class="lbl">{{ t("why") }}</span>{% for h in o.interest_hits[:6] %}{% if h.startswith('title:') %}<b>{{ h[7:] }}</b>{% elif h.startswith('tags:') %}{{ h[6:] }}{% elif h.startswith('body:') %}{{ h[6:] }}{% else %}<span class="neg">{{ t("no_signal") if h.startswith("(no robot") else h }}</span>{% endif %}{% if not loop.last %} · {% endif %}{% endfor %}</div>
-          {% if o.summary and o.source != 'portal' %}<div class="why" style="color:#666">{{ o.summary[:220] }}…</div>{% endif %}
+          {% if o.summary and o.source != 'portal' and not o.ai %}<div class="why">{{ o.summary | clip(220) }}</div>{% endif %}
           {% if o.ai %}
           <div class="ai{{ ' na' if not o.ai.applicable }}">
-            <span class="h">{{ t("ai_block") }}</span><span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ t("ai_score", n=o.ai.ai_score) }} · {{ t("ai_applicable") if o.ai.applicable else t("ai_not_applicable") }}</span> <span style="color:#7c3aed;font-size:11px">{{ t("ai_conf", n=o.ai.confidence) }}</span>
+            <span class="h">{{ t("ai_block") }}</span><span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ t("ai_score", n=o.ai.ai_score) }} · {{ t("ai_applicable") if o.ai.applicable else t("ai_not_applicable") }}</span> <span class="dl">{{ t("ai_conf", n=o.ai.confidence) }}</span>
             {% if o.ai.summary %}<div>{{ o.ai.summary }}</div>{% endif %}
             {% if o.ai.applicable %}
-            <div><span class="k">{{ t("ai_angle") }}:</span> {{ o.ai.angle[:320] }}</div>
+            <div><span class="k">{{ t("ai_angle") }}:</span> {{ o.ai.angle | clip(320) }}</div>
             {% if o.ai.entity %}<div><span class="k">{{ t("ai_entity") }}:</span> {{ o.ai.entity }}</div>{% endif %}
-            {% if o.ai.partners %}<div><span class="k">{{ t("ai_partners") }}:</span> {{ o.ai.partners | join(' · ') }}</div>{% endif %}
+            {% if o.ai.partners and o.consortium != 'solo' %}<div><span class="k">{{ t("ai_partners") }}:</span> {{ o.ai.partners | join(' · ') }}</div>{% endif %}
             {% if o.ai.risks %}<div><span class="k">{{ t("ai_risks") }}:</span> {{ o.ai.risks[:2] | join(' · ') }}</div>{% endif %}
             {% if o.ai.next_step %}<div><span class="k">{{ t("ai_next") }}:</span> {{ o.ai.next_step }}</div>{% endif %}
             {% else %}{% if o.ai.risks %}<div>{{ o.ai.risks | join(' · ') }}</div>{% endif %}{% endif %}
@@ -260,9 +348,10 @@
           {% endif %}
         </td>
         <td class="fit">
-          <span class="score">{{ o.fit_score }}</span> <span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">{{ t(o.fit_verdict) }}</span>
-          <div class="bar"><span style="width: {{ o.fit_score }}%; background: {{ '#16a34a' if o.fit_verdict == 'Strong fit' else '#2563eb' if o.fit_verdict == 'Good fit' else '#9ca3af' }}"></span></div>
-          {% if o.ai %}<div style="margin:4px 0"><span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ t("ai_score", n=o.ai.ai_score) }}</span></div>{% endif %}
+          <span class="score {{ vclass(o) }}">{{ o.fit_score }}</span><br/>
+          <span class="verdict {{ vclass(o) }}">{{ t(o.fit_verdict) if o.fit_verdict else t("no_fit") }}</span>
+          <div class="bar"><span style="width: {{ o.fit_score }}%; background: {{ vcolor(o) }}"></span></div>
+          {% if o.ai %}<span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ t("ai_score", n=o.ai.ai_score) }}</span>{% endif %}
           <div class="bd">{{ t("bd", theme=o.fit_breakdown.theme, instr=o.fit_breakdown.instrument, cond=o.fit_breakdown.conditions) }}{% if o.fit_breakdown.packs %}{{ t("bd_packs", p=o.fit_breakdown.packs) }}{% endif %}{% if o.fit_breakdown.penalty %}<span style="color:#b91c1c">{{ t("bd_penalty", p=o.fit_breakdown.penalty) }}</span>{% endif %}</div>
         </td>
       </tr>
@@ -270,107 +359,214 @@
     {% endfor %}
     {%- endmacro %}
 
+    <div id="main"></div>
+    {% if solo %}
+    <div class="section" id="solo">
+      <h2 class="section-header solo">{{ t("sec_solo") }}<span class="count">{{ t("sec_solo_count", n=solo_total) }}</span></h2>
+      <table>
+        <thead><tr><th style="width: 52%">{{ t("col_call") }}</th><th class="hide-sm" style="width: 14%">{{ t("col_grant") }}</th><th class="hide-sm" style="width: 14%">{{ t("col_deadline") }}</th><th style="width: 20%">{{ t("col_fit") }}</th></tr></thead>
+        <tbody>
+          {% for o in solo %}
+          <tr class="row solo-row{{ ' is-new' if o.id in new_ids }}"{{ o | flags }}>
+            <td class="lead"><a href="{{ o.url }}">{{ o.title }}</a><br/>
+              <span class="funder">{% if o.source == 'portal' %}{{ o.cluster_label }}{% else %}{{ o.programme }}{% endif %}</span> {{ cbadge(o) }} {{ newbadge(o) }}{{ smmeta(o) }}
+              {% if o.ai and o.ai.applicable and o.ai.angle %}<div class="next"><span class="k">{{ t("ai_angle") }}:</span> {{ o.ai.angle | first_sentence(200) }}</div>{% endif %}</td>
+            <td class="money hide-sm">{{ grant(o) }}</td>
+            <td class="date hide-sm">{{ deadline(o) }}</td>
+            <td>{% if o.interest_for %}<span class="verdict {{ vclass(o) }}">★ {{ o.fit_score }}</span> {% endif %}{% if o.ai %}<span class="ai-chip{{ '' if o.ai.applicable else ' no' }}">{{ t("ai_score", n=o.ai.ai_score) }}</span>{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% if solo_total > solo | length %}<p class="more">{{ t("more", n=solo_total - solo | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html?f=solo#solo">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
+    </div>
+    {% endif %}
+
     {% if match_groups %}
-    <div class="section">
-      <div class="section-header match">{{ t("sec_matches") }}<span class="count">{{ t("sec_matches_count", n=matches_total, t=threshold, strong=verdict_counts["Strong fit"], good=verdict_counts["Good fit"], look=verdict_counts["Worth a look"]) }}</span></div>
+    <div class="section" id="matches">
+      <h2 class="section-header match">{{ t("sec_matches") }}<span class="count">{{ t("sec_matches_count", n=matches_total, t=threshold, strong=verdict_counts["Strong fit"], good=verdict_counts["Good fit"], look=verdict_counts["Worth a look"]) }}</span></h2>
       {% for g in match_groups %}
-      <div class="theme-header" style="background: {{ g.color }}">P{{ g.priority }} · {{ g.label }}<span class="count">{{ t("matches_in_theme_pl" if g.total != 1 else "matches_in_theme", n=g.total) }}</span></div>
+      <h3 class="theme-header"><span class="dot" style="background: {{ g.color }}"></span>P{{ g.priority }} · {{ g.label }}<span class="count">{{ t("matches_in_theme_pl" if g.total != 1 else "matches_in_theme", n=g.total) }}</span></h3>
       {% set cards = g['items'] | selectattr('fit_verdict', 'ne', 'Worth a look') | list %}
       {% set looks = g['items'] | selectattr('fit_verdict', 'eq', 'Worth a look') | list %}
       {% if cards %}{{ fit_table(cards) }}{% endif %}
       {% if looks %}{{ look_rows(looks) }}{% endif %}
-      {% if g.total > g['items'] | length %}<p class="more">{{ t("more_theme", n=g.total - g['items'] | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
+      {% if g.total > g['items'] | length %}<p class="more">{{ t("more_theme", n=g.total - g['items'] | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html?f=match#matches">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
       {% endfor %}
     </div>
     {% endif %}
 
     {% if ai_picks %}
-    <div class="section">
-      <div class="section-header ai">{{ t("sec_ai") }}<span class="count">{{ t("sec_ai_count", n=ai_picks_total, t=ai_pick_min) }}</span></div>
-      {{ fit_table(ai_picks) }}
-      {% if ai_picks_total > ai_picks | length %}<p class="more">{{ t("more", n=ai_picks_total - ai_picks | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
+    <div class="section" id="ai">
+      <h2 class="section-header ai">{{ t("sec_ai") }}<span class="count">{{ t("sec_ai_count", n=ai_picks_total, t=ai_pick_min) }}</span></h2>
+      {% if compact %}{{ found_rows(ai_picks) }}{% else %}{{ fit_table(ai_picks) }}{% endif %}
+      {% if ai_picks_total > ai_picks | length %}<p class="more">{{ t("more", n=ai_picks_total - ai_picks | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html?f=ai#ai">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
     </div>
     {% endif %}
 
     {% if found_top %}
-    <div class="section">
-      <div class="section-header found">{{ t("sec_found_rank") }}<span class="count">{{ t("sec_found_rank_count", n=found_top | length, total=found_ranked | length) }}</span></div>
+    <div class="section" id="foundations">
+      <h2 class="section-header found">{% if compact %}{{ t("sec_found_rank") }}<span class="count">{{ t("sec_found_rank_count", n=found_top | length, total=found_ranked | length) }}</span>{% else %}{{ t("sec_found_all") }}<span class="count">{{ t("items", n=found_ranked | length) }}</span>{% endif %}</h2>
       {{ found_rows(found_top) }}
       {% if compact and found_ranked | length > found_top | length %}<p class="more">{{ t("more", n=found_ranked | length - found_top | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html#foundations">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
     </div>
     {% endif %}
 
-    {% if closing_soon %}
-    <div class="section">
-      <div class="section-header soon">{{ t("sec_soon", d=closing_soon_days) }}<span class="count">{{ t("topics", n=closing_soon_total) }}</span></div>
-      {{ opp_table(closing_soon, show_cluster=True) }}
-      {% if closing_soon_total > closing_soon | length %}<p class="more">{{ t("more", n=closing_soon_total - closing_soon | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
-    </div>
-    {% endif %}
 
     {% if new_items %}
-    <div class="section">
-      <div class="section-header new">{{ t("sec_new") }}<span class="count">{{ t("topics", n=new_total) }}</span></div>
+    <div class="section" id="new">
+      <h2 class="section-header new">{{ t("sec_new") }}<span class="count">{{ t("topics", n=new_total) }}</span></h2>
       {{ opp_table(new_items, show_cluster=True) }}
-      {% if new_total > new_items | length %}<p class="more">{{ t("more", n=new_total - new_items | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
+      {% if new_total > new_items | length %}<p class="more">{{ t("more", n=new_total - new_items | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html?f=new#new">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
     </div>
     {% endif %}
 
     {% if new_foundations %}
-    <div class="section">
-      <div class="section-header found">{{ t("sec_found") }}<span class="count">{{ t("items", n=new_found_total) }}</span></div>
+    <div class="section" id="{{ 'new-found' if new_items else 'new' }}">
+      <h2 class="section-header new">{{ t("sec_found") }}<span class="count">{{ t("items", n=new_found_total) }}</span></h2>
       <table>
-        <thead><tr><th style="width: 55%">{{ t("col_call") }}</th><th>{{ t("col_funder") }}</th><th>{{ t("col_status") }}</th></tr></thead>
+        <thead><tr><th style="width: 58%">{{ t("col_call") }}</th><th>{{ t("col_funder") }}</th><th style="width: 16%">{{ t("col_status") }}</th></tr></thead>
         <tbody>
           {% for o in new_foundations %}
-          <tr>
-            <td><a href="{{ o.url }}">{{ o.title }}</a>{% if o.interest_for %}<br/><span class="verdict {{ 'v-strong' if o.fit_verdict == 'Strong fit' else 'v-good' if o.fit_verdict == 'Good fit' else 'v-look' }}">⭐ {{ o.fit_score }} · {{ t(o.fit_verdict) }}</span>{% endif %}</td>
+          <tr class="row is-new"{{ o | flags }}>
+            <td class="lead"><a href="{{ o.url }}">{{ o.title }}</a>{% if o.interest_for %}<br/><span class="verdict {{ vclass(o) }}">★ {{ o.fit_score }} · {{ t(o.fit_verdict) }}</span>{% endif %}</td>
             <td class="action">{{ o.programme }} <span class="tag">{{ o.country }}</span></td>
-            <td><span class="badge badge-new">{{ t("NEW") }}</span></td>
+            <td>{{ newbadge(o) }} {{ cbadge(o) }}</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-      {% if new_found_total > new_foundations | length %}<p class="more">{{ t("more", n=new_found_total - new_foundations | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
+      {% if new_found_total > new_foundations | length %}<p class="more">{{ t("more", n=new_found_total - new_foundations | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html?f=new#new">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
     </div>
     {% endif %}
 
-    {% if compact %}
-    <div class="section">
-      <div class="section-header">{{ t("sec_all") }}<span class="count">{{ t("topics", n=total) }}</span></div>
-      <table>
-        <thead><tr><th>{{ t("col_cluster") }}</th><th>{{ t("col_topic") }}</th><th>{{ t("col_open") }}</th><th>{{ t("col_new") }}</th><th>{{ t("col_next") }}</th></tr></thead>
+    {% if closing_soon %}
+    <div class="section" id="soon">
+      <h2 class="section-header soon">{{ t("sec_soon", d=closing_soon_days) }}<span class="count">{{ t("topics", n=closing_soon_total) }}</span></h2>
+      {{ opp_table(closing_soon, show_cluster=True) }}
+      {% if closing_soon_total > closing_soon | length %}<p class="more">{{ t("more", n=closing_soon_total - closing_soon | length) }}{% if archive_url %} — <a href="{{ archive_url }}/{{ date }}.html?f=soon#soon">{{ t("full_list") }}</a>{% endif %}</p>{% endif %}
+    </div>
+    {% endif %}
+
+    <div class="section" id="clusters">
+      <h2 class="section-header">{{ t("sec_all") }}<span class="count">{{ t("topics", n=total) }}</span></h2>
+      <table class="toc">
+        <thead><tr><th style="width: 52%">{{ t("col_cluster") }}</th><th class="num">{{ t("col_topic") }}</th><th class="num">{{ t("col_open") }}</th><th class="num">{{ t("col_new") }}</th><th>{{ t("col_next") }}</th></tr></thead>
         <tbody>
           {% for c in cluster_summary %}
           <tr>
-            <td>{% if archive_url %}<a href="{{ archive_url }}/{{ date }}.html#{{ c.key }}">{{ c.label }}</a>{% else %}{{ c.label }}{% endif %}</td>
-            <td>{{ c.count }}</td>
-            <td>{{ c.open }}</td>
-            <td>{% if c.new %}<span class="badge badge-new">+{{ c.new }}</span>{% else %}—{% endif %}</td>
+            <td>{% if not compact %}<a href="#{{ c.key }}">{{ c.label }}</a>{% elif archive_url %}<a href="{{ archive_url }}/{{ date }}.html#{{ c.key }}">{{ c.label }}</a>{% else %}{{ c.label }}{% endif %}</td>
+            <td class="num">{{ c.count }}</td>
+            <td class="num">{{ c.open }}</td>
+            <td>{% if c.new %}<span class="badge badge-new">+{{ c.new }}</span>{% else %}<span class="dl">—</span>{% endif %}</td>
             <td class="date">{{ c.next_deadline or '—' }}</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-      {% if archive_url %}<p style="margin-top:10px;font-size:13px;color:#555">{{ t("full_list_of", n=total) }} <a href="{{ archive_url }}/{{ date }}.html">{{ archive_url }}/{{ date }}.html</a></p>{% endif %}
+      {% if compact and archive_url %}<p class="more">{{ t("full_list_of", n=total) }} <a href="{{ archive_url }}/{{ date }}.html">{{ archive_url }}/{{ date }}.html</a></p>{% endif %}
     </div>
-    {% else %}
+    {% if not compact %}
     {% for label, items in grouped.items() %}
-    <div class="section" id="{{ items[0].cluster }}">
-      <div class="section-header">{{ label }}<span class="count">{{ t("topics", n=items | length) }}{% set n = items | selectattr('id', 'in', new_ids) | list | length %}{% if n %} · +{{ n }} {{ t("col_new") | lower }}{% endif %}</span></div>
+    <details class="section cl" id="{{ items[0].cluster }}" open>
+      <summary><h2 class="section-header">{{ label }}<span class="count">{{ t("topics", n=items | length) }}{% set n = items | selectattr('id', 'in', new_ids) | list | length %}{% if n %} · +{{ n }} {{ t("col_new") | lower }}{% endif %}</span></h2></summary>
       {{ opp_table(items) }}
-    </div>
+    </details>
     {% endfor %}
-    <div class="section" id="foundations">
-      <div class="section-header found">{{ t("sec_found_all") }}<span class="count">{{ t("items", n=found_ranked | length) }}</span></div>
-      {{ found_rows(found_ranked) }}
-    </div>
+    <p class="empty is-hidden" id="empty">{{ t("no_results") }}</p>
     {% endif %}
 
     <div class="footer">
       {{ t("footer", date=date, n=found_grouped | length) }}
       {% if archive_url %} · <a href="{{ archive_url }}">{{ t("archive") }}</a>{% endif %}
+      {% if not compact %} · <a href="#top">{{ t("back_to_top") }}</a>{% endif %}
     </div>
   </div>
+  {% if not compact %}
+  <script>
+  // Archive page only. Search + filter chips over every [data-f] row; state lives in ?q=…&f=… so a view can be shared.
+  (function () {
+    var rows = Array.prototype.slice.call(document.querySelectorAll("[data-f]"));
+    var text = rows.map(function (r) { return r.textContent.toLowerCase().replace(/\s+/g, " "); });
+    var q = document.getElementById("q"), shown = document.getElementById("shown"), empty = document.getElementById("empty");
+    var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
+    var blocks = Array.prototype.slice.call(document.querySelectorAll(".section, .theme-header"));
+    var fmt = {{ t("shown_js") | tojson }}, total = new Set(rows.map(function (r) { return r.dataset.i; })).size;
+
+    function active() { return chips.filter(function (c) { return c.getAttribute("aria-pressed") === "true"; }).map(function (c) { return c.dataset.flag; }); }
+    function apply(push) {
+      var terms = q.value.toLowerCase().trim().split(/\s+/).filter(Boolean), flags = active(), seen = {}, n = 0;
+      var filtering = terms.length || flags.length;
+      rows.forEach(function (r, i) {
+        var f = " " + r.dataset.f + " ";
+        var ok = terms.every(function (t) { return text[i].indexOf(t) >= 0; }) && flags.every(function (fl) { return f.indexOf(" " + fl + " ") >= 0; });
+        r.classList.toggle("is-hidden", !ok);
+        if (ok && !seen[r.dataset.i]) { seen[r.dataset.i] = 1; n++; }
+      });
+      // hide sections / theme headings that have nothing left to show; open collapsed clusters that do
+      blocks.forEach(function (b) {
+        if (b.id === "clusters") { b.classList.toggle("is-hidden", !!filtering); return; }
+        var scope = b.classList.contains("theme-header") ? themeRows(b) : b.querySelectorAll("[data-f]");
+        if (!scope.length) { b.classList.toggle("is-hidden", !!filtering); return; }
+        var any = Array.prototype.some.call(scope, function (r) { return !r.classList.contains("is-hidden"); });
+        b.classList.toggle("is-hidden", filtering && !any);
+        if (filtering && any && b.tagName === "DETAILS") b.open = true;
+      });
+      document.querySelectorAll(".more").forEach(function (m) { m.classList.toggle("is-hidden", !!filtering); });
+      shown.textContent = filtering ? fmt.replace("{n}", n).replace("{total}", total) : "";
+      empty.classList.toggle("is-hidden", !filtering || n > 0);
+      if (push !== false) {
+        var p = new URLSearchParams();
+        if (q.value.trim()) p.set("q", q.value.trim());
+        if (flags.length) p.set("f", flags.join(","));
+        var s = p.toString();
+        history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + location.hash);
+      }
+    }
+    function themeRows(h) {   // rows between this theme heading and the next one
+      var out = [], el = h.nextElementSibling;
+      while (el && !el.classList.contains("theme-header")) {
+        if (el.matches("[data-f]")) out.push(el);
+        Array.prototype.push.apply(out, el.querySelectorAll("[data-f]"));
+        el = el.nextElementSibling;
+      }
+      return out;
+    }
+    chips.forEach(function (c) {
+      c.addEventListener("click", function () { c.setAttribute("aria-pressed", c.getAttribute("aria-pressed") === "true" ? "false" : "true"); apply(); });
+    });
+    var timer;
+    q.addEventListener("input", function () { clearTimeout(timer); timer = setTimeout(apply, 120); });
+
+    function nextNew() {
+      var news = Array.prototype.slice.call(document.querySelectorAll(".is-new:not(.is-hidden)"))
+        .filter(function (el) { return el.offsetParent !== null; });
+      if (!news.length) return;
+      var y = 140, target = news.find(function (el) { return el.getBoundingClientRect().top > y; }) || news[0];
+      target.scrollIntoView({ block: "center" });
+      target.classList.remove("flash"); void target.offsetWidth; target.classList.add("flash");
+    }
+    document.addEventListener("keydown", function (e) {
+      var typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
+      if (e.key === "/" && !typing) { e.preventDefault(); q.focus(); q.select(); }
+      else if (e.key === "Escape") {
+        q.value = ""; chips.forEach(function (c) { c.setAttribute("aria-pressed", "false"); }); apply(); if (typing) q.blur();
+      }
+      else if (e.key === "n" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) { nextNew(); }
+    });
+
+    var nav = document.querySelector(".nav");
+    function navh() { document.documentElement.style.setProperty("--navh", (nav.offsetHeight + 12) + "px"); }
+    navh(); window.addEventListener("resize", navh);
+
+    var init = new URLSearchParams(location.search);
+    q.value = init.get("q") || "";
+    (init.get("f") || "").split(",").forEach(function (f) {
+      chips.forEach(function (c) { if (c.dataset.flag === f) c.setAttribute("aria-pressed", "true"); });
+    });
+    if (q.value || init.get("f")) apply(false);
+  })();
+  </script>
+  {% endif %}
 </body>
 </html>

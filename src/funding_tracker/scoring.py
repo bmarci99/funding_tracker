@@ -131,19 +131,30 @@ class FitScorer:
     def _theme_raw(self, theme: Theme, fields: Dict[str, str]) -> Tuple[float, bool, List[str], float]:
         """→ (raw score, active?, top hits, raw from anchor+core only — the part that counts as a real signal)"""
         raw, hits, n_anchor, n_core, core_in_title, strong_raw = 0.0, [], 0, 0, False, 0.0
-        for tier, terms in theme.terms.items():
-            for term, rx in terms:
-                best_loc = next((loc for loc in ("title", "tags", "body") if rx.search(fields[loc])), None)
-                if not best_loc:
-                    continue
-                raw += TIER_WEIGHT[tier] * LOC_WEIGHT[best_loc]
-                if tier != "context":
-                    strong_raw += TIER_WEIGHT[tier] * LOC_WEIGHT[best_loc]
-                n_anchor += tier == "anchor"
-                n_core += tier == "core"
-                core_in_title |= tier == "core" and best_loc == "title"
-                shown = f"★ {theme.label}" if term.startswith("re:") else term
-                hits.append((TIER_WEIGHT[tier] * LOC_WEIGHT[best_loc], f"{best_loc}: {shown}"))
+        # One phrase is one signal: "humanoide Roboter" must not count as humanoid + humanoide roboter + roboter
+        # (core) + roboter (context). Strongest tier and longest term claim their text spans first; a later
+        # term only counts where it matches text nobody has claimed yet.
+        claimed: Dict[str, List[Tuple[int, int]]] = {loc: [] for loc in fields}
+        ordered = sorted(((tier, term, rx) for tier, terms in theme.terms.items() for term, rx in terms),
+                         key=lambda x: (-TIER_WEIGHT[x[0]], -len(x[1])))
+        for tier, term, rx in ordered:
+            free = {loc: [m.span() for m in rx.finditer(txt)
+                          if not any(m.start() < e and s < m.end() for s, e in claimed[loc])]
+                    for loc, txt in fields.items()}
+            best_loc = next((loc for loc in ("title", "tags", "body") if free[loc]), None)
+            if not best_loc:
+                continue
+            for loc, spans in free.items():
+                claimed[loc].extend(spans)
+            pts = TIER_WEIGHT[tier] * LOC_WEIGHT[best_loc]
+            raw += pts
+            if tier != "context":
+                strong_raw += pts
+            n_anchor += tier == "anchor"
+            n_core += tier == "core"
+            core_in_title |= tier == "core" and best_loc == "title"
+            shown = f"★ {theme.label}" if term.startswith("re:") else term
+            hits.append((pts, f"{best_loc}: {shown}"))
         # a core term in the *title* is as good as an anchor: a call named "…Robotik…" is a robotics call
         active = n_anchor >= 1 or core_in_title or n_core >= 3
         hits.sort(key=lambda h: -h[0])

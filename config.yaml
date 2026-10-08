@@ -109,11 +109,13 @@ foundations:
       url: "https://www.fritz-thyssen-stiftung.de/foerderung/"
       item_selector: "article, .teaser, li"
       title_selector: "h2, h3"
+      # 2026-10-08: no call index — /foerderung/ redirects to a static "Allgemeines" page; funding is open-mode
+      # (apply any time, humanities focus), Sonderprogramme are hosted lectures/fellowships. Nothing to scrape.
+      enabled: false
     - name: "Joachim Herz Stiftung — Programme"
       country: "DE"
       url: "https://www.joachim-herz-stiftung.de/foerdern/aktuelle-ausschreibungen"
-      item_selector: "article, .programm"
-      title_selector: "h2, h3"
+      link_pattern: "/foerdern/[a-z0-9-]+/[a-z0-9-]+/?$"   # cards only link "Weitere Informationen" → title from <h1>
     # --- Nordic foundations (PBN won 800k EUR from Villum) ---------------
     - name: "Lundbeck Foundation — Calls"
       country: "DK"
@@ -123,16 +125,15 @@ foundations:
     - name: "Knut and Alice Wallenberg Foundation — Calls"
       country: "SE"
       url: "https://kaw.wallenberg.org/en/funding-guide/calls"
-      item_selector: "article, li"
-      title_selector: "h2, h3"
+      item_selector: ".node--type-event"        # call cards; the only link is a "Guidelines" button
+      title_selector: ".list-item__title"
     - name: "Kone Foundation — Calls"
       country: "FI"
       url: "https://koneensaatio.fi/en/grants/"   # (its wp-json "apuraha" type lists funded projects, not calls)
     - name: "Riksbankens Jubileumsfond — Calls"
       country: "SE"
-      url: "https://www.rj.se/en/funding/"
-      item_selector: "article, li"
-      title_selector: "h2, h3"
+      url: "https://www.rj.se/en/research/"   # /en/funding/ ("Open calls") is an empty shell between rounds
+      link_pattern: "/en/research/(?!final-reports|swecris)[A-Za-z0-9-]+/$"
     # --- International / cross-border ------------------------------------
     - name: "AXA Research Fund — Calls"
       country: "FR"
@@ -142,13 +143,14 @@ foundations:
     - name: "BBVA Foundation — Grants"
       country: "ES"
       url: "https://www.fbbva.es/en/bbva-foundation-calls/"
-      item_selector: "article, .ayuda"
-      title_selector: "h2, h3"
+      link_pattern: "/en/(ayudas|premios)/[a-z0-9-]+/?$"   # cards only link "More information" → title from <h1>
     - name: "Templeton World Charity Foundation — Funding"
       country: "INT"
-      url: "https://www.templetonworldcharity.org/about-us/our-strategy/core-funding-areas"
-      item_selector: "article, .opportunity"
-      title_selector: "h2, h3"
+      url: "https://www.templetonworldcharity.org/our-initiatives"   # old core-funding-areas page has no links
+      link_pattern: "/our-initiatives/(?!previous-initiatives)[a-z0-9-]+(/[a-z0-9-]+)?$"   # "Learn More" → <h1>
+      # 2026-10-08: no call index (Craft CMS, no RSS/wp-json; /funding 404). Initiative pages are portfolio
+      # descriptions, no unsolicited proposals, last open call closed 2026-02-13. Re-enable when a call opens.
+      enabled: false
     - name: "Wellcome Trust — Funding schemes"
       country: "UK"
       url: "https://wellcome.org/grant-funding/schemes"
@@ -157,14 +159,17 @@ foundations:
     - name: "Schmidt Sciences — Open programs"
       country: "INT"
       url: "https://www.schmidtsciences.org/opportunities/"
-      item_selector: "article, .program"
-      title_selector: "h2, h3"
+      item_selector: "li.opportunity-block"     # card → "Apply" link to schmidtsciences.smapply.io
+      title_selector: "h3"
     # --- NRW funders (NRW SME survey project) ----------------------------
     - name: "NRW.Bank — Förderprogramme"
       country: "DE"
       url: "https://www.nrwbank.de/de/foerderung/"
       item_selector: "article, .teaser, li.foerderprogramm"
       title_selector: "h2, h3, .title"
+      # 2026-10-08: needs code — product list is JS-rendered from /handleProdukteSearch (JSON, needs the page's
+      # CSRF token + session cookie); 444 products, mostly loans. KI.NRW / EFRE.NRW carry the grant calls meanwhile.
+      enabled: false
     - name: "EFRE.NRW — Aufrufe & Wettbewerbe"
       country: "DE"
       url: "https://www.efre.nrw/einfach-machen/foerderung-finden"
@@ -201,6 +206,10 @@ foundations:
     - name: "Interreg Danube Region Programme — Calls"
       country: "EU"
       url: "https://interreg-danube.eu/calls-for-proposals"
+      item_selector: "a[href*='/calls-for-proposals/']"   # whole card is one <a>; past-deadline cards are skipped
+      # 2026-10-08: parser fixed, but all 6 listed calls are closed (last deadline 15 Dec 2025) → 0 items is
+      # correct until the next call is published; expect ✗ in probe --all meanwhile
+      title_selector: "p.font-bold"
     - name: "Interreg Austria–Hungary"
       country: "AT/HU"
       url: "https://www.interreg-athu.eu/en/"
@@ -213,7 +222,12 @@ foundations:
       detail_pages: 20
     - name: "BMFTR (ex-BMBF) — Bekanntmachungen"
       country: "DE"
-      url: "https://www.bmftr.bund.de/SiteGlobals/Forms/Suche/Bekanntmachungsuche/Bekanntmachungsuche_Formular.html"
+      url: "https://www.bmftr.bund.de/SiteGlobals/Forms/Suche/Bekanntmachungsuche/Bekanntmachungsuche_Formular.html?resultsPerPage=50&sortOrder=dateOfIssue_dt+desc"
+      link_pattern: "/SharedDocs/Bekanntmachungen/DE/20\\d\\d/"
+      title_pattern: "^(?!.*(?:Änderung|Vergabe|Dienstleistungsauftrag))"   # skip amendments + procurement notices
+      timeout_s: 25      # every page is ~6 MB and the CMS sometimes stalls 60 s then 500s — retry instead of waiting
+      retries: 2
+      detail_pages: 10
     - name: "EIT Health — Opportunities"
       country: "EU"
       url: "https://eithealth.eu/get-involved/new-call-opportunities/"
@@ -222,8 +236,99 @@ foundations:
       url: "https://www.eit.europa.eu/our-activities/opportunities"
     - name: "Széchenyi Terv Plusz — pályázatok (HU)"
       country: "HU"
-      url: "https://www.palyazat.gov.hu/palyazatok"
+      type: "rss"        # /palyazatok is a Next.js shell; the portal's RSS carries call announcements
+      url: "https://www.palyazat.gov.hu/rss.xml"
+      title_pattern: "^(?!módosul).*felhívás"   # new calls + drafts in consultation, not amendments/maintenance
     # EuroHPC JU: site blocks scripts (403); its calls are on the F&T portal anyway (HORIZON-EUROHPC-JU-…)
+    # --- EU cascade funding / KICs (FSTP calls are NOT on the F&T portal) -----------
+    - name: "Cascade Funding Hub — open call analyses"
+      country: "EU"
+      type: "rss"        # /open-calls/ index is JS; the blog RSS carries one post per open cascade call
+      url: "https://cascadefunding.eu/feed/"
+      title_pattern: "open call|opportunities|call for"
+      detail_pages: 12
+    - name: "EIT Urban Mobility — Calls"
+      country: "EU"
+      url: "https://www.eiturbanmobility.eu/join-us/call-for-proposals/"
+      link_pattern: "/call-for-proposals/[a-z0-9-]+/?$"
+      detail_pages: 12
+    - name: "EU Cluster Collaboration Platform — robotics open calls"
+      country: "EU"
+      type: "rss"        # Drupal taxonomy feed (robotics term); junk ahead of <?xml is stripped by _fetch_rss
+      url: "https://clustercollaboration.eu/taxonomy/term/3711/feed"
+      detail_pages: 12
+    # --- DE national agencies / Projektträger (health, care, robotics) ---------------
+    - name: "G-BA Innovationsfonds — Förderbekanntmachungen"
+      country: "DE"
+      url: "https://innovationsfonds.g-ba.de/foerderbekanntmachungen/"   # new care models, €80M/yr; needs a Krankenkasse partner
+      link_pattern: "/foerderbekanntmachungen/foerderbekanntmachung-"
+      detail_pages: 12
+    - name: "DLR Projektträger — Förderangebote und Programme"
+      country: "DE"
+      url: "https://projekttraeger.dlr.de/de/foerderung/foerderangebote-und-programme"
+      link_pattern: "/foerderangebote-und-programme/[a-z0-9-]+$"
+      detail_pages: 12
+    - name: "Interaktive Technologien (BMFTR PT) — Bekanntmachungen"
+      country: "DE"
+      url: "https://www.interaktive-technologien.de/foerderung/bekanntmachungen"   # tripwire for HRI / care-robotics rounds
+      link_pattern: "/foerderung/bekanntmachungen/[a-z0-9.-]+$"
+      require_deadline: true   # awarded rounds stay listed without a "closed" marker; a new round states its Frist
+      detail_pages: 12
+    - name: "VDI/VDE-IT — Förderprogramme (BMFTR/BMWE/Länder)"
+      country: "DE"
+      type: "wp-json"
+      url: "https://www.vdivde-it.de"
+      post_type: "program"
+      detail_pages: 12
+    - name: "Carl-Zeiss-Stiftung — Förderprogramme"
+      country: "DE"
+      url: "https://www.carl-zeiss-stiftung.de/foerderung/uebersicht-foerdermoeglichkeiten"   # BW/RLP/TH statute (PBN Stuttgart)
+      # only the running calls (programme pages are descriptions); the button text is generic → title from <h1>
+      item_selector: 'a[title="Zur laufenden Ausschreibung"]'
+      detail_pages: 12
+    - name: "Vector Stiftung — Ausschreibungen"
+      country: "DE"
+      type: "wp-json"
+      url: "https://vector-stiftung.de"
+      post_type: "offering"
+      title_pattern: "^(?!Vergangene)"
+      detail_pages: 12
+    # --- Space (space-crew roadmap line) ---------------------------------------------
+    - name: "DLR Raumfahrtagentur — Ideenaufrufe"
+      country: "DE"
+      url: "https://www.dlr.de/de/ar/aktuelles/ideenaufrufe"
+      link_pattern: "/ideenaufrufe/[a-z0-9_-]+"
+      detail_pages: 12
+    - name: "ESA Exploration Science — Opportunities"
+      country: "EU"
+      type: "wp-json"
+      url: "https://explorationscience.esa.int"
+      post_type: "opportunity"
+      max_age_days: 120   # AOs are never marked closed and their deadlines sit behind the ideas.esa.int login
+      detail_pages: 12
+    - name: "ESA Space Solutions — Funding calls"
+      country: "EU"
+      url: "https://business.esa.int/funding"
+      link_pattern: "/funding/[a-z0-9-]+"
+      detail_pages: 12
+    # --- Prizes / ARPA-style -----------------------------------------------------------
+    - name: "ARIA UK — Funding opportunities"
+      country: "GB"
+      url: "https://www.aria.org.uk/funding-opportunities"   # >50% of costs in the UK → needs a UK partner
+      item_selector: ".open-call__content"
+      title_selector: ".open-call__title"
+      detail_pages: 12
+    # --- HU / Visegrad -------------------------------------------------------------------
+    - name: "International Visegrad Fund — Grants"
+      country: "HU"
+      url: "https://www.visegradfund.org/grants"   # €25–35k, needs CZ/PL/SK partners
+      link_pattern: "-apply"
+      detail_pages: 12
+    - name: "PAFI — HU civil/nonprofit pályázatok"
+      country: "HU"
+      url: "https://pafi.hu/palyazatok/tarsadalmi-szervezetek-es-alapitvanyok"   # aggregator, for the PBN association
+      link_pattern: "/p/[a-z0-9-]+$"
+      detail_pages: 12
 
 # ---------------------------------------------------------------------------
 # YOUR PROFILE — what the fit score (0–100) is measured against. See src/funding_tracker/scoring.py.
@@ -274,8 +379,9 @@ profile:
              "face tracking", "facial animation", "voice interaction", "physical human-robot", "cognitive robotics",
              "cognitive architecture", "theory of mind", "robot ethics", "acceptance of robots", "uncanny", "personal robot", "service robot", "service robotics",
              "assistive robot", "assistive robotics", "care robot", "vision-language-action", "ros 2", "physiological signals",
-             "wearables", "roboter", "künstliche intelligenz", "mesterséges intelligencia", "sprachassistent", "gesichtsausdruck", "emotionserkennung", "empathie", "empátia"]
-      context: ["robot", "robots", "roboter", "actuator", "actuators", "sensor", "sensors", "speech", "computer vision",
+             "wearables", "roboter", "künstliche intelligenz", "mesterséges intelligencia", "sprachassistent", "gesichtsausdruck", "emotionserkennung", "empathie", "empátia",
+             "general-purpose robot", "multi-purpose robot", "physical ai"]   # humanoid-class platform calls (SPRIND Next Frontier Robotics)
+      context: ["robot", "robots", "actuator", "actuators", "sensor", "sensors", "speech", "computer vision",
                 "perception", "interaction", "ai", "artificial intelligence", "machine learning", "3d printing",
                 "additive manufacturing", "prototype", "on-device", "edge ai", "living lab", "user study",
                 "trustworthy ai", "human-centred ai", "human-centric ai", "conversational ai", "foundation model", "foundation models", "large language model", "large language models", "digital twin"]
@@ -318,10 +424,11 @@ profile:
       label_hu: "Társ háborús veteránoknak és traumakezelés"
       priority: 3
       color: "#b45309"
-      anchor: ["veteran", "veterans", "ptsd", "post-traumatic", "posttraumatic", "war trauma", "war-affected",
+      # bare "veterans" is only core: "Frontier Lab veterans" / "industry veterans" is an idiom, not the target group
+      anchor: ["war veteran", "military veteran", "armed forces veteran", "ex-service", "ptsd", "post-traumatic", "posttraumatic", "war trauma", "war-affected",
                "conflict-affected", "psychological trauma", "moral injury",
                "veteranen", "veteránok", "kriegsveteranen", "ptbs", "posttraumatisch", "kriegstrauma", "háborús trauma"]
-      core: ["trauma", "psychosocial support", "reintegration", "ukraine", "ukrainian", "refugees", "displaced",
+      core: ["veteran", "veterans", "trauma", "psychosocial support", "reintegration", "ukraine", "ukrainian", "refugees", "displaced",
              "amputee", "prosthetic", "prosthetics", "peer support", "suicide prevention", "anxiety", "depression",
              "mental health", "trauma-informed",
                "ukrajna", "geflüchtete", "menekültek", "psychosozial", "pszichoszociális"]
@@ -333,9 +440,10 @@ profile:
       color: "#1d4ed8"
       anchor: ["astronaut", "astronauts", "crew support", "crew health", "human spaceflight", "long-duration mission",
                "long-duration spaceflight", "space habitat", "lunar gateway", "space psychology", "space medicine",
-               "isolation and confinement", "analog mission", "analogue mission", "re:HORIZON-[A-Z0-9-]*SPACE",
+               "isolation and confinement", "analog mission", "analogue mission",
                "astronauten", "űrhajós", "űrhajósok", "bemannte raumfahrt"]
-      core: ["iss", "international space station", "microgravity", "behavioural health", "behavioral health", "crew",
+      # a HORIZON-…-SPACE id says "space programme", not "crew": only core, so EO / launcher / EEE topics stay out
+      core: ["re:HORIZON-[A-Z0-9-]*SPACE", "iss", "international space station", "microgravity", "behavioural health", "behavioral health", "crew",
              "esa", "european space agency", "human factors", "life support", "in-orbit", "orbital", "lunar", "moon",
              "mars", "human exploration", "space robotics",
                "weltraum", "dlr", "raumstation", "űrállomás", "űrkutatás", "raumfahrt"]
@@ -440,8 +548,12 @@ digest:
   language: hu                     # "en" or "hu" — headings, badges, verdicts; call titles stay in their source language
   match_min_score: 35              # fit score needed for the ⭐ section (35 Worth a look · 50 Good · 70 Strong)
   closing_soon_days: 30
-  max_rows_per_section: 40         # email only; overflow links to the archive
+  new_window_days: 7               # 🆕 = first seen within this many days (extra runs don't reset it)
+  solo_bonus: 12                   # ranking bonus for calls one organisation can apply for alone (half when partners are optional)
+  solo_rows: 8                     # email: the "apply on your own" shortlist that leads the digest
+  max_rows_per_section: 15         # email only (Gmail clips > 102 KB); overflow links to the filtered archive view
   max_matches_per_theme: 10        # email only
+  email_max_kb: 95                 # the email re-renders with fewer rows per section until it fits (Gmail clips ~102 KB)
   foundation_ranking_rows: 12      # email: top foundation / national calls by AI score, always shown
   max_per_cluster: 0               # archive page (0 = unlimited)
 

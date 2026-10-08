@@ -23,7 +23,7 @@ from .util.logging import setup_logger
 
 logger, _ = setup_logger()
 
-PROMPT_VERSION = "4"
+PROMPT_VERSION = "7"   # v7: + consortium (solo / optional / required) · v6 calibration caps · v5 blind to the keyword score
 # USD per 1M tokens (input, output) — update if you switch models
 PRICES = {"gpt-4o-mini": (0.15, 0.60), "gpt-4.1-mini": (0.40, 1.60), "gpt-4.1-nano": (0.10, 0.40), "gpt-4o": (2.50, 10.0), "gpt-4.1": (2.00, 8.00)}
 USD_PER_EUR = 1.08
@@ -59,8 +59,11 @@ type to contact, a webinar/deadline date, an eligibility question to clarify) �
 confidence. Answer ONLY with a JSON object matching the schema."""
 
 SCHEMA = """{
+  "is_open_call": true|false,         // the text describes ONE specific funding call/programme open (or opening) to applications — not a portal, search page, overview, news item or results list
+  "tech_explicit": true|false,        // the call text itself invites robotics, AI, human–machine interaction, companion/assistive or digital-health TECHNOLOGY development or pilots
+  "consortium": "solo|optional|required", // can ONE organisation apply alone? solo = only single applicants · optional = alone or with partners · required = the call demands partners / a consortium
   "applicable": true|false,           // could we credibly apply (alone or in a consortium)?
-  "ai_score": 0-100,                  // overall attractiveness for us: fit x winnability x money
+  "ai_score": 0-100,                  // overall attractiveness for us: fit x winnability x money — use the whole range (e.g. 23, 58, 81), not round buckets
   "confidence": 0-100,                // how sure you are, given how much of the call text you saw
   "angle": "2-3 sentences: the concrete project idea that connects OUR roadmap (humanoid head / ETHEA companion / oncology / education / veterans / space) to THIS call",
   "entity": "which of our entities should apply and why (PBN Germany GmbH · PBN Association HU non-profit · am-LAB · at.home · planned DE gGmbH)",
@@ -105,7 +108,6 @@ class Analyst:
             f"Status: {o.status}", f"Deadline: {o.deadline or 'unknown'}",
             f"Grant size: up to €{o.contribution_max:,.0f}" if o.contribution_max else "Grant size: unknown",
             f"Funding rate: {o.funding_rate or 'unknown'}", f"Tags: {', '.join(o.tags[:8])}" if o.tags else "",
-            f"Our keyword-fit score: {o.fit_score}/100 (theme: {o.fit_theme_label or 'none'})",
         ]
         text = (o.text or o.summary or "")[: self.max_chars]
         return (
@@ -149,6 +151,7 @@ class Analyst:
 
     @staticmethod
     def _normalise(d: Dict[str, Any]) -> Dict[str, Any]:
+        """Clamp fields, then enforce the calibration in code: unconstrained, the model parks most calls at 75."""
         def num(v, lo=0, hi=100):
             try:
                 return max(lo, min(hi, int(float(v))))
@@ -156,8 +159,16 @@ class Analyst:
                 return 0
         def lst(v):
             return [str(x) for x in v][:4] if isinstance(v, list) else ([str(v)] if v else [])
+        score = num(d.get("ai_score"))
+        is_call, tech = d.get("is_open_call") is not False, d.get("tech_explicit") is not False
+        if not is_call:                 # overview / portal / news page: never a pick
+            score = min(score, 25)
+        elif not tech:                  # a real call, but nothing for a technology developer → below the pick line
+            score = min(score, 54)
         return {
-            "applicable": bool(d.get("applicable")), "ai_score": num(d.get("ai_score")), "confidence": num(d.get("confidence")),
+            "applicable": bool(d.get("applicable")) and score >= 55, "ai_score": score, "confidence": num(d.get("confidence")),
+            "is_open_call": is_call, "tech_explicit": tech,
+            "consortium": c if (c := str(d.get("consortium", "")).lower()) in ("solo", "optional", "required") else "",
             "angle": str(d.get("angle", ""))[:600], "entity": str(d.get("entity", ""))[:200],
             "partners": lst(d.get("partners")), "risks": lst(d.get("risks")),
             "next_step": str(d.get("next_step", ""))[:300], "summary": str(d.get("summary", ""))[:300],
@@ -166,13 +177,13 @@ class Analyst:
     # ------------------------------------------------------------------
     def analyse(self, opps: List[Opportunity]) -> int:
         """Fill o.ai for each opportunity (from cache or the model). Returns number of API calls made."""
-        if not self.enabled:
-            logger.info("analyst: no API key — skipped")
-            return 0
         todo = [o for o in opps if self._key(o) not in self.cache]
         for o in opps:
             if (hit := self.cache.get(self._key(o))):
                 o.ai = {k: v for k, v in hit.items() if k != "at"}
+        if not self.enabled:
+            logger.info(f"analyst: no API key — {len(opps) - len(todo)} cached judgements applied, {len(todo)} left unanalysed")
+            return 0
         logger.info(f"analyst: {len(opps)} candidates · {len(opps) - len(todo)} cached · {len(todo)} to analyse with {self.model}")
         if not todo:
             return 0

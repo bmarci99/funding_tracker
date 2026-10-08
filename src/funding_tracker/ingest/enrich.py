@@ -7,6 +7,7 @@ history.json), keep the main content, and extract:
   - text      main article text (nav/header/footer stripped), used for scoring
   - deadline  first date after a deadline keyword (EN/DE/DK/SE/HU), else earliest future date
   - amount    largest money figure on the page, converted to EUR (rough FX)
+  - title     the page's <h1> / og:title — replaces generic link text ("View challenge", "Read more")
 
 Pages with no funding signal at all (no apply/deadline/grant vocabulary) are dropped — that is
 how we get rid of navigation headings the index scraper picked up.
@@ -29,7 +30,7 @@ from ..util.logging import setup_logger
 logger, _ = setup_logger()
 
 FUNDING_SIGNAL = re.compile(
-    r"apply|application|deadline|grant|funding|call for|förder|foerder|frist|bewerb|antrag|ausschreib|"
+    r"apply|application|deadline|grant|funding|call for|announcement of opportunit|förder|foerder|frist|bewerb|antrag|ausschreib|"
     r"ansøg|ansog|bevilling|utlysning|ansök|pályáz|palyaz|támogat|tamogat|határidő|hatarido|felhívás|felhivas",
     re.I,
 )
@@ -91,14 +92,33 @@ def _parse_date_match(pat_idx: int, g: Tuple[str, ...]) -> Optional[date]:
     return None
 
 
-def extract_deadline(text: str, today: Optional[date] = None) -> Optional[date]:
-    today = today or date.today()
+def _all_dates(text: str) -> List[Tuple[int, date]]:
     found: List[Tuple[int, date]] = []               # (position, date)
     for i, pat in enumerate(DATE_PATTERNS):
         for m in pat.finditer(text):
             d = _parse_date_match(i, m.groups())
-            if d and today <= d <= today + timedelta(days=730):
+            if d:
                 found.append((m.start(), d))
+    return found
+
+
+def deadline_passed(text: str, today: Optional[date] = None) -> bool:
+    """True when a teaser card states a deadline that is over and mentions no future date at all
+    ("Application deadline 03 Apr 2024 …" on an archive of past calls)."""
+    today = today or date.today()
+    found = _all_dates(text)
+    if not found or any(d >= today for _, d in found):
+        return False
+    for kw in DEADLINE_KW.finditer(text):
+        near = [d for pos, d in found if 0 <= pos - kw.start() <= 60]
+        if near:
+            return True
+    return False
+
+
+def extract_deadline(text: str, today: Optional[date] = None) -> Optional[date]:
+    today = today or date.today()
+    found = [(pos, d) for pos, d in _all_dates(text) if today <= d <= today + timedelta(days=730)]
     if not found:
         return None
     # prefer a date that follows a deadline keyword within 160 chars
@@ -109,16 +129,41 @@ def extract_deadline(text: str, today: Optional[date] = None) -> Optional[date]:
     return min(d for _, d in found)
 
 
-def extract_amount_eur(text: str) -> Optional[float]:
-    best = 0.0
+# A figure this large on a foundation / agency page is a programme or fund total ("€80M Innovationsfonds",
+# "FORTIS €314m"), not what one grant pays — it goes to call_budget, never contribution_max.
+PROGRAMME_TOTAL_EUR = 20e6
+# "an indicative total budget of €3.1M" / "Gesamtbudget" / "keretösszeg" → the call's pot, not one grant
+TOTAL_CTX_RX = re.compile(r"total|overall|indicative budget|call budget|budget of the call|gesamt|insgesamt|"
+                          r"fördervolumen|keretösszeg|samlet|totalt|split|allocat|earmark|reserved for|aufgeteilt", re.I)
+
+
+# a stated per-grant cap beats any heuristic: "up to €250,000 per project", "bis zu 100.000 EUR", "legfeljebb 50 millió Ft"
+GRANT_CAP_RX = re.compile(r"up to|maximum|max\.?|at most|bis zu|höchstens|maximal|legfeljebb|op til|upp till", re.I)
+PER_GRANT_RX = re.compile(r"\s*(?:per|pro|/)\s*(?:project|projekt|grant|applicant|antrag|vorhaben|team)|\s*projektenként", re.I)
+
+
+def extract_amount_eur(text: str, max_eur: float = 5e9, skip_totals: bool = False) -> Optional[float]:
+    """Largest money figure in EUR within [5k, max_eur]; skip_totals ignores figures introduced as a call total."""
+    best, cap, prev_end = 0.0, 0.0, 0
     for m in MONEY_RX.finditer(text):
+        lead, prev_end = text[max(prev_end, m.start() - 50):m.start()], m.end()   # only this figure's own lead-in
+        if skip_totals and TOTAL_CTX_RX.search(lead):
+            continue
         cur, num, mult = (m.group(1), m.group(2), m.group(3)) if m.group(1) else (m.group(6), m.group(4), m.group(5))
+        mult = (mult or "").lower().rstrip(".")
         try:
-            n = float(re.sub(r"[\s.]", "", num).replace(",", ".")) if num.count(",") == 1 and len(num.split(",")[1]) <= 2 \
-                else float(re.sub(r"[\s.,]", "", num))
+            digits = re.sub(r"\s", "", num)
+            if mult and re.fullmatch(r"\d+[.,]\d{1,2}", digits):
+                n = float(digits.replace(",", "."))           # "3.14 million", "2,5 Mio." — decimal, not thousands
+            elif "," in digits and "." in digits:             # "3,142,746.92" / "3.142.746,92": the last one is the decimal
+                cut = max(digits.rfind(","), digits.rfind("."))
+                n = float(re.sub(r"[.,]", "", digits[:cut]) + "." + digits[cut + 1:])
+            elif num.count(",") == 1 and len(num.split(",")[1]) <= 2:
+                n = float(re.sub(r"[\s.]", "", num).replace(",", "."))
+            else:
+                n = float(re.sub(r"[\s.,]", "", num))
         except ValueError:
             continue
-        mult = (mult or "").lower().rstrip(".")
         if mult in ("mio", "million", "millions", "millió", "mill", "m"):
             n *= 1e6
         elif mult in ("mrd", "billion", "milliárd"):
@@ -126,22 +171,114 @@ def extract_amount_eur(text: str) -> Optional[float]:
         elif mult == "k":
             n *= 1e3
         n *= FX_TO_EUR.get(cur.lower(), 1.0)
-        if 5_000 <= n <= 5e9:
+        if 5_000 <= n <= max_eur:
             best = max(best, n)
-    return best or None
+            if skip_totals and (GRANT_CAP_RX.search(lead[-25:]) or PER_GRANT_RX.match(text, m.end())):
+                cap = max(cap, n)
+    return (cap or best) or None
 
 
 _CREDIT_RX = re.compile(r"©\s?[^.]{0,60}?(?:stock\.adobe\.com|shutterstock|getty images|unsplash|istock)\S*", re.I)
 
 
-def main_text(html: str) -> str:
+# Link texts that say nothing about the call ("View challenge" on every SPRIND card). Such items get
+# the detail page's <h1> as title instead — one central fix for every feed type.
+GENERIC_TITLE_RX = re.compile(
+    r"^(?:(?:read|learn|find out|see|view|show|discover|explore)(?: more)?(?: about)?(?: (?:the|this|all|our))?"
+    r"(?: (?:more|details?|challenges?|calls?|programmes?|programs?|projects?|opportunit(?:y|ies)|funding|offer|here))?|"
+    r"more|more info(?:rmation)?|details?|click here|apply|apply now|to the (?:call|challenge|programme)|"
+    r"mehr|mehr erfahren|mehr lesen|mehr informationen|weitere informationen|weiterlesen|weiter|details ansehen|"
+    r"kurzbeschreibung(?: programm)?|auss?chreibung (?:&|und) bewerbung|"
+    r"zu[mr] (?:(?:laufenden|aktuellen|offenen) )?(?:förderangebot|aufruf|programm|wettbewerb|projekt|ausschreibung|challenge|förderung|bewerbung|"
+    r"antrag|call)\b.{0,40}|"
+    r"læs mere|se mere|læs videre|läs mer|lue lisää|lisätietoja|"
+    r"tovább|bővebben|részletek|olvass tovább|további részletek)$",
+    re.I,
+)
+# Labels and deadlines glued in front of the real title: SPRIND h1 "Your Challenge: Next Frontier…",
+# DLR "Frist: 22. November 2026 Ideenaufruf …", DLR-PT "30.11.2026 BMFTR Richtlinie …".
+_LABEL_PREFIX_RX = re.compile(
+    r"^(?:your (?:challenge|call)|(?:antrags|einreichungs|bewerbungs)?frist|deadline|bewerbungsschluss)\s*:\s*", re.I)
+_LEADING_DATE_RX = re.compile(
+    rf"^(?:{DATE_PATTERNS[0].pattern}|{DATE_PATTERNS[1].pattern}|{DATE_PATTERNS[3].pattern})\s*[:|–—-]?\s+", re.I)
+_SITE_SUFFIX_RX = re.compile(r" (?:\||–|—|·|::|-) [^|–—·]{2,60}$")   # "Call X | SPRIND" → "Call X" (text is pre-collapsed)
+
+
+def clean_title(title: str) -> str:
+    """Strip leading label / deadline prefixes; keeps the original if nothing would be left."""
+    t = " ".join((title or "").split())
+    out = _LEADING_DATE_RX.sub("", _LABEL_PREFIX_RX.sub("", t))
+    return out or t
+
+
+def is_generic_title(title: str, min_len: int = 12) -> bool:
+    """Link text that names nothing. Short index link texts are mostly buttons ("Apply", "Details"); a page's own
+    <h1> may legitimately be short ("CZS Plus"), so _page_title passes a lower min_len."""
+    t = " ".join((title or "").split()).strip(" .:›»→>…")
+    return len(t) < min_len or bool(GENERIC_TITLE_RX.match(t))
+
+
+def _page_title(soup: BeautifulSoup) -> str:
+    """<h1> (inside main/article if possible), else og:title / <title> without the ' | Site' suffix."""
+    scope = soup.find("main") or soup.find("article") or soup
+    for h1 in [*scope.find_all("h1"), *soup.find_all("h1")]:
+        t = clean_title(h1.get_text(" ", strip=True))
+        if t and not is_generic_title(t, min_len=6):
+            return t
+    og = soup.find("meta", attrs={"property": "og:title"}) or soup.find("meta", attrs={"name": "og:title"})
+    for raw in ((og.get("content") if og else ""), (soup.title.get_text() if soup.title else "")):
+        t = " ".join((raw or "").split())
+        head = _SITE_SUFFIX_RX.sub("", t)
+        t = head if len(head) >= 8 else t
+        if t and not is_generic_title(t, min_len=6):
+            return t
+    return ""
+
+
+# "related content" blocks after the article tease *other* pages (SPRIND: a humanoid-robot podcast under every
+# challenge, "More Challenges and Funken" listing the anti-drone call) and pollute the fit score — cut there.
+_RELATED_RX = re.compile(
+    r"\b(?:more about this topic|more challenges and funken|related (?:articles|news|content|posts)|you might also like|"
+    r"weitere artikel|ähnliche artikel|das könnte sie auch interessieren)\b",
+    re.I,
+)
+
+
+# Archived rounds say so on the detail page (G-BA, Interaktive Technologien keep every past Bekanntmachung online).
+# Only trusted when the page names no future date — "1st round closed, 2nd round until 1 March 2027" stays.
+PAGE_CLOSED_RX = re.compile(
+    r"(?:einreichungs|antrags|bewerbungs|skizzen)?frist (?:ist |wurde )?(?:bereits )?abgelaufen|"
+    r"frist abgelaufen|application period (?:is |has )?(?:now )?closed|this call (?:is|has) (?:now )?closed|"
+    r"call (?:is |has )?(?:now )?closed for (?:applications|submissions)|\blezárult\b",
+    re.I,
+)
+
+
+def page_closed(text: str, today: Optional[date] = None) -> bool:
+    return bool(PAGE_CLOSED_RX.search(text)) and extract_deadline(text, today) is None
+
+
+def cut_related(text: str, min_keep: int = 150) -> str:
+    """Text up to the first related-content heading (only if real content precedes it). Also applied to
+    cached entries, which were stored before this cut existed."""
+    m = next((m for m in _RELATED_RX.finditer(text) if m.start() >= min_keep), None)
+    return text[: m.start()].rstrip() if m else text
+
+
+def parse_page(html: str) -> Tuple[str, str]:
+    """(main text, page title) from one parse; the title is read before <header> is stripped."""
     soup = BeautifulSoup(html, "html.parser")
+    title = _page_title(soup)
     for t in soup(["script", "style", "nav", "footer", "header", "aside", "form", "noscript"]):
         t.decompose()
     node = soup.find("main") or soup.find("article") or soup.find(attrs={"role": "main"}) or soup.body or soup
     for fig in node.find_all(["figcaption", "figure"]):
         fig.decompose()
-    return " ".join(_CREDIT_RX.sub("", node.get_text(" ", strip=True)).split())
+    return cut_related(" ".join(_CREDIT_RX.sub("", node.get_text(" ", strip=True)).split())), title
+
+
+def main_text(html: str) -> str:
+    return parse_page(html)[0]
 
 
 class PageCache:
@@ -155,7 +292,9 @@ class PageCache:
 
     def get(self, url: str) -> Optional[Dict[str, Any]]:
         e = self.data.get(url)
-        if e and datetime.fromisoformat(e["fetched"]) > datetime.now(timezone.utc) - self.ttl:
+        # failed fetches (timeouts, 5xx) are retried next run instead of hiding the call for 30 days
+        ttl = self.ttl if e and e.get("ok", True) else timedelta(days=1)
+        if e and datetime.fromisoformat(e["fetched"]) > datetime.now(timezone.utc) - ttl:
             return e
         return None
 
@@ -181,27 +320,34 @@ def enrich(opps: List[Opportunity], client: httpx.Client, cache: PageCache, *, p
         if n >= (per_feed_override or {}).get(o.programme, per_feed):
             continue
         per_feed_count[o.programme] = n + 1
+        generic = is_generic_title(o.title)
         entry = cache.get(o.url)
+        if entry is not None and generic and entry.get("ok") and "title" not in entry:
+            entry = None                           # cached before titles were stored: re-fetch once
         if entry is None:
             try:
                 r = client.get(o.url)
                 r.raise_for_status()
-                text = main_text(r.text)[:max_chars]
-                entry = {"text": text, "ok": True}
+                text, page_title = parse_page(r.text)
+                entry = {"text": text[:max_chars], "title": page_title[:200], "ok": True}
             except Exception as exc:  # noqa: BLE001
                 entry = {"text": "", "ok": False, "error": f"{type(exc).__name__}"}
             cache.put(o.url, entry)
             fetched += 1
             time.sleep(delay_s)
-        text = entry.get("text", "")
-        if not entry.get("ok") or not FUNDING_SIGNAL.search(f"{o.title} {text}"):
+        if generic and entry.get("title"):
+            o.title = clean_title(entry["title"])
+        text = cut_related(entry.get("text", ""))
+        if not entry.get("ok") or not FUNDING_SIGNAL.search(f"{o.title} {text}") or page_closed(text):
             continue
         o.text = f"{o.title} {text}"
         o.summary = text[:300]
         o.deadline = extract_deadline(text)
-        amt = extract_amount_eur(text)
-        if amt:
-            o.contribution_max = amt
+        total = extract_amount_eur(text)
+        grant = extract_amount_eur(text, max_eur=PROGRAMME_TOTAL_EUR - 1, skip_totals=True)
+        if total and total != grant and (total >= PROGRAMME_TOTAL_EUR or total > (grant or 0)):
+            o.call_budget = total
+        o.contribution_max = grant or o.contribution_max
         o.compute_hash()
         kept.append(o)
     logger.info(f"  enriched {len(kept)} foundation calls ({fetched} pages fetched, {len(opps) - len(kept)} dropped as non-calls)")

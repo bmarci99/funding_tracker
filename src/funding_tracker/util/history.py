@@ -97,3 +97,10 @@ def record_items(history: Dict[str, Any], items: List[Dict[str, Any]]) -> Dict[s
             existing[jid] = j
     history["items"] = list(existing.values())
     return history
+
+
+def first_seen_within(history: Dict[str, Any], ids: List[str], days: int) -> Set[str]:
+    """ids whose first sighting in history is less than `days` old — the digest's NEW flag."""
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+    first_seen = {e["id"]: str(e.get("first_seen", "")) for e in history.get("items", []) if "id" in e}
+    return {i for i in ids if first_seen.get(i, "") >= cutoff}

@@ -43,7 +43,7 @@ def test_compact_render_caps_rows_and_marks_new():
                         deadline=date.today()) for i in range(5)]
     html = render_html(opps, new_ids={"HORIZON-CL4-2026-01"}, date="2026-09-21", compact=True, max_rows=2)
     assert "and 3 more" in html
-    assert "NEW" in html
+    assert "badge-new" in html and "is-new" in html
     assert "Cluster 4" in html
 
 
@@ -148,3 +148,54 @@ def test_analyst_normalise_and_budget(monkeypatch, tmp_path):
     assert a._over_budget() and a.spent_eur > 0.1
     o = _opp(title="Humanoid", content_hash="abc")
     assert "gpt-4o-mini" in a._key(o) and "Hungarian" == a.lang
+
+
+def test_one_phrase_is_one_signal():
+    # SPRIND quantum-sensing page: a podcast teaser "humanoide Roboter" was credited as humanoid + humanoide roboter
+    # + roboter (core) + roboter (context) and pushed the call to "Strong fit 70"
+    p = _profile()
+    p["themes"]["head"]["anchor"].append("humanoide roboter")
+    p["themes"]["head"]["core"].append("roboter")
+    p["themes"]["head"]["context"].append("roboter")
+    p["themes"]["health"]["core"].append("caregiver")
+    sc = FitScorer(p)
+    o = _opp(id="found:x", source="foundation", title="Measuring with Entanglement",
+             text="quantum sensors beyond the SQL. Podcast: Wie nützlich sind humanoide Roboter?")
+    sc.score(o)
+    assert o.interest_hits == ["body: humanoide roboter"]
+    # singular + plural of one word are one signal, not two of the three core hits that activate a theme
+    c = _opp(title="Clinical trials", text="support for caregivers in hospital")
+    sc.score(c)
+    assert c.fit_theme == ""
+    # separate mentions still count separately
+    r = _opp(title="Humanoid social robot", text="a robot arm")
+    sc.score(r)
+    assert "body: robot" in r.interest_hits
+
+
+def _real_scorer():
+    from pathlib import Path
+    import yaml
+    cfg = yaml.safe_load((Path(__file__).resolve().parents[1] / "config.yaml").read_text(encoding="utf-8"))
+    return FitScorer(cfg["profile"], cfg.get("packs"))
+
+
+def test_real_vocabulary_regressions():
+    sc = _real_scorer()
+    found = dict(source="foundation", action_type="", funding_rate="")
+    # "Frontier Lab veterans" is an idiom, not the target group
+    idiom = _opp(id="found:a", title="Next Frontier AI", **found,
+                 text="A jury including Frontier Lab veterans, leading researchers and investors supports SPRIND. AI labs.")
+    vets = _opp(id="found:b", title="Digital companions for war veterans", **found, text="veterans with PTSD and trauma")
+    # a HORIZON-…-SPACE id alone is not a crew-companion call
+    eo = _opp(id="HORIZON-CL4-2027-SPACE-03-71", title="Quantum Space Gravimetry topic",
+              text="in-orbit demonstration of a quantum gravimeter for monitoring")
+    crew = _opp(id="HORIZON-CL4-2027-SPACE-03-99", title="Crew support for long-duration spaceflight", text="astronauts")
+    # general-purpose robot platforms are a capability call
+    nfr = _opp(id="found:c", title="Next Frontier Robotics", **found,
+               text="Develop full-stack robot platforms: complete multi-purpose robots for real environments.")
+    for o in (idiom, vets, eo, crew, nfr):
+        sc.score(o)
+    assert idiom.fit_theme == "" and eo.fit_theme == ""
+    assert vets.fit_theme == "veterans" and crew.fit_theme == "space_companion"
+    assert nfr.fit_theme == "humanoid_head" and "body: multi-purpose robot" in nfr.interest_hits

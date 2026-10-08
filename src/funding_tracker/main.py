@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import time
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -10,6 +11,7 @@ from typing import Any, Dict, List
 import yaml
 
 from .analyst import Analyst
+from .consortium import classify_all
 from .delivery.email_sender import send_digest_email
 from .i18n import Translator
 from .ingest.foundations import FoundationsIngester
@@ -19,10 +21,21 @@ from .models import Opportunity
 from .render.digest_html import render_html
 from .render.digest_md import render_markdown
 from .render.site_builder import build_site
-from .util.history import diff_items, load_history, prune_history, record_items, save_history
+from .util.history import diff_items, first_seen_within, load_history, prune_history, record_items, save_history
 from .util.logging import section, setup_logger
 
 logger, console = setup_logger()
+
+
+def load_dotenv(path: str = ".env") -> None:
+    """KEY=value lines from .env into os.environ (already-set variables win). Keeps local runs = CI runs."""
+    p = Path(path)
+    if not p.exists():
+        return
+    for line in p.read_text(encoding="utf-8").splitlines():
+        key, sep, val = line.partition("=")
+        if sep and key.strip() and not key.lstrip().startswith("#"):
+            os.environ.setdefault(key.strip().removeprefix("export ").strip(), val.strip().strip("'\""))
 
 
 def load_config(path: str = "config.yaml") -> Dict[str, Any]:
@@ -55,6 +68,23 @@ def apply_filters(opps: List[Opportunity], f: Dict[str, Any]) -> List[Opportunit
             continue
         out.append(o)
     return out
+
+
+def fit_email(opps: List[Opportunity], render_kw: Dict[str, Any], *, rows: int, per_theme: int, limit_kb: int) -> str:
+    """Render the email, shrinking row caps until it fits — Gmail clips anything over ~102 KB.
+    The secondary sections (AI picks, closing soon, new) shrink first; the roadmap matches only as a last resort."""
+    while True:
+        html = render_html(opps, compact=True, max_rows=rows, max_per_theme=per_theme, **render_kw)
+        size_kb = len(html.encode()) / 1024
+        if size_kb <= limit_kb or (rows <= 3 and per_theme <= 3):
+            if size_kb > limit_kb:
+                logger.warning(f"[yellow]email is {size_kb:.0f} KB even at minimum rows — Gmail will clip it[/yellow]")
+            return html
+        if rows > 3:
+            rows = max(3, rows * 2 // 3)
+        else:
+            per_theme = max(3, per_theme * 2 // 3)
+        logger.info(f"email {size_kb:.0f} KB > {limit_kb} KB → re-rendering with {rows} rows per section, {per_theme} per theme")
 
 
 def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, Any]:
@@ -91,7 +121,7 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
     ai_cfg = cfg.get("ai", {})
     Opportunity.AI_PICK_MIN = int(ai_cfg.get("pick_min_score", 55))
     analyst = Analyst(ai_cfg, cfg.get("profile", {}).get("company_brief", ""), dg.get("language", "en"))
-    if analyst.enabled:
+    if ai_cfg.get("enabled", True):                  # without a key the cached judgements are still applied
         section(console, "AI ANALYST")
         cands = [o for o in opps if (o.source != "portal" and ai_cfg.get("analyse_all_foundations", True))
                  or o.fit_score >= int(ai_cfg.get("min_fit_for_portal", 35))]
@@ -99,6 +129,11 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
         analyst.analyse(cands[: int(ai_cfg.get("max_items", 300))])
         n_picks = sum(1 for o in opps if o.ai_pick)
         logger.info(f"[bold]{n_picks}[/bold] AI picks (applicable · score ≥ {ai_cfg.get('pick_min_score', 60)})")
+
+    # --- 1d. Who can apply: alone, or only in a consortium? (text › programme rules › analyst) ---
+    classify_all(opps)
+    n_solo = sum(1 for o in opps if o.solo_ok and (o.interest_for or o.ai_pick))
+    logger.info(f"[bold]{n_solo}[/bold] matches / AI picks can be applied for without a consortium")
 
     # --- 2. Diff against history ---
     section(console, "DIFF")
@@ -108,16 +143,25 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
     first_run = not history.get("items")
 
     current = [o.model_dump(mode="json") for o in opps]
-    new_items, changed_items, removed_items = diff_items(current, history)
+    since_last, changed_items, removed_items = diff_items(current, history)
+    history = record_items(history, current)
+    save_history(hist_path, history)
+    # NEW = first seen within the window, so an extra run mid-week doesn't wipe the flags of Monday's arrivals
+    window = int(dg.get("new_window_days", 7))
+    first_seen = {e["id"]: str(e.get("first_seen", "")) for e in history["items"]}
+    for o, i in zip(opps, current):                  # carry the real first sighting into the outputs
+        if (fs := first_seen.get(o.id)):
+            o.first_seen = datetime.fromisoformat(fs.replace("Z", "+00:00"))
+            i["first_seen"] = fs
+    fresh = first_seen_within(history, [o.id for o in opps], window)
+    new_items = [] if first_run else [i for i in current if i["id"] in fresh]
     if first_run:
         # No baseline yet — don't flag the whole portal as "new"
         logger.info("first run: seeding history, nothing flagged as new")
-        new_items = []
     logger.info(
-        f"[green]+{len(new_items)} new[/green] · [yellow]~{len(changed_items)} changed[/yellow] · "
-        f"[red]-{len(removed_items)} removed[/red] · {len(opps)} total"
+        f"[green]+{len(new_items)} new in {window} d[/green] ({len(since_last)} since last run) · "
+        f"[yellow]~{len(changed_items)} changed[/yellow] · [red]-{len(removed_items)} removed[/red] · {len(opps)} total"
     )
-    save_history(hist_path, record_items(history, current))
 
     # --- 3. Render ---
     section(console, "RENDER")
@@ -146,9 +190,12 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
         lang=dg.get("language", "en"),
         ai_pick_min=int(ai_cfg.get("pick_min_score", 55)),
         foundation_rows=int(dg.get("foundation_ranking_rows", 12)),
+        solo_bonus=float(dg.get("solo_bonus", 12)),
+        solo_rows=int(dg.get("solo_rows", 8)),
     )
-    html_text = render_html(opps, compact=True, max_rows=dg.get("max_rows_per_section", 40),
-                            max_per_theme=dg.get("max_matches_per_theme", 10), **render_kw)       # email: compact
+    html_text = fit_email(opps, render_kw, rows=int(dg.get("max_rows_per_section", 15)),
+                          per_theme=int(dg.get("max_matches_per_theme", 10)),
+                          limit_kb=int(dg.get("email_max_kb", 100)))                             # email: compact
     html_full = render_html(opps, compact=False, **render_kw)      # archive: everything
     (out_dir / "digest.html").write_text(html_text, encoding="utf-8")
     (out_dir / "digest_full.html").write_text(html_full, encoding="utf-8")
@@ -158,10 +205,15 @@ def run_pipeline(cfg: Dict[str, Any], *, send_email: bool = False) -> Dict[str, 
     # --- 4. Archive (GitHub Pages) ---
     if cfg.get("output", {}).get("archive", True):
         section(console, "ARCHIVE")
-        build_site(html_full, today, cfg.get("output", {}).get("archive_dir", "docs"))
+        build_site(html_full, today, cfg.get("output", {}).get("archive_dir", "docs"), lang=dg.get("language", "en"),
+                   base_url=archive_url,
+                   stats={"total": len(opps), "matches": n_match, "new": len(new_items),
+                          "ai_picks": sum(1 for o in opps if o.ai_pick),
+                          "solo": sum(1 for o in opps if o.solo_ok and (o.interest_for or o.ai_pick)),
+                          "strong": sum(1 for o in opps if o.interest_for and o.fit_verdict == "Strong fit")})
 
     # --- 5. Email ---
-    has_changes = bool(new_items or changed_items)
+    has_changes = bool(since_last or changed_items)
     if send_email and (has_changes or cfg.get("email", {}).get("send_on_empty", False)):
         section(console, "EMAIL")
         tr = Translator(dg.get("language", "en"))
@@ -193,6 +245,7 @@ def cli() -> None:
     p.add_argument("--send-email", action="store_true", help="Send digest email (needs GMAIL_* env vars)")
     p.add_argument("--config", default="config.yaml")
     args = p.parse_args()
+    load_dotenv()
     run_pipeline(load_config(args.config), send_email=args.send_email)
 
 

@@ -66,6 +66,7 @@ class Opportunity(BaseModel):
     interest_hits: List[str] = Field(default_factory=list)   # "title: humanoid", "body: oncology", "⚠ military"
     interest_for: List[str] = Field(default_factory=list)    # [theme label] when it is a match
     ai: Dict[str, Any] = Field(default_factory=dict)   # analyst.py output: applicable, ai_score, angle, entity, …
+    consortium: str = ""                       # "solo" | "optional" | "required" | "" — see consortium.py
     first_seen: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     content_hash: str = ""
     text: str = Field(default="", exclude=True)  # full description used for matching; not persisted
@@ -76,6 +77,11 @@ class Opportunity(BaseModel):
     def ai_pick(self) -> bool:
         """The analyst thinks we can apply and it is attractive (≥ AI_PICK_MIN)."""
         return bool(self.ai.get("applicable")) and int(self.ai.get("ai_score", 0)) >= self.AI_PICK_MIN
+
+    @property
+    def solo_ok(self) -> bool:
+        """One organisation can apply without partners."""
+        return self.consortium in ("solo", "optional")
 
     @property
     def is_full_rate(self) -> bool:

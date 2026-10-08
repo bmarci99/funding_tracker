@@ -5,3 +5,6 @@ outputs/digest.*
 outputs/run_stats.json
 .env
 .pytest_cache/
+
+# project agents & skills (overrides a global .claude/ ignore)
+!.claude/
