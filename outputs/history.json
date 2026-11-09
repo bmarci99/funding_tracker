@@ -7,12 +7,12 @@
       "source": "portal",
       "programme": "DIGITAL",
       "call_id": "",
-      "call_title": "Recruitment Cycle Cohort 2027",
+      "call_title": "Skills4Deca –  RTU 1st Scholarship Call",
       "status": "Open",
       "action_type": "",
       "deadline_model": "single-stage",
-      "opening_date": "2026-10-31",
-      "deadline": "2027-06-30",
+      "opening_date": "2026-11-09",
+      "deadline": "2027-01-10",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -39,7 +39,7 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:11:09.602412Z",
-      "content_hash": "3d6f701d8290",
+      "content_hash": "d8477b23afb6",
       "ai": {},
       "consortium": ""
     },
@@ -50,12 +50,12 @@
       "source": "portal",
       "programme": "DIGITAL",
       "call_id": "",
-      "call_title": "UPRAISE: Financial Support to Third Parties (FSTP) call for International Mobility, Type of financial support: Students Outgoing, Cycle 1 – Academic Year 2026/2027",
+      "call_title": "VIC FSTP – ISTEC Lisboa Master's Degree Scholarships 2026 – 2027",
       "status": "Open",
       "action_type": "",
       "deadline_model": "single-stage",
-      "opening_date": "2026-10-15",
-      "deadline": "2026-12-11",
+      "opening_date": "2026-11-02",
+      "deadline": "2027-01-05",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -82,7 +82,7 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:11:09.602800Z",
-      "content_hash": "86e0e46fe7df",
+      "content_hash": "71c9bb409587",
       "ai": {},
       "consortium": ""
     },
@@ -681,12 +681,12 @@
       "source": "portal",
       "programme": "DIGITAL",
       "call_id": "",
-      "call_title": "Financial support for Finnish micro, small, and medium-sized enterprises to promote the commercialisation of innovative cybersecurity solutions",
+      "call_title": "Cyber Security Boost: Support for the development, pilot testing and wider adoption of solutions for cyber resilience.",
       "status": "Open",
       "action_type": "",
       "deadline_model": "single-stage",
-      "opening_date": "2026-09-01",
-      "deadline": "2026-11-04",
+      "opening_date": "2026-09-24",
+      "deadline": "2026-11-30",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -698,22 +698,22 @@
       ],
       "summary": "",
       "country": "",
-      "fit_score": 0,
+      "fit_score": 1,
       "fit_verdict": "",
       "fit_theme": "",
       "fit_theme_label": "",
       "fit_breakdown": {
         "theme": 0,
-        "packs": 0,
+        "packs": 1,
         "instrument": 0,
         "conditions": 0,
         "penalty": 0
       },
-      "interest_score": 0.0,
+      "interest_score": 1.0,
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:11:11.081306Z",
-      "content_hash": "3000f73df882",
+      "content_hash": "ef2389d363dd",
       "ai": {},
       "consortium": ""
     },
@@ -6272,12 +6272,12 @@
       "source": "portal",
       "programme": "HORIZON",
       "call_id": "",
-      "call_title": "Restack Open Call (2026-11R)",
+      "call_title": "Restack Open Call (2027-01R)",
       "status": "Open",
       "action_type": "",
       "deadline_model": "single-stage",
-      "opening_date": "2026-09-03",
-      "deadline": "2026-11-03",
+      "opening_date": "2026-11-03",
+      "deadline": "2027-01-03",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -6304,7 +6304,7 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:11:13.962280Z",
-      "content_hash": "73af10a895fc",
+      "content_hash": "8e7323b66f6e",
       "ai": {},
       "consortium": "required"
     },
@@ -6316,7 +6316,7 @@
       "programme": "HORIZON",
       "call_id": "",
       "call_title": "CodeSupply open call (2027-01Y)",
-      "status": "Forthcoming",
+      "status": "Open",
       "action_type": "",
       "deadline_model": "single-stage",
       "opening_date": "2026-11-03",
@@ -6347,7 +6347,7 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:11:13.962301Z",
-      "content_hash": "5d27d3cd956e",
+      "content_hash": "bfbf04dde67d",
       "ai": {},
       "consortium": "required"
     },
@@ -21052,8 +21052,8 @@
       "action_type": "TMA MSCA Staff Exchanges",
       "deadline_model": "single-stage",
       "opening_date": "2026-12-15",
-      "deadline": "2027-04-15",
-      "call_budget": 95035106.0,
+      "deadline": "2027-04-13",
+      "call_budget": 95147149.0,
       "contribution_min": null,
       "contribution_max": null,
       "expected_grants": null,
@@ -21077,7 +21077,7 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:11:22.779170Z",
-      "content_hash": "fd5966ce41bc",
+      "content_hash": "346af49a3d64",
       "ai": {},
       "consortium": "required"
     },
@@ -27481,7 +27481,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-11-04",
+      "deadline": null,
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -27508,29 +27508,29 @@
       "interest_hits": [],
       "interest_for": [],
       "first_seen": "2026-09-21T15:12:55.399370Z",
-      "content_hash": "6194da68d350",
+      "content_hash": "2b1b426db93b",
       "ai": {
         "applicable": true,
         "ai_score": 75,
         "confidence": 70,
         "is_open_call": true,
         "tech_explicit": true,
-        "consortium": "required",
-        "angle": "A projektünk célja, hogy az ETHEA platformot és az ETHEA humanoid fejet alkalmazzuk az ipari és orvosi környezetekben, különös figyelmet fordítva az egészségügyi és oktatási alkalmazásokra, amelyek a mesterséges intelligencia és a robotika integrációját igénylik.",
-        "entity": "PBN Germany GmbH, mivel a pályázat németországi KKV-k számára van fenntartva, és a cégünk for-profit státusza lehetővé teszi a 100%-os finanszírozást.",
+        "consortium": "optional",
+        "angle": "A projektötletünk a humanoid fej és az ETHEA társaság AI platform fejlesztésére összpontosít, amely a jövőbeli orvosi alkalmazásokban, például onkológiában és az idősek gondozásában nyújt innovatív megoldásokat. A KI.NRW felhívás célja a doménspecifikus AI rendszerek fejlesztése, amely lehetőséget ad számunkra, hogy a humanoid robotikánk és AI technológiánk révén hozzájáruljunk a projekt sikeréhez.",
+        "entity": "PBN Germany GmbH, mivel a pályázat célja a németországi kis- és középvállalkozások támogatása, és a cégünk a robotika és AI területén működik.",
         "partners": [
-          "egyetemek",
-          "ipari partnerek az egészségügyben",
-          "robotikai cégek",
-          "mesterséges intelligencia kutatóintézetek"
+          "egyetemi kutatóintézetek",
+          "egészségügyi intézmények",
+          "ipari partnerek",
+          "más KKV-k"
         ],
         "risks": [
           "a pályázat versenyképessége a nagyobb cégekkel szemben",
-          "a szükséges partnerek megtalálása",
-          "a pályázati feltételek teljesítése"
+          "a projekt specifikus követelményeinek való megfelelés",
+          "a pályázati határidők és feltételek tisztázatlansága"
         ],
-        "next_step": "Olvassuk el a BMFTR hivatalos pályázati útmutatóját, hogy pontosan megértsük a követelményeket és a benyújtási folyamatot.",
-        "summary": "A pályázat célja, hogy támogassa a mesterséges intelligencia és a robotika alkalmazását ipari és orvosi környezetekben."
+        "next_step": "Ezen a héten nézzük meg a BMFTR weboldalát a pályázati feltételek részleteiért és a benyújtási határidőkért.",
+        "summary": "A pályázat a mesterséges intelligencia alkalmazását célozza meg ipari és orvosi területeken, különös figyelmet fordítva a doménspecifikus AI rendszerek fejlesztésére."
       },
       "consortium": "required"
     },
@@ -32236,7 +32236,7 @@
     },
     {
       "id": "found:84719cb9e7",
-      "title": "Children, youth and science in Denmark Makerspace 2027 Technology and hands-on expertise",
+      "title": "Children, youth and science in Denmark Makerspace 2027 Technology and practical proficiency",
       "url": "https://villumfonden.dk/en/group/channel/makerspace-2027",
       "source": "foundation",
       "programme": "Villum Fonden — Open calls",
@@ -32275,27 +32275,27 @@
       "ai": {
         "applicable": false,
         "ai_score": 30,
-        "confidence": 40,
+        "confidence": 50,
         "is_open_call": true,
         "tech_explicit": false,
         "consortium": "optional",
-        "angle": "A projektötletünk a gyerekek és fiatalok technológiai oktatására összpontosítana, ahol a humanoid fej és az ETHEA platform segíthetne a STEM készségek fejlesztésében. Az interaktív robotok és AI alkalmazások révén a fiatalok számára vonzóbbá tehetnénk a tudományos ismereteket.",
-        "entity": "Pannon Business Network Association, mivel non-profitként 100%-os finanszírozásra jogosult.",
+        "angle": "A projektötletünk a gyerekek és fiatalok technológiai és gyakorlati készségeinek fejlesztésére összpontosítana, különösen a humanoid robotok és a társas AI platformok területén, de a pályázat szövege nem hívja meg kifejezetten ezeket a technológiákat.",
+        "entity": "Pannon Business Network Association (HU non-profit), mivel a pályázat nem kifejezetten technológiai fejlesztéseket céloz meg.",
         "partners": [
           "iskolák",
-          "oktatási intézmények",
-          "helyi közösségi központok"
+          "helyi közösségi központok",
+          "technológiai cégek"
         ],
         "risks": [
-          "a pályázat nem közvetlenül a robotika vagy AI fejlesztésére összpontosít",
+          "a pályázat nem kifejezetten technológiai fejlesztéseket céloz meg",
           "a verseny erős lehet a helyi partnerek között",
-          "a pályázati feltételek nem biztos, hogy kedveznek a technológiai projekteket támogató kezdeményezéseknek"
+          "a pályázat célcsoportja nem illeszkedik a mi profilunkhoz"
         ],
-        "next_step": "Olvassuk el a pályázati útmutatót, hogy pontosan megértsük a benyújtási követelményeket.",
-        "summary": "A pályázat célja a gyerekek és fiatalok technológiai és gyakorlati készségeinek fejlesztése."
+        "next_step": "Olvassuk el a pályázati útmutatót, hogy pontosan megértsük a követelményeket és a célokat.",
+        "summary": "A pályázat a gyerekek, fiatalok és a tudomány területén a technológiai és gyakorlati készségek fejlesztésére irányul."
       },
       "first_seen": "2026-09-22T07:15:56.155100Z",
-      "content_hash": "f1326d4ba980",
+      "content_hash": "770815951ed8",
       "consortium": "optional"
     },
     {
@@ -34341,10 +34341,26 @@
       "interest_score": 0.0,
       "interest_hits": [],
       "interest_for": [],
-      "ai": {},
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 50,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "solo",
+        "angle": "Ez a pályázat a természettudományos középiskolai tanárok elismerésére irányul, és nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz, így nem tudunk releváns projektötlettel előállni.",
+        "entity": "nincs megfelelő entitás, mivel a pályázat nem technológiai fejlesztésre vonatkozik.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem technológiai fejlesztésre vonatkozik, így nem releváns számunkra.",
+          "Nincs lehetőségünk a pályázat keretein belül való részvételre."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a középiskolai természettudományos tanárok elismerésére szolgál."
+      },
       "first_seen": "2026-09-22T07:15:59.284506Z",
       "content_hash": "5a408740aa20",
-      "consortium": ""
+      "consortium": "solo"
     },
     {
       "id": "found:4fab1c969e",
@@ -34671,7 +34687,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-11-04",
+      "deadline": null,
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": 4020000.0000000005,
@@ -34700,22 +34716,23 @@
       "ai": {
         "applicable": false,
         "ai_score": 20,
-        "confidence": 40,
+        "confidence": 30,
         "is_open_call": true,
         "tech_explicit": false,
         "consortium": "optional",
-        "angle": "A projektötletünk a tanárok folyamatos szakmai fejlődésének támogatására irányul, de a humanoid fej és az ETHEA társalgó platformunk nem illeszkedik a pályázat célkitűzéseihez, amelyek a tanárok képzésére vonatkoznak.",
-        "entity": "Pannon Business Network Association, mivel non-profitként 100%-os támogatási arányra vagyunk jogosultak.",
+        "angle": "A pályázat célja a tanárok folyamatos szakmai fejlődésének támogatása, amely nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz. A mi projektjeink, mint az ETHEA vagy az ETHEA Face, nem illeszkednek a tanárok továbbképzésére vonatkozó célokhoz.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
         "partners": [],
         "risks": [
-          "A pályázat nem technológiai fejlesztéseket támogat, így nem releváns számunkra.",
-          "A pályázat célja a tanárok képzése, nem a robotika vagy AI fejlesztés."
+          "A pályázat nem technológiai fejlesztéseket támogat.",
+          "A pályázat célja nem illeszkedik a humanoid robotokhoz vagy AI platformokhoz.",
+          "Nincs lehetőségünk a pályázatban való részvételre."
         ],
-        "next_step": "Nincs konkrét lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat a tanárok folyamatos szakmai fejlődésének támogatására irányul, különböző képzési programok keretében."
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a tanárok szakmai továbbképzésének támogatására irányul."
       },
       "first_seen": "2026-09-22T07:15:59.284881Z",
-      "content_hash": "ea562858d1a7",
+      "content_hash": "5bd579ee054a",
       "consortium": "optional"
     },
     {
@@ -35638,10 +35655,26 @@
       "interest_score": 0.0,
       "interest_hits": [],
       "interest_for": [],
-      "ai": {},
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 20,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "solo",
+        "angle": "Ez a pályázat a női mérnökök elismerésére irányul, és nem kapcsolódik közvetlenül a humanoid robotok vagy a társas AI fejlesztéséhez, így nem tudunk releváns projektötlettel előállni.",
+        "entity": "nincs megfelelő entitás, mivel a pályázat nem technológiai fejlesztéseket támogat.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem technológiai fejlesztésekre vonatkozik.",
+          "Nincs releváns projektötlet, amely illeszkedne a pályázati célokhoz."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a női mérnökök számára odaítélt Bertha-Benz-díjra vonatkozik, amely 15.000 euróval jár."
+      },
       "first_seen": "2026-09-22T08:04:46.060807Z",
       "content_hash": "054d7b84aa33",
-      "consortium": ""
+      "consortium": "solo"
     },
     {
       "id": "found:8291bea6ab",
@@ -36086,7 +36119,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "1st stage of the Challenge Your Challenge: Continuous Hormone Monitoring Topic Goal Teams Jury FAQ Contact Hello people with radical new ideas! We need breakthrough innovations to measure hormones. Continuously. Precisely. Personalized. We need bold ideas. We need you. Copy link to section: Hormones",
+      "summary": "1st stage of the Challenge Your Challenge: Continuous Hormone Monitoring Topic Goal Teams Jury FAQ Contact Hello people with radical new ideas! We need breakthrough innovations to measure hormones. Continuously. Precisely. Personalized. We need bold ideas. We need you. Hormones control nearly every ",
       "country": "DE",
       "fit_score": 0,
       "fit_verdict": "",
@@ -36193,7 +36226,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "1st stage of the Challenge Your Challenge: Tech Metal Transformation Topic Goal Teams Jury FAQ Contact Hello, innovators! We need breakthrough innovations to develop processes for recovering critical metals from complex waste streams. We need bold ideas. We need you. Copy link to section: Critical m",
+      "summary": "1st stage of the Challenge Your Challenge: Tech Metal Transformation Topic Goal Teams Jury FAQ Contact Hello, innovators! We need breakthrough innovations to develop processes for recovering critical metals from complex waste streams. We need bold ideas. We need you. Critical metals are indispensabl",
       "country": "DE",
       "fit_score": 0,
       "fit_verdict": "",
@@ -36253,7 +36286,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "2nd stage of the Challenge Your Challenge: Composite Learning Topic Goal Teams Jury FAQ Contact Hello, innovators! We need breakthrough innovations to train AI models across decentralized and heterogenous nodes. We need bold ideas. We need you. Copy link to section: AI is revolutionizing industries ",
+      "summary": "3rd stage of the Challenge Your Challenge: Composite Learning Topic Goal Teams Jury Contact Hello, innovators! We need breakthrough innovations to train AI models across decentralized and heterogenous nodes. We need bold ideas. We need you. AI is revolutionizing industries like healthcare, finance, ",
       "country": "DE",
       "fit_score": 1,
       "fit_verdict": "",
@@ -36310,14 +36343,14 @@
       "deadline": null,
       "call_budget": null,
       "contribution_min": null,
-      "contribution_max": 2500000.0,
+      "contribution_max": null,
       "expected_grants": null,
       "funding_rate": "100% (typ.)",
       "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
       "tags": [
         "DE"
       ],
-      "summary": "3rd stage of the Challenge Your Challenge: Circular Biomanufacturing Topic Goal Teams The Jury FAQ Contact Hello people with radical new ideas! We need breakthrough innovations to convert waste streams directly into new products. Local. Environmentally friendly. Sustainable. We need bold ideas. We n",
+      "summary": "Challenge complete Your Challenge: Circular Biomanufacturing Topic Goal The winners The Jury Further Teams Hello people with radical new ideas! We need breakthrough innovations to convert waste streams directly into new products. Local. Environmentally friendly. Sustainable. We need bold ideas. We n",
       "country": "DE",
       "fit_score": 4,
       "fit_verdict": "",
@@ -36339,21 +36372,21 @@
         "confidence": 20,
         "is_open_call": true,
         "tech_explicit": false,
-        "consortium": "required",
-        "angle": "A pályázat célja a körkörös biogyártás fejlesztése, ami nem illeszkedik a humanoid robotok vagy a társas AI platformok fejlesztéséhez, így nem tudunk releváns projektötlettel előállni.",
-        "entity": "Nincs megfelelő entitás, mivel a pályázat nem a mi szakterületünkre vonatkozik.",
+        "consortium": "solo",
+        "angle": "A pályázat a körkörös biogyártásra összpontosít, amely nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz. A mi projektjeink, mint az ETHEA vagy a humanoid fej, nem illeszkednek a felhívás célkitűzéseihez.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
         "partners": [],
         "risks": [
-          "A pályázat nem a technológiai fejlesztésünkre vonatkozik.",
-          "Nincs releváns tapasztalatunk a biogyártás területén.",
-          "A pályázati célok nem illeszkednek a kutatási irányainkhoz."
+          "A pályázat nem technológiai fejlesztéseket keres, így nem vagyunk versenyképesek.",
+          "A pályázat célja nem illeszkedik a mi szakterületünkhöz.",
+          "Nincs lehetőségünk a pályázatban való részvételre."
         ],
-        "next_step": "Nincs konkrét lépés, mivel a pályázat nem releváns számunkra.",
-        "summary": "A pályázat célja a körkörös biogyártási folyamatok fejlesztése, amelyek helyi hulladékáramokból új termékeket állítanak elő."
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja a körkörös biogyártási folyamatok fejlesztése, amelyek hulladékáramokból új termékeket állítanak elő."
       },
       "first_seen": "2026-09-22T08:06:08.160009Z",
-      "content_hash": "b5ab8472f9d2",
-      "consortium": "required"
+      "content_hash": "fe6b9ae525c8",
+      "consortium": "solo"
     },
     {
       "id": "HORIZON-EIT-2025-KIC-IBA-UM",
@@ -36863,7 +36896,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "Funke completed Funke Next Frontier AI Concepts Topic Goal Teams FAQ Contact Hello innovators! We need visionary concepts for Frontier AI Labs that push the algorithmic boundaries of today and strengthen Europe’s sovereignty – disruptive, scalable, evolving. We need bold ideas. We need you. Copy lin",
+      "summary": "Funke completed Funke Next Frontier AI Concepts Topic Goal Teams FAQ Contact Hello innovators! We need visionary concepts for Frontier AI Labs that push the algorithmic boundaries of today and strengthen Europe’s sovereignty – disruptive, scalable, evolving. We need bold ideas. We need you. Frontier",
       "country": "DE",
       "fit_score": 1,
       "fit_verdict": "",
@@ -36928,7 +36961,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "Funke completed Funke Anti-Drone Response Challenge Teams FAQ Contact Hello people with radical new ideas! We need breakthrough innovation to define a new era of airspace security – intelligent, autonomous, and non-destructive. We need bold ideas. We need you. Copy link to section: Copy link to sect",
+      "summary": "Funke completed Funke Anti-Drone Response Challenge Teams FAQ Contact Hello people with radical new ideas! We need breakthrough innovation to define a new era of airspace security – intelligent, autonomous, and non-destructive. We need bold ideas. We need you. Small and micro drones have become part",
       "country": "DE",
       "fit_score": 0,
       "fit_verdict": "",
@@ -36990,7 +37023,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "Funke completed Funke Deepfake DETECTION AND PREVENTION Topic Goal The winners The Jury Further Teams Contact Hello, innovators! We need breakthrough innovations in the fight against deepfakes to ensure the integrity of our digital world. We need bold ideas. We found them. Copy link to section: They",
+      "summary": "Funke completed Funke Deepfake DETECTION AND PREVENTION Topic Goal The winners The Jury Further Teams Contact Hello, innovators! We need breakthrough innovations in the fight against deepfakes to ensure the integrity of our digital world. We need bold ideas. We found them. They imitate voices, disto",
       "country": "DE",
       "fit_score": 0,
       "fit_verdict": "",
@@ -37033,7 +37066,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "Funke completed Funke EUDI WALLET Prototypes Topic Goal Teams Jury Conference FAQ Contact Hello people with radical new ideas! We need pioneering solutions to shape the future of digital identity in Germany. Copy link to section: Digital proof of identity is an important basis for the digitalization",
+      "summary": "Funke completed Funke EUDI WALLET Prototypes Topic Goal Teams Jury Conference FAQ Contact Hello people with radical new ideas! We need pioneering solutions to shape the future of digital identity in Germany. Digital proof of identity is an important basis for the digitalization of our lives. Digital",
       "country": "DE",
       "fit_score": 1,
       "fit_verdict": "",
@@ -37093,7 +37126,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "Funke complete Funke Fully Autonomous Flight Goal The Teams The Jury FAQ Contact Hello people with radical new ideas! We need pioneering solutions to shape the mobility and logistics of the future with the help of autonomous aerial vehicles. We need you. Copy link to section: Logistics and mobility ",
+      "summary": "Funke complete Funke Fully Autonomous Flight Goal The Teams The Jury FAQ Contact Hello people with radical new ideas! We need pioneering solutions to shape the mobility and logistics of the future with the help of autonomous aerial vehicles. We need you. Logistics and mobility are the basis for a fl",
       "country": "DE",
       "fit_score": 2,
       "fit_verdict": "",
@@ -37153,7 +37186,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "Funke complete Funke Tissue Engineering Topic Goal Teams FAQ Hello people with radical new ideas! We need pioneering solutions for the treatment of patients with artificial tissue. We need you. Copy link to section: Many patients are dependent on donor tissue or organ donations. However, the high de",
+      "summary": "Funke complete Funke Tissue Engineering Topic Goal Teams FAQ Hello people with radical new ideas! We need pioneering solutions for the treatment of patients with artificial tissue. We need you. Many patients are dependent on donor tissue or organ donations. However, the high demand for donor tissue ",
       "country": "DE",
       "fit_score": 0,
       "fit_verdict": "",
@@ -37212,7 +37245,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "Challenge complete Your Challenge: New Computing Concepts Topic Goal FAQ Contact Hello people with radical new ideas! We need breakthrough innovations to develop new, resource-saving computer concepts. We need bold ideas. We need you. Copy link to section: In a digital world of the future, everyday ",
+      "summary": "Challenge complete Your Challenge: New Computing Concepts Topic Goal FAQ Contact Hello people with radical new ideas! We need breakthrough innovations to develop new, resource-saving computer concepts. We need bold ideas. We need you. In a digital world of the future, everyday life and the working w",
       "country": "DE",
       "fit_score": 1,
       "fit_verdict": "",
@@ -39428,7 +39461,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": null,
+      "deadline": "2027-03-02",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -39457,27 +39490,28 @@
       "ai": {
         "applicable": false,
         "ai_score": 30,
-        "confidence": 60,
+        "confidence": 50,
         "is_open_call": true,
         "tech_explicit": false,
         "consortium": "optional",
-        "angle": "A projektötletünk a humanoid fej és az ETHEA társalgó platform fejlesztésére összpontosítana, de a Volkswagen Alapítvány felhívása nem kifejezetten technológiai fejlesztéseket céloz meg, így nem illeszkedik a céljainkhoz.",
-        "entity": "Pannon Business Network Association, mivel non-profitként 100%-os támogatási arányra vagyunk jogosultak.",
+        "angle": "A projektötletünk a humanoid fej és az ETHEA társalgó platform fejlesztésére összpontosítana, amely a kreatív és kockázatos kutatási megközelítéseket célozza meg, de a felhívás nem kifejezetten technológiai fejlesztéseket kér.",
+        "entity": "PBN Association HU non-profit, mivel a felhívás nem kifejezetten technológiai fejlesztéseket céloz meg.",
         "partners": [
-          "interdiszciplináris kutatók",
-          "egyetemek",
-          "kutatóintézetek"
+          "kutatási intézmények",
+          "művészeti csoportok",
+          "interdiszciplináris tudósok"
         ],
         "risks": [
           "a felhívás nem kifejezetten technológiai fejlesztéseket céloz",
-          "a projekt kockázatos jellegéből adódóan nehezen nyerhető el a támogatás"
+          "a projekt kockázatos jellegéből adódóan nehéz lehet a finanszírozás elnyerése",
+          "a pályázati feltételek nem biztos, hogy illeszkednek a mi projektünkhöz"
         ],
-        "next_step": "Olvassuk át a Volkswagen Alapítvány honlapján található további információkat a következő felhívásokról.",
-        "summary": "A felhívás célja a kreatív és kockázatos kutatási ötletek támogatása különböző tudományágakban."
+        "next_step": "Olvassuk el a VolkswagenStiftung felhívásának részleteit, hogy jobban megértsük a pályázati lehetőségeket.",
+        "summary": "A felhívás célja kreatív és kockázatos kutatások támogatása különböző tudományos területeken."
       },
       "consortium": "optional",
       "first_seen": "2026-10-12T05:46:04.054893Z",
-      "content_hash": "58b6c14d7d20"
+      "content_hash": "6263976b8304"
     },
     {
       "id": "found:181a97ef7e",
@@ -39554,7 +39588,7 @@
       "deadline": "2026-11-19",
       "call_budget": null,
       "contribution_min": null,
-      "contribution_max": 1608000.0,
+      "contribution_max": 5360000.0,
       "expected_grants": null,
       "funding_rate": "100% (typ.)",
       "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
@@ -39580,7 +39614,7 @@
       "ai": {},
       "consortium": "",
       "first_seen": "2026-10-12T05:47:29.430647Z",
-      "content_hash": "5cbcc180b1c6"
+      "content_hash": "9fbe957ae998"
     },
     {
       "id": "found:c4ec1a518b",
@@ -40938,7 +40972,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "News-Eintrag · KI-Ökosystem Innovationswettbewerb »AIDEAS #1 – Ideen für zirkuläre Geschäftsmodelle« © Circular AI Hub 22.09.2026 Bundesumweltministerium sucht Ideen von KMU und Start-ups für die Circular Economy Wie kann KI die Kreislaufwirtschaft voranbringen? Unternehmen und Start-ups auch aus NR",
+      "summary": "News-Eintrag · KI-Ökosystem Innovationswettbewerb »AIDEAS #1 – Ideen für zirkuläre Geschäftsmodelle« © Circular AI Hub 07.09.2026 Bundesumweltministerium sucht Ideen von KMU und Start-ups für die Circular Economy Wie kann KI die Kreislaufwirtschaft voranbringen? Unternehmen und Start-ups auch aus NR",
       "country": "DE",
       "fit_score": 4,
       "fit_verdict": "",
@@ -41120,7 +41154,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "Infrastruktur Ergebnisse filtern Bei Klick auf diese Schaltfläche können Sie nach für Sie relevanten Beiträgen filtern. Infrastruktur (Thema) 110 Inhalte Sortierung: Neueste zuerst Meyer, Matthias / Möller, Cynthia / Wéber, Júlia / Mülling, Eric / Krüger, Christine : Parlamentarische Strategien der ",
+      "summary": "Infrastruktur Ergebnisse filtern Bei Klick auf diese Schaltfläche können Sie nach für Sie relevanten Beiträgen filtern. Infrastruktur (Thema) 111 Inhalte Sortierung: Neueste zuerst 30 Jahre Forum for Macroeconomics and Macroeconomic Policies (FMM) : Ein Raum für alternative makroökonomische Perspekt",
       "country": "DE",
       "fit_score": 0,
       "fit_verdict": "",
@@ -41163,9 +41197,9 @@
       "tags": [
         "DE"
       ],
-      "summary": "Staat / Politik Ergebnisse filtern Bei Klick auf diese Schaltfläche können Sie nach für Sie relevanten Beiträgen filtern. Staat / Politik (Thema) 2528 Inhalte Sortierung: Neueste zuerst Kooperationsveranstaltung mit der Rosa-Luxemburg-Stiftung : Angriffe auf den Sozialstaat. Krise der Industrie? Alt",
+      "summary": "Staat / Politik Ergebnisse filtern Bei Klick auf diese Schaltfläche können Sie nach für Sie relevanten Beiträgen filtern. Staat / Politik (Thema) 2548 Inhalte Sortierung: Neueste zuerst Kooperationsveranstaltung mit der Rosa-Luxemburg-Stiftung : Angriffe auf den Sozialstaat. Krise der Industrie? Alt",
       "country": "DE",
-      "fit_score": 0,
+      "fit_score": 6,
       "fit_verdict": "",
       "fit_theme": "",
       "fit_theme_label": "",
@@ -41174,12 +41208,10 @@
         "packs": 6,
         "instrument": 0,
         "conditions": 0,
-        "penalty": -12
+        "penalty": 0
       },
-      "interest_score": 0.0,
-      "interest_hits": [
-        "⚠ verteidigung"
-      ],
+      "interest_score": 6.0,
+      "interest_hits": [],
       "interest_for": [],
       "ai": {
         "applicable": false,
@@ -41226,22 +41258,39 @@
       ],
       "summary": "Wirtschaft sozial und ökologisch nachhaltig gestalten. Eine soziale Marktwirtschaft beruht auf Eingriffen in das Marktgeschehen, die das Ziel haben, Stabilität und Sicherheit für die Bevölkerung zu erzielen. Ergebnisse filtern Bei Klick auf diese Schaltfläche können Sie nach für Sie relevanten Beitr",
       "country": "DE",
-      "fit_score": 0,
+      "fit_score": 1,
       "fit_verdict": "",
       "fit_theme": "",
       "fit_theme_label": "",
       "fit_breakdown": {
         "theme": 0,
-        "packs": 0,
+        "packs": 1,
         "instrument": 0,
         "conditions": 0,
         "penalty": 0
       },
-      "interest_score": 0.0,
+      "interest_score": 1.0,
       "interest_hits": [],
       "interest_for": [],
-      "ai": {},
-      "consortium": "",
+      "ai": {
+        "applicable": false,
+        "ai_score": 30,
+        "confidence": 40,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "Ez a pályázat a társadalmi és ökológiai fenntarthatóságra összpontosít, ami nem illeszkedik közvetlenül a humanoid robotok vagy a társas AI fejlesztéséhez. A projektötleteink, mint például az ETHEA társaság vagy az onkológiai alkalmazások, nem találkoznak a pályázat céljaival.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem technológiai fejlesztéseket céloz meg, így nem vagyunk versenyképesek.",
+          "A pályázat célja nem kapcsolódik a humanoid robotokhoz vagy a társas AI-hoz.",
+          "A pályázat nem invitál technológiai partnereket."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a társadalmi és ökológiai fenntarthatóságra összpontosít."
+      },
+      "consortium": "optional",
       "first_seen": "2026-10-12T05:47:52.735937Z",
       "content_hash": "4b5d77deeae5"
     },
@@ -41329,18 +41378,18 @@
       ],
       "summary": "Gute Arbeit und Qualifizierung fördern. Gute Arbeit und Bildung sind die zentrale Wohlstandsquelle und die Grundlage einer sozial gerechten Gesellschaft und einer nachhaltigen Wirtschaft. Ergebnisse filtern Bei Klick auf diese Schaltfläche können Sie nach für Sie relevanten Beiträgen filtern. Arbeit",
       "country": "DE",
-      "fit_score": 6,
+      "fit_score": 2,
       "fit_verdict": "",
       "fit_theme": "",
       "fit_theme_label": "",
       "fit_breakdown": {
         "theme": 0,
-        "packs": 6,
+        "packs": 2,
         "instrument": 0,
         "conditions": 0,
         "penalty": 0
       },
-      "interest_score": 6.0,
+      "interest_score": 2.0,
       "interest_hits": [],
       "interest_for": [],
       "ai": {
@@ -41391,7 +41440,7 @@
       "tags": [
         "DE"
       ],
-      "summary": "Beschäftigtengruppen Ergebnisse filtern Bei Klick auf diese Schaltfläche können Sie nach für Sie relevanten Beiträgen filtern. Beschäftigtengruppen (Thema) 385 Inhalte Sortierung: Neueste zuerst Betriebs- und Dienstvereinbarungen : Entgelt Die Gestaltung von Entgelt betrifft nicht nur die Tarifparte",
+      "summary": "Beschäftigtengruppen Ergebnisse filtern Bei Klick auf diese Schaltfläche können Sie nach für Sie relevanten Beiträgen filtern. Beschäftigtengruppen (Thema) 388 Inhalte Sortierung: Neueste zuerst Geib, Franziska : Berufliche Übergänge tauber Menschen Zwischen individueller Bewältigung und institution",
       "country": "DE",
       "fit_score": 1,
       "fit_verdict": "",
@@ -41955,7 +42004,24 @@
         "⚠ defence"
       ],
       "interest_for": [],
-      "ai": {},
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 40,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A TRUNSPORT nyílt pályázat a közlekedési szektor kibervédelmi megoldásainak tesztelésére és validálására összpontosít, ami nem illeszkedik a humanoid robotok vagy társas AI fejlesztéséhez, így nem tudunk releváns projektötlettel pályázni.",
+        "entity": "Nincs megfelelő entitás, amely pályázhatna, mivel a pályázat nem a mi szakterületünkre vonatkozik.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem a mi technológiai területünkre vonatkozik.",
+          "Nincs releváns projektötlet, amely illeszkedne a pályázat céljaihoz.",
+          "A pályázat nem invitál technológiai fejlesztéseket, így nem tudunk versenyezni."
+        ],
+        "next_step": "Nincs szükség további lépésekre, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a közlekedési szektor kibervédelmi megoldásainak tesztelésére és validálására kínál támogatást."
+      },
       "consortium": "solo",
       "first_seen": "2026-10-12T05:48:25.987809Z",
       "content_hash": "a0b3f24231c0"
@@ -42455,7 +42521,7 @@
       "tags": [
         "EU"
       ],
-      "summary": "Skip to content Home > EIT Regional Innovation Booster (EIT RIB) Hungary 2027 EIT Regional Innovation Booster (EIT RIB) Hungary 2027 15 September 2026 Apply now EIT Urban Mobility, with the support of the Hungarian National Innovation Agency (NIÜ), invites Hungarian start-ups to apply to the EIT Reg",
+      "summary": "Skip to content Home > EIT Regional Innovation Booster (EIT RIB) Hungary 2027 EIT Regional Innovation Booster (EIT RIB) Hungary 2027 15 September 2026 EIT Urban Mobility, with the support of the Hungarian National Innovation Agency (NIÜ), invites Hungarian start-ups to apply to the EIT Regional Inno",
       "country": "EU",
       "fit_score": 1,
       "fit_verdict": "",
@@ -43484,7 +43550,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-11-04",
+      "deadline": null,
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -43517,25 +43583,25 @@
         "is_open_call": true,
         "tech_explicit": true,
         "consortium": "required",
-        "angle": "A projektötletünk a humanoid fej és az ETHEA társaság AI platform fejlesztésére összpontosít, amelyet egészségügyi alkalmazásokban, különösen onkológiában használnánk, a német-koreai együttműködés keretében. A célunk, hogy a robotikánk és az AI technológiánk révén innovatív megoldásokat kínáljunk az egészségügyi szektor számára.",
-        "entity": "PBN Germany GmbH, mivel a németországi jogi státuszunk és a piaci relevanciánk biztosítja a pályázat sikerességét.",
+        "angle": "A projektötletünk a 'Humanoid fej' fejlesztésére összpontosít, amelyet a Dél-Koreával való együttműködés keretében a KI-alapú asszisztens robotikára építünk, különös figyelmet fordítva az egészségügyi alkalmazásokra, például onkológiai kísérőként.",
+        "entity": "PBN Germany GmbH, mivel németországi székhelyű vállalkozásként jogosultak vagyunk a pályázatra és a 100%-os támogatási arányra.",
         "partners": [
-          "egyetemek",
-          "kutatóintézetek",
-          "egészségügyi szolgáltatók",
-          "koreai technológiai cégek"
+          "egyetemek Németországban",
+          "egészségügyi intézmények",
+          "robotikai cégek Dél-Koreában",
+          "kutatóintézetek"
         ],
         "risks": [
-          "a pályázatban szükséges partnerek megtalálása",
-          "a projekt piaci relevanciájának bizonyítása",
-          "a németországi jogi követelmények teljesítése"
+          "a pályázatban előírt németországi partner hiánya",
+          "a projekt versenyképessége a hasonló kezdeményezésekhez képest",
+          "a Dél-Koreai partner megtalálása"
         ],
-        "next_step": "Kapcsolatba lépni Dr. Carolin Lange-val a pályázati lehetőségek részleteinek tisztázása érdekében.",
-        "summary": "A pályázat célja a német-koreai együttműködés keretében a félvezetők és az AI-alapú asszisztens robotika fejlesztésének támogatása."
+        "next_step": "Kapcsolatba lépni Dr. Carolin Lange-val, hogy tisztázzuk a pályázati feltételeket és a szükséges partnereket.",
+        "summary": "A pályázat célja a KI-alapú asszisztens robotikával kapcsolatos közös projektek támogatása Dél-Koreával."
       },
       "consortium": "required",
       "first_seen": "2026-10-12T05:48:35.743216Z",
-      "content_hash": "098a62c6b3d2"
+      "content_hash": "55a62245ec6e"
     },
     {
       "id": "found:33106c570d",
@@ -43758,8 +43824,29 @@
       "interest_score": 0.0,
       "interest_hits": [],
       "interest_for": [],
-      "ai": {},
-      "consortium": "",
+      "ai": {
+        "applicable": false,
+        "ai_score": 30,
+        "confidence": 40,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A projektötletünk a digitális világban való egészségvédelmet célozza meg, de a humanoid robot fej és az ETHEA társaság nem illeszkedik a hívás célkitűzéseihez, amelyek a képernyőhasználat egészségügyi hatásaira összpontosítanak a gyermekek körében.",
+        "entity": "Pannon Business Network Association, mivel non-profitként 100%-os támogatási arányra jogosult.",
+        "partners": [
+          "gyermekpszichológiai intézet",
+          "oktatási intézmények",
+          "szülői szervezetek"
+        ],
+        "risks": [
+          "a hívás nem technológiai fejlesztéseket céloz meg",
+          "nincs releváns tapasztalatunk a gyermekek digitális egészségvédelmében",
+          "a pályázati verseny erős lehet"
+        ],
+        "next_step": "Olvassuk el a hívás részleteit, hogy megértsük a pályázati követelményeket és a potenciális partnerségeket.",
+        "summary": "A hívás a 0-6 éves gyermekek képernyőhasználatának egészségügyi hatásaira és a negatív következmények megelőzésére összpontosít."
+      },
+      "consortium": "optional",
       "first_seen": "2026-10-12T05:48:35.743780Z",
       "content_hash": "a23e68418b15"
     },
@@ -44603,8 +44690,25 @@
       "interest_score": 0.0,
       "interest_hits": [],
       "interest_for": [],
-      "ai": {},
-      "consortium": "",
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 20,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A pályázat a faépítkezésre összpontosít, ami nem kapcsolódik a humanoid robotokhoz vagy a társas AI platformokhoz, így nem tudunk releváns projektötlettel előállni.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a profilunkhoz.",
+        "partners": [],
+        "risks": [
+          "A pályázat témája nem kapcsolódik a robotikai és AI fejlesztésekhez.",
+          "Nincs lehetőségünk releváns projektet benyújtani.",
+          "A pályázat célja nem illeszkedik a kutatási irányainkhoz."
+        ],
+        "next_step": "Nincs konkrét lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a kommunális faépítkezés támogatására irányul."
+      },
+      "consortium": "optional",
       "first_seen": "2026-10-12T05:48:40.450459Z",
       "content_hash": "4d47b2f22809"
     },
@@ -45786,7 +45890,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": null,
+      "deadline": "2027-02-26",
       "call_budget": 100000.0,
       "contribution_min": null,
       "contribution_max": 75000.0,
@@ -45819,24 +45923,24 @@
         "is_open_call": true,
         "tech_explicit": false,
         "consortium": "optional",
-        "angle": "A projektötletünk az ETHEA platformunk és a humanoid fejünk használatára épít, hogy a űrben élő társak számára fejlesszünk ki egy szociális interakciós megoldást, amely a műholdas kommunikációs eszközöket használja az űrhajósok támogatására.",
-        "entity": "PBN Germany GmbH, mivel a projekt keretében a technológiai fejlesztések és a piaci lehetőségek feltérképezése a cél, és a német jogi forma előnyös lehet.",
+        "angle": "A projektötletünk az ETHEA platformunk és a humanoid fejünk használatára épülne, hogy a világűrben élő űrhajósok számára társasági és támogató AI megoldásokat fejlesszünk ki, különös figyelmet fordítva a mentális egészségükre és a csapatdinamikára.",
+        "entity": "PBN Germany GmbH, mivel a pályázat keretében a technológiai megoldások piaci életképességét kell vizsgálni, és a németországi cégünk a legjobban illeszkedik ehhez.",
         "partners": [
-          "űrtechnológiai cégek",
-          "egyetemek űrkutatási részlegei",
-          "szolgáltatók, akik műholdas adatokat használnak"
+          "űrkutatási intézmények",
+          "egyetemi kutatócsoportok",
+          "szakmai szervezetek az űrtechnológia területén"
         ],
         "risks": [
-          "a pályázati feltételek pontos megértése",
-          "a verseny erőssége az űrtechnológiai szektorban",
-          "a megfelelő partnerek megtalálása"
+          "a pályázat technológiai fókusza nem elég hangsúlyos",
+          "a verseny erős lehet a hasonló projektekkel",
+          "a pályázati feltételek nem egyértelműek"
         ],
         "next_step": "Olvassuk el az ESA BASS Open Call for Proposals for Kick-starts hivatalos dokumentumát a pályázati feltételek pontos megértéséhez.",
-        "summary": "A pályázat célja, hogy a résztvevők technikai és kereskedelmi szempontból megvalósítható szolgáltatásokat fejlesszenek ki űrtechnológiai eszközök felhasználásával."
+        "summary": "A pályázat célja, hogy a világűrben használható technológiai szolgáltatások életképességét és piaci potenciálját vizsgálja."
       },
       "consortium": "optional",
       "first_seen": "2026-10-12T05:48:52.329522Z",
-      "content_hash": "3d36f7ce2070"
+      "content_hash": "ec6ca2264b01"
     },
     {
       "id": "found:5370e033df",
@@ -46229,7 +46333,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-11-05",
+      "deadline": "2027-01-06",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -46260,7 +46364,7 @@
       "ai": {},
       "consortium": "",
       "first_seen": "2026-10-12T05:48:52.330577Z",
-      "content_hash": "3522f9f427b0"
+      "content_hash": "295ba1ecaf0b"
     },
     {
       "id": "found:ffe1a3ec9e",
@@ -46274,7 +46378,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-11-02",
+      "deadline": "2027-01-29",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -46284,7 +46388,7 @@
       "tags": [
         "EU"
       ],
-      "summary": "Opportunity Call for Proposals (Non-Competitive) Activity Proof-of-concept, Pilot Projects Opening date 04-11-2026 Closing date 29-01-2027 Webinar 20 October 2026 - 11:00 - 12:00 CEST Register The Opportunity As energy systems face growing operational, environmental and security challenges, ensuring",
+      "summary": "ESA-STAR REFERENCE 1292 Opportunity Call for Proposals (Non-Competitive) Activity Proof-of-concept, Pilot Projects Opening date 02-11-2026 Closing date 29-01-2027 The Opportunity As energy systems face growing operational, environmental and security challenges, ensuring the resilience of Europe's el",
       "country": "EU",
       "fit_score": 4,
       "fit_verdict": "",
@@ -46303,23 +46407,23 @@
       "ai": {
         "applicable": false,
         "ai_score": 20,
-        "confidence": 50,
+        "confidence": 40,
         "is_open_call": true,
         "tech_explicit": false,
         "consortium": "optional",
-        "angle": "A humanoid robot fejlesztése és az ETHEA társalgó AI platformunk nem illeszkedik a hívás céljaihoz, amelyek az energiaellátás biztonságának és ellenálló képességének javítására összpontosítanak, nem pedig a társadalmi humanoid robotok fejlesztésére.",
-        "entity": "PBN Germany GmbH, de a hívás nem releváns számunkra.",
+        "angle": "A humanoid robot head vagy az ETHEA társalgó platform nem illeszkedik közvetlenül a villamosenergia-hálózatok ellenálló képességének javítására irányuló megoldásokhoz, mivel a felhívás nem foglalkozik közvetlenül a robotika vagy az AI fejlesztésével.",
+        "entity": "Nincs megfelelő entitás, mivel a felhívás nem releváns számunkra.",
         "partners": [],
         "risks": [
-          "A hívás nem technológiai fejlesztéseket céloz meg, így nem tudunk versenyezni.",
-          "Nincs releváns tapasztalatunk az energiaellátás területén."
+          "A felhívás nem a mi technológiai területünkre vonatkozik.",
+          "Nincs releváns projektötlet, amely kapcsolódna a felhíváshoz."
         ],
-        "next_step": "Nincs további lépés, mivel a hívás nem releváns számunkra.",
-        "summary": "A hívás az európai villamosenergia-átviteli rendszerek ellenálló képességének javítására irányuló innovatív megoldásokra vonatkozik."
+        "next_step": "Nincs további lépés, mivel a felhívás nem alkalmazható számunkra.",
+        "summary": "A felhívás a villamosenergia-hálózatok ellenálló képességének javítására irányuló űr-alapú megoldásokat finanszíroz."
       },
       "consortium": "optional",
       "first_seen": "2026-10-12T05:48:52.330763Z",
-      "content_hash": "49c05f09af16"
+      "content_hash": "e86be300a47b"
     },
     {
       "id": "found:330262d7bb",
@@ -46333,7 +46437,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-10-21",
+      "deadline": null,
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -46343,7 +46447,7 @@
       "tags": [
         "EU"
       ],
-      "summary": "ESA-STAR REFERENCE 4-40034 Opportunity Call for Proposals (Non-Competitive) Activity Proof-of-concept, Pilot Projects Opening date 19-10-2026 Closing date 25-06-2027 Webinar 21 October 2026 - 11:00 - 12:00 CEST Register The challenge Environmental crime represents a critical global challenge that se",
+      "summary": "ESA-STAR REFERENCE 4-40034 Opportunity Call for Proposals (Non-Competitive) Activity Proof-of-concept, Pilot Projects Opening date 19-10-2026 Closing date 25-06-2027 The challenge Environmental crime represents a critical global challenge that severely impacts ecosystems, public health, and the econ",
       "country": "EU",
       "fit_score": 6,
       "fit_verdict": "",
@@ -46361,30 +46465,29 @@
       "interest_for": [],
       "ai": {
         "applicable": false,
-        "ai_score": 20,
-        "confidence": 40,
+        "ai_score": 30,
+        "confidence": 50,
         "is_open_call": true,
         "tech_explicit": false,
         "consortium": "optional",
-        "angle": "A projektötletünk az ETHEA platformunkat használná a környezeti bűncselekmények nyomozására, például a hulladék- és szennyezésellenőrzés területén, de a pályázat nem kifejezetten technológiai fejlesztéseket céloz meg, így nem illeszkedik a céljainkhoz.",
-        "entity": "Pannon Business Network Association, mivel non-profitként 100%-os támogatási arányra vagyunk jogosultak.",
+        "angle": "A humanoid robot head could potentially be utilized in monitoring and verifying compliance in environmental crime scenarios, particularly in remote areas. However, the call primarily focuses on space-based applications and services, which does not align closely with our current technology offerings.",
+        "entity": "PBN Germany GmbH, mivel a pályázat nem-profit orientált, de a technológiai fejlesztés nem a mi szakterületünk.",
         "partners": [
-          "környezetvédelmi ügynökségek",
-          "kutatóintézetek",
-          "technológiai cégek",
-          "helyi önkormányzatok"
+          "space technology companies",
+          "environmental monitoring organizations",
+          "satellite data analytics firms"
         ],
         "risks": [
-          "a pályázat nem kifejezetten technológiai fejlesztéseket céloz",
-          "a környezeti bűncselekmények nem kapcsolódnak közvetlenül a humanoid robotikához",
-          "a pályázati feltételek nem biztosítanak elegendő teret a mi megoldásainknak"
+          "a pályázat nem a mi technológiai területünkre vonatkozik",
+          "nincs elegendő relevancia a pályázat szempontjából",
+          "a verseny erős lehet a megfelelő partnerek között"
         ],
-        "next_step": "Olvassuk el a pályázati dokumentációt, amint elérhetővé válik, hogy jobban megértsük a követelményeket.",
+        "next_step": "Ellenőrizni kell a pályázati dokumentumokat, amint elérhetővé válnak, hogy pontosabb képet kapjunk a lehetőségekről.",
         "summary": "A pályázat célja a környezeti bűncselekményekkel kapcsolatos űralapú alkalmazások és szolgáltatások fejlesztése."
       },
       "consortium": "optional",
       "first_seen": "2026-10-12T05:48:52.330916Z",
-      "content_hash": "047ae3ccd617"
+      "content_hash": "964efd72b9fd"
     },
     {
       "id": "found:0aa031e93d",
@@ -46642,7 +46745,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-12-21",
+      "deadline": "2026-12-22",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": 35000.0,
@@ -46675,25 +46778,25 @@
         "is_open_call": true,
         "tech_explicit": false,
         "consortium": "required",
-        "angle": "A projektünk célja, hogy a humanoid fej és az ETHEA társalgó platform segítségével támogassuk az oktatási intézmények közötti együttműködést, különösen a 21. századi készségek fejlesztésére összpontosítva. Ezen kívül a projekt keretében a társadalmi innovációt és a közösségi részvételt is elősegítenénk a V4 országokban.",
-        "entity": "Pannon Business Network Association, mivel a pályázat non-profit szervezeteket is megcéloz, és a 100%-os finanszírozás miatt ez a legmegfelelőbb entitás.",
+        "angle": "A projektötletünk az ETHEA társaságunk humanoid fejének és szociális AI platformunknak a fejlesztésére összpontosítana, amely a Visegrádi országokban élő idősek digitális támogatására irányulna, különös figyelmet fordítva az oktatásra és a közösségi együttműködésre.",
+        "entity": "Pannon Business Network Association, mivel non-profitként 100%-os támogatási arányra jogosult.",
         "partners": [
           "oktatási intézmények",
           "civil szervezetek",
-          "kutatóközpontok",
-          "helyi önkormányzatok"
+          "helyi önkormányzatok",
+          "egészségügyi intézmények"
         ],
         "risks": [
-          "a pályázat versenyképessége a hasonló projektekkel szemben",
-          "a szükséges partnerek megtalálása a V4 országokban",
-          "a projekt céljainak megfelelően való megvalósítás"
+          "A projektnek legalább három V4 országból kell partnereket bevonnia.",
+          "A pályázat versenyképessége a benyújtott ötletek minőségétől függ.",
+          "A projekt megvalósításának időkerete szoros lehet."
         ],
-        "next_step": "Kérdezzük meg a potenciális partnereket a projekt iránti érdeklődésükről és a közös pályázat lehetőségéről.",
-        "summary": "A Visegrad Grants támogatják a V4 országok közötti együttműködést különböző szervezetek között, különös figyelmet fordítva az innovációra és a közösségi részvételre."
+        "next_step": "Kérjük, nézzük át a pályázati útmutatót és az alkalmazási űrlapot, hogy pontosan megértsük a követelményeket.",
+        "summary": "A Visegrádi Alap támogatja a regionális partnerségeket, amelyek hozzájárulnak a Visegrádi régió együttműködéséhez."
       },
       "consortium": "required",
       "first_seen": "2026-10-12T05:48:58.166776Z",
-      "content_hash": "098b13371ec3"
+      "content_hash": "569ed7c74e9c"
     },
     {
       "id": "found:288f661e3e",
@@ -46707,7 +46810,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-12-21",
+      "deadline": "2026-12-22",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": 35000.0,
@@ -46735,29 +46838,25 @@
       "interest_for": [],
       "ai": {
         "applicable": false,
-        "ai_score": 30,
+        "ai_score": 20,
         "confidence": 50,
         "is_open_call": true,
         "tech_explicit": false,
         "consortium": "required",
-        "angle": "A projektötletünk a közép-európai országok közötti együttműködésre összpontosítana, amely a humanoid fej és az ETHEA társaság fejlesztését célozza meg az oktatásban és az egészségügyben, különösen a rákos betegek támogatásában.",
-        "entity": "Pannon Business Network Association, mivel non-profitként 100%-os támogatási arányra vagyunk jogosultak.",
-        "partners": [
-          "oktatási intézmények",
-          "egészségügyi szolgáltatók",
-          "kulturális szervezetek"
-        ],
+        "angle": "A Visegrad+ Grants célja a demokratizálás és átalakítás elősegítése a Nyugat-Balkán és a Keleti Partnerség régióiban, ami nem illeszkedik a humanoid robotok vagy társas AI fejlesztéséhez. A projektötleteink, mint például az ETHEA társaság vagy az onkológiai alkalmazások, nem találkoznak a pályázat céljaival.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem illeszkedik a technológiai fejlesztéseinkhez.",
+        "partners": [],
         "risks": [
-          "nem megfelelő partnerség a V4 és EaP/WB6 országok között",
-          "a projekt nem illeszkedik a pályázat célkitűzéseihez",
-          "a pályázat túl általános lehet"
+          "A pályázat nem technológiai fejlesztéseket támogat.",
+          "A projekt nem illeszkedik a pályázati célokhoz.",
+          "Nincs elegendő relevancia a humanoid robotok számára."
         ],
-        "next_step": "Kérdezzük meg a potenciális partnereket a projektötlet iránti érdeklődésükről.",
-        "summary": "A Visegrad+ Grants projektek támogatására vonatkozik, amelyek hozzájárulnak a demokratizálódási és átalakulási folyamatokhoz a Nyugat-Balkán és a Keleti Partnerség régióiban."
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A Visegrad+ Grants projektek támogatását célozza, amelyek hozzájárulnak a demokratizáláshoz és átalakításhoz a Nyugat-Balkán és a Keleti Partnerség régióiban."
       },
       "consortium": "required",
       "first_seen": "2026-10-12T05:48:58.166880Z",
-      "content_hash": "7e8b20e1ecb6"
+      "content_hash": "581035285f2d"
     },
     {
       "id": "found:6a5e297ac6",
@@ -46771,7 +46870,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-12-21",
+      "deadline": "2026-12-22",
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": 45000.0,
@@ -46804,25 +46903,24 @@
         "is_open_call": true,
         "tech_explicit": false,
         "consortium": "required",
-        "angle": "A projektötletünk a Visegrádi Csoport éves stratégiai prioritásaihoz kapcsolódik, különösen a fiatalok közötti együttműködés erősítésére. Az ETHEA platformunkat felhasználva, a humanoid fej fejlesztése és a társadalmi kísérő AI alkalmazása révén hozzájárulhatunk a közép-európai innovációs megoldásokhoz.",
-        "entity": "Pannon Business Network Association, mivel non-profitként 100%-os finanszírozást kaphatunk.",
+        "angle": "A projektötletünk az ETHEA társaságunk fejlesztésére összpontosítana, amely a V4 országok közötti együttműködést erősítené az oktatás és a fiatalok mobilitása terén, de a pályázat nem kifejezetten technológiai fejlesztéseket céloz meg.",
+        "entity": "Pannon Business Network Association, mivel non-profitként 100%-os támogatási arányra jogosult.",
         "partners": [
-          "oktatási intézmények",
-          "helyi önkormányzatok",
+          "oktatási intézmények a V4 országokból",
           "civil szervezetek",
-          "startupok"
+          "helyi önkormányzatok"
         ],
         "risks": [
-          "A projekt nem közvetlenül technológiai fejlesztést céloz meg.",
-          "A V4 országok közötti együttműködés nehézségei.",
-          "A pályázati határidő előtti konzultációk korlátozott száma."
+          "a pályázat nem technológiai fejlesztéseket céloz meg",
+          "a V4 országok közötti együttműködés nehézségei",
+          "a pályázati keret kicsi a projektünk méretéhez képest"
         ],
-        "next_step": "Kérjük, olvassa el a Grant-Guidelines_2025_screen.pdf dokumentumot a pályázati feltételek részletes megértéséhez.",
-        "summary": "A pályázat a Visegrádi Csoport éves stratégiai prioritásainak támogatására irányuló projekteket finanszíroz."
+        "next_step": "Olvassuk el a pályázati útmutatót és keressünk potenciális partnereket a V4 országokból.",
+        "summary": "A pályázat a Visegrádi Csoport éves stratégiai prioritásait támogató projekteket finanszíroz."
       },
       "consortium": "required",
       "first_seen": "2026-10-12T05:48:58.166950Z",
-      "content_hash": "c76220887fa8"
+      "content_hash": "d49ea90fe9b6"
     },
     {
       "id": "found:dd2cc477b9",
@@ -47894,8 +47992,25 @@
       "interest_score": 0.0,
       "interest_hits": [],
       "interest_for": [],
-      "ai": {},
-      "consortium": "",
+      "ai": {
+        "applicable": false,
+        "ai_score": 20,
+        "confidence": 30,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A pályázat nem a robotika vagy AI technológiák fejlesztésére összpontosít, hanem a német és afrikai kutatóintézetek közötti együttműködést támogatja, így nem illeszkedik a humanoid fej vagy az ETHEA társalgó platformunk fejlesztési irányába.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem a mi szakterületünkre vonatkozik.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem a technológiai fejlesztésekre vonatkozik, így nem tudunk releváns partnereket találni.",
+          "A pályázat célja nem illeszkedik a kutatási prioritásainkhoz.",
+          "A pályázat nem kínál lehetőséget a robotika vagy AI projektek számára."
+        ],
+        "next_step": "Nincs konkrét lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a német és afrikai kutatóintézetek közötti együttműködést támogatja."
+      },
+      "consortium": "optional",
       "first_seen": "2026-10-19T05:39:07.736182Z",
       "content_hash": "5c6187788997"
     },
@@ -47911,8 +48026,8 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-10-30",
-      "call_budget": 775372500.0,
+      "deadline": "2026-11-20",
+      "call_budget": 3776062500.0,
       "contribution_min": null,
       "contribution_max": 9240000.0,
       "expected_grants": null,
@@ -47944,20 +48059,19 @@
         "is_open_call": true,
         "tech_explicit": false,
         "consortium": "optional",
-        "angle": "A pályázat keretében a humanoid robotok és a társas AI fejlesztése nem szerepel kifejezetten, így a mi projektötletünk, amely az ETHEA társas AI platformot és a humanoid fejet célozza, nem illeszkedik a pályázati célokhoz.",
-        "entity": "Pannon Business Network Association, mivel a pályázat non-profit szervezetek számára is elérhető.",
+        "angle": "A pályázat nem kifejezetten technológiai fejlesztésekre vonatkozik, így a humanoid fej vagy az ETHEA társaság nem illeszkedik a célokhoz. A projektötletünk a szociális robotok és AI platformok fejlesztésére irányul, de a pályázat szövege nem támogatja ezt a témát.",
+        "entity": "Pannon Business Network Association, mivel non-profitként 100%-os támogatásra jogosult.",
         "partners": [],
         "risks": [
-          "A pályázat nem kifejezetten technológiai fejlesztésekre vonatkozik.",
-          "A pályázati szöveg hiányos, így nehéz megítélni a versenyképességet.",
-          "Nincs konkrét technológiai partneri igény a pályázatban."
+          "A pályázat nem technológiai fejlesztéseket céloz meg, így nem releváns számunkra.",
+          "A pályázati szöveg hiányos, ami csökkenti a bizalmat a pályázat sikerességében."
         ],
-        "next_step": "Kérdezzük meg az NKFIH-t a pályázati lehetőségekről és a technológiai fejlesztésekre vonatkozó eligibilitásról.",
-        "summary": "A pályázat célja a kutatás és innováció támogatása különböző alaprészek keretében."
+        "next_step": "Nincs konkrét lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja a kutatási és innovációs szakmai szervezetek támogatása, de nem technológiai fejlesztésekre vonatkozik."
       },
       "consortium": "optional",
       "first_seen": "2026-10-19T05:39:15.907443Z",
-      "content_hash": "79eef86bb4bf"
+      "content_hash": "b5dcc88d391b"
     },
     {
       "id": "found:e567973587",
@@ -47971,8 +48085,8 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-10-30",
-      "call_budget": 775372500.0,
+      "deadline": "2026-11-20",
+      "call_budget": 3776062500.0,
       "contribution_min": null,
       "contribution_max": 9240000.0,
       "expected_grants": null,
@@ -48000,7 +48114,7 @@
       "ai": {},
       "consortium": "",
       "first_seen": "2026-10-19T05:39:15.907525Z",
-      "content_hash": "2984cb048203"
+      "content_hash": "0b9fc0001031"
     },
     {
       "id": "found:1951016830",
@@ -49502,7 +49616,7 @@
       "programme": "HORIZON",
       "call_id": "",
       "call_title": "BIOECONOMY GIANTS Open Call for Scaling-up & Piloting (OC2)",
-      "status": "Forthcoming",
+      "status": "Open",
       "action_type": "",
       "deadline_model": "single-stage",
       "opening_date": "2026-11-01",
@@ -49535,7 +49649,7 @@
       "ai": {},
       "consortium": "",
       "first_seen": "2026-11-02T06:45:59.909209Z",
-      "content_hash": "39aabf792b0c"
+      "content_hash": "7e5898acb0ec"
     },
     {
       "id": "found:e450456ba7",
@@ -50830,7 +50944,7 @@
       "action_type": "",
       "deadline_model": "",
       "opening_date": null,
-      "deadline": "2026-11-04",
+      "deadline": null,
       "call_budget": null,
       "contribution_min": null,
       "contribution_max": null,
@@ -50859,28 +50973,28 @@
       "ai": {
         "applicable": false,
         "ai_score": 30,
-        "confidence": 40,
+        "confidence": 50,
         "is_open_call": true,
         "tech_explicit": false,
         "consortium": "optional",
-        "angle": "A projektötletünk a kritikus infrastruktúrák védelmét célozná meg az ETHEA társasági AI platformunkkal, amely képes az anomáliák észlelésére és a helyzetek monitorozására, de a felhívás nem kifejezetten a humanoid robotok vagy társas AI fejlesztésére összpontosít.",
-        "entity": "PBN Germany GmbH, mivel a pályázat nem kifejezetten technológiai fejlesztéseket céloz meg, de a társasági AI platformunk releváns lehet.",
+        "angle": "A projektötletünk a humanoid fej és az ETHEA társalgó platformunk alkalmazására összpontosítana az Északi-sarkvidéki régió biztonsági és kritikus infrastruktúrájának védelme érdekében, különös figyelmet fordítva a távoli területek megfigyelésére és a válságkezelésre.",
+        "entity": "PBN Germany GmbH, mivel a projekt technológiai aspektusaihoz szükséges a piaci tapasztalat és a nyereségorientált megközelítés.",
         "partners": [
           "térinformatikai cégek",
           "kormányzati ügynökségek",
           "környezetvédelmi szervezetek"
         ],
         "risks": [
-          "a pályázat nem kifejezetten technológiai fejlesztéseket céloz",
-          "a pályázati terület nem illeszkedik a fő profilunkhoz",
-          "a verseny erős lehet a meglévő infrastruktúra védelmi megoldások miatt"
+          "a pályázat nem közvetlenül a robotikára és AI-ra vonatkozik",
+          "a pályázat nem kifejezetten a humanoid társalgók fejlesztésére irányul",
+          "a verseny erős lehet a már meglévő nagyobb cégek miatt"
         ],
-        "next_step": "Olvassuk el a pályázati felhívás részleteit és az ESA által szervezett webináriumot, amely november 4-én lesz.",
-        "summary": "A pályázat célja az európai űrtechnológiák alkalmazása a sarkvidéki kritikus infrastruktúrák védelmére és biztonságának növelésére."
+        "next_step": "Regisztráljunk a 2026. november 4-i webináriumra, hogy többet tudjunk meg a pályázati lehetőségekről.",
+        "summary": "A pályázat célja az Északi-sarkvidéki régió kritikus infrastruktúrájának védelme és biztonságának növelése."
       },
       "consortium": "optional",
       "first_seen": "2026-11-02T06:48:21.157640Z",
-      "content_hash": "c11911186654"
+      "content_hash": "704d8ea1c8b3"
     },
     {
       "id": "found:47a7bd7975",
@@ -50904,7 +51018,7 @@
       "tags": [
         "GB"
       ],
-      "summary": "Opportunity space Resilient Climate and Ecosystems Home Opportunity spaces Resilient Climate and Ecosystems Forecasting Tipping Points Funding Funding open More about: Funding open Close: Funding open Funding is now open for Phase 2 of this programme. Apply by 9 October (14:00 BST) Forecasting Tippi",
+      "summary": "Opportunity space Resilient Climate and Ecosystems Home Opportunity spaces Resilient Climate and Ecosystems Forecasting Tipping Points Funding Funding open More about: Funding open Close: Funding open Funding is currently open for Forecasting Tipping Points Phase 2. Submit your application by 2 Dece",
       "country": "GB",
       "fit_score": 1,
       "fit_verdict": "",
@@ -51645,6 +51759,1191 @@
       "consortium": "",
       "first_seen": "2026-11-02T06:48:30.280689Z",
       "content_hash": "d246e2a2c4aa"
+    },
+    {
+      "id": "HORIZON-CL2-2025-03-HERITAGE-01",
+      "title": "Co-funded European partnership for Resilient Cultural Heritage",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2025-03-HERITAGE-01",
+      "source": "portal",
+      "programme": "HORIZON",
+      "call_id": "",
+      "call_title": "Foundations for climate-resilient cultural heritage - Assessing and managing impact and risk, dealing with damage and loss",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "multiple cut-off",
+      "opening_date": "2026-11-04",
+      "deadline": "2027-01-11",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "",
+      "funding_rate_note": "",
+      "tags": [
+        "cascade funding"
+      ],
+      "summary": "",
+      "country": "",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {},
+      "consortium": "",
+      "first_seen": "2026-11-09T06:46:53.969900Z",
+      "content_hash": "51345ca95fbf"
+    },
+    {
+      "id": "HORIZON-CL4-2025-03-DIGITAL-EMERGING-07",
+      "title": "Robust and trustworthy GenerativeAI for Robotics and industrial automation (RIA) (AI/Data/Robotics & Made in Europe Partnerships)",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2025-03-DIGITAL-EMERGING-07",
+      "source": "portal",
+      "programme": "HORIZON",
+      "call_id": "",
+      "call_title": "GRAIL Open Call — Genesis (1st Open Call)",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "single-stage",
+      "opening_date": "2026-11-09",
+      "deadline": "2027-02-10",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "",
+      "funding_rate_note": "",
+      "tags": [
+        "cascade funding"
+      ],
+      "summary": "",
+      "country": "",
+      "fit_score": 40,
+      "fit_verdict": "Worth a look",
+      "fit_theme": "humanoid_head",
+      "fit_theme_label": "Humanoid head & expressive HRI",
+      "fit_breakdown": {
+        "theme": 30,
+        "packs": 1,
+        "instrument": 8,
+        "conditions": 2,
+        "penalty": 0
+      },
+      "interest_score": 40.0,
+      "interest_hits": [
+        "title: robotics",
+        "title: ai"
+      ],
+      "interest_for": [
+        "Humanoid head & expressive HRI"
+      ],
+      "ai": {
+        "applicable": true,
+        "ai_score": 75,
+        "confidence": 70,
+        "is_open_call": true,
+        "tech_explicit": true,
+        "consortium": "optional",
+        "angle": "A projektünk célja egy robusztus és megbízható generatív AI platform fejlesztése, amely a humanoid fejünk és az ETHEA társalgó AI rendszerünk integrálásával segíti az idősek egészségügyi ellátását, különösen onkológiai környezetben. A projekt során a humanoid robot fej interakciós képességeit és a társalgó AI funkciókat fogjuk tesztelni és validálni.",
+        "entity": "PBN Association HU non-profit, mivel a pályázat 100%-os támogatást kínál a non-profit szervezetek számára.",
+        "partners": [
+          "egyetemi kutatóintézetek",
+          "egészségügyi szolgáltatók",
+          "robotikai cégek",
+          "AI fejlesztő cégek"
+        ],
+        "risks": [
+          "a pályázat versenyzői köre széles lehet",
+          "a pályázati feltételek nem teljesen világosak",
+          "a támogatási összeg ismeretlen"
+        ],
+        "next_step": "Olvassuk el a pályázati felhívás részleteit, hogy tisztázzuk a pályázati feltételeket és a szükséges partnereket.",
+        "summary": "A pályázat célja robusztus és megbízható generatív AI fejlesztése robotika és ipari automatizálás területén."
+      },
+      "consortium": "required",
+      "first_seen": "2026-11-09T06:46:57.113117Z",
+      "content_hash": "8b49b6bc868d"
+    },
+    {
+      "id": "HORIZON-CL6-2023-FARM2FORK-01-9",
+      "title": "European partnership on sustainable food systems for people, planet and climate",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2023-FARM2FORK-01-9",
+      "source": "portal",
+      "programme": "HORIZON",
+      "call_id": "",
+      "call_title": "GETS - Getting Everyone Together for Sustainable food systems: empowered consumers, innovative sustainable products and trusted value chains",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "multiple cut-off",
+      "opening_date": "2026-11-03",
+      "deadline": "2027-01-13",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "",
+      "funding_rate_note": "",
+      "tags": [
+        "cascade funding"
+      ],
+      "summary": "",
+      "country": "",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {},
+      "consortium": "",
+      "first_seen": "2026-11-09T06:47:00.237452Z",
+      "content_hash": "e68fcd8c52d6"
+    },
+    {
+      "id": "HORIZON-EIT-2025-KIC-IBA-F",
+      "title": "EITFOOD Business Plan 2026",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIT-2025-KIC-IBA-F",
+      "source": "portal",
+      "programme": "HORIZON",
+      "call_id": "",
+      "call_title": "Proof of Concept & Technology Validation Call",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "single-stage",
+      "opening_date": "2026-11-06",
+      "deadline": "2027-01-18",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "",
+      "funding_rate_note": "",
+      "tags": [
+        "cascade funding"
+      ],
+      "summary": "",
+      "country": "",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {},
+      "consortium": "",
+      "first_seen": "2026-11-09T06:47:03.206447Z",
+      "content_hash": "c98a62b86237"
+    },
+    {
+      "id": "HORIZON-HLTH-2022-DISEASE-03-01",
+      "title": "European partnership fostering a European Research Area (ERA) for health research",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2022-DISEASE-03-01",
+      "source": "portal",
+      "programme": "HORIZON",
+      "call_id": "",
+      "call_title": "Multi-national Investigator-Initiated Clinical Studies in Cardiovascular, Autoimmune, Metabolic, and Non-Communicable Respiratory Diseases, including Underrepresented Populations (IICS4all 2027)",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "multiple cut-off",
+      "opening_date": "2026-10-27",
+      "deadline": "2027-01-14",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "",
+      "funding_rate_note": "",
+      "tags": [
+        "cascade funding"
+      ],
+      "summary": "",
+      "country": "",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {},
+      "consortium": "",
+      "first_seen": "2026-11-09T06:47:03.207764Z",
+      "content_hash": "f84cdde92d9c"
+    },
+    {
+      "id": "HORIZON-HLTH-2023-CARE-08-01",
+      "title": "European Partnership on Personalised Medicine",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2023-CARE-08-01",
+      "source": "portal",
+      "programme": "HORIZON",
+      "call_id": "",
+      "call_title": "Cell and Gene Therapy for Personalised Medicine (CGT4PM2027)",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "single-stage",
+      "opening_date": "2026-11-04",
+      "deadline": "2027-01-20",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "",
+      "funding_rate_note": "",
+      "tags": [
+        "cascade funding"
+      ],
+      "summary": "",
+      "country": "",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {},
+      "consortium": "",
+      "first_seen": "2026-11-09T06:47:03.207779Z",
+      "content_hash": "95500e43b97a"
+    },
+    {
+      "id": "HORIZON-MISS-2024-OCEAN-IBA",
+      "title": "EU Public Infrastructure for the European Digital Twin Ocean, phase 2",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2024-OCEAN-IBA",
+      "source": "portal",
+      "programme": "HORIZON",
+      "call_id": "",
+      "call_title": "INTEGRATION OF INNOVATIVE OCEAN SOLUTIONS INTO EDITO",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "single-stage",
+      "opening_date": "2026-11-09",
+      "deadline": "2027-01-29",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "",
+      "funding_rate_note": "",
+      "tags": [
+        "cascade funding"
+      ],
+      "summary": "",
+      "country": "",
+      "fit_score": 4,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 4,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 4.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {},
+      "consortium": "",
+      "first_seen": "2026-11-09T06:47:04.560461Z",
+      "content_hash": "4b1f10594017"
+    },
+    {
+      "id": "found:7486acf729",
+      "title": "Wissen gewinnt!",
+      "url": "https://www.bwstiftung.de/de/ausschreibung/wissen-gewinnt",
+      "source": "foundation",
+      "programme": "Baden-Württemberg Stiftung — Programme",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": 200000.0,
+      "contribution_min": null,
+      "contribution_max": 15000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "Bereich Wissenschaft & Forschung Thema Hochschule, Wissenschaft Typ Programm Zielgruppe Studierende, Hochschulen Wissen gewinnt! Unterstützung von studentischen Talenten Kurzbeschreibung Das Förderprogramm Wissen gewinnt! der Baden-Württemberg Stiftung dient der finanziellen Unterstützung von Studie",
+      "country": "DE",
+      "fit_score": 2,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 2,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 2.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 70,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "solo",
+        "angle": "Ez a pályázat diákok tudományos versenyeken való részvételét támogatja, ami nem illeszkedik a humanoid robot fej vagy az ETHEA társalgó platform fejlesztéséhez.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem technológiai fejlesztéseket támogat.",
+        "partners": [],
+        "risks": [],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat diákok tudományos versenyeken való részvételének pénzügyi támogatását célozza meg."
+      },
+      "consortium": "solo",
+      "first_seen": "2026-11-09T06:47:19.426727Z",
+      "content_hash": "d6b1aeb3fb95"
+    },
+    {
+      "id": "found:96727657b1",
+      "title": "Expanded Horizons – Neue fotografische Perspektiven Unter dem Jahresthema TOMORROW’S GHOSTS zeigen acht Preisträgerinnen und Preisträgern des ersten Jahrgangs vom 20. November 2026 bis 4. April 2027 i",
+      "url": "https://koerber-stiftung.de/projekte/expanded-horizons/",
+      "source": "foundation",
+      "programme": "Körber-Stiftung — News & Calls",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-11-19",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "Expanded Horizons Foto: Henning Rogge i Deichtorhallen Hamburg Neue fotografische Perspektiven Das Haus der Photographie der Deichtorhallen Hamburg und die Körber-Stiftung verfolgen mit Expanded Horizons das gemeinsame Ziel, internationalen fotografischen Nachwuchs nachhaltig zu stärken und einem Pu",
+      "country": "DE",
+      "fit_score": 2,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 2,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 2.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 0,
+        "confidence": 20,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A pályázat a fényképezés és a művészetek területén nyújt támogatást, ami nem kapcsolódik közvetlenül a humanoid robotokhoz vagy az AI társalgási platformokhoz. Ezért nem tudunk releváns projektötlettel pályázni.",
+        "entity": "Nincs megfelelő entitásunk, amely pályázhatna, mivel a pályázat nem technológiai fejlesztéseket céloz meg.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem technológiai jellegű, így nem releváns számunkra.",
+          "Nincs lehetőségünk a pályázat keretein belül versenyezni.",
+          "A pályázat célja nem illeszkedik a kutatási irányainkhoz."
+        ],
+        "next_step": "Nincs konkrét lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja a fiatal fényképészek támogatása és új perspektívák bemutatása a fényképezés területén."
+      },
+      "consortium": "optional",
+      "first_seen": "2026-11-09T06:47:33.559047Z",
+      "content_hash": "54a5041c33c8"
+    },
+    {
+      "id": "found:ef6a899639",
+      "title": "Video 2:14 Min. Traumatischer Verlust und psychosoziale Notfallversorgung | Deutscher Studienpreis 2026 Die Ergebnisse der Studie von Philipp Jann helfen dabei…",
+      "url": "https://koerber-stiftung.de/mediathek/traumatischer-verlust-und-psychosoziale-notfallversorgung-deutscher-studienpreis-2026/",
+      "source": "foundation",
+      "programme": "Körber-Stiftung — News & Calls",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "Externes Video von YouTube laden. Mehr dazu in unserer Datenschutzerklärung . Traumatischer Verlust und psychosoziale Notfallversorgung | Deutscher Studienpreis 2026 Die Ergebnisse der Studie von Philipp Jann helfen dabei Menschen in traumatischen Ereignissen bestmöglich zu unterstützen und damit de",
+      "country": "DE",
+      "fit_score": 27,
+      "fit_verdict": "",
+      "fit_theme": "veterans",
+      "fit_theme_label": "Companion for war veterans & trauma",
+      "fit_breakdown": {
+        "theme": 11,
+        "packs": 0,
+        "instrument": 8,
+        "conditions": 8,
+        "penalty": 0
+      },
+      "interest_score": 27.0,
+      "interest_hits": [
+        "title: psychosozial",
+        "body: trauma",
+        "(no robot / HRI signal)"
+      ],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 20,
+        "confidence": 40,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A projektötletünk a traumatikus események utáni pszichoszociális támogatásra összpontosítana, de a humanoid fejünk és az ETHEA platformunk nem illeszkedik a felhívás céljaihoz, amelyek inkább a pszichológiai kutatásokra és a szociális tudományokra vonatkoznak.",
+        "entity": "nincs megfelelő entitás, mivel a felhívás nem technológiai fejlesztéseket támogat.",
+        "partners": [],
+        "risks": [
+          "A felhívás nem technológiai fejlesztéseket céloz meg, így nem releváns számunkra.",
+          "Nincs lehetőségünk a pályázat benyújtására, mivel a felhívás nem a mi szakterületünkre vonatkozik."
+        ],
+        "next_step": "Nincs további lépés, mivel a felhívás nem releváns számunkra.",
+        "summary": "A felhívás a traumatikus események utáni pszichoszociális támogatás kutatására vonatkozik."
+      },
+      "consortium": "optional",
+      "first_seen": "2026-11-09T06:47:33.559365Z",
+      "content_hash": "f4522a81eb0a"
+    },
+    {
+      "id": "found:f7f342847e",
+      "title": "Klaus J. Bade-Preis geht an Dr. Nader Hotait",
+      "url": "https://www.bim.hu-berlin.de/de/kjb-preis/2026",
+      "source": "foundation",
+      "programme": "Hertie-Stiftung — Förderung",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "DE"
+      ],
+      "summary": "Making sure you're not a bot! Loading... Anubis could not load its JavaScript. The server may be overloaded. Please reload the page to try again. This is a measure against bots and malicious requests similar to a CAPTCHA. However, instead of having to do work yourself, your browser is given a calcul",
+      "country": "DE",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {},
+      "consortium": "",
+      "first_seen": "2026-11-09T06:47:40.144849Z",
+      "content_hash": "b98588cdd89c"
+    },
+    {
+      "id": "found:8f765acc64",
+      "title": "LLM-BRIDGE Venture Incubation Programme, 2nd Open Call for Incubators",
+      "url": "https://cascadefunding.eu/open-call-analysis-2-llm-bridge-incubators/",
+      "source": "foundation",
+      "programme": "Cascade Funding Hub — open call analyses",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": null,
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 60000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "EU"
+      ],
+      "summary": "Up to €60,000 to Run a GenAI Startup Incubation Cycle The LLM-BRIDGE 2nd Open Call for Incubators will select one organisation from the EU or a Digital Europe Associated Country to design and deliver a 12-week programme for at least 30 early-stage GenAI, LLM and NLP startups, backed by a fixed lump ",
+      "country": "EU",
+      "fit_score": 2,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 2,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 2.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 30,
+        "confidence": 50,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A projektötlet, amely összeköti a humanoid fejünket és az ETHEA társaságot a GenAI startup inkubációs programmal, nem illeszkedik a pályázati célokhoz, mivel a felhívás a GenAI és LLM technológiákra összpontosít, nem pedig a humanoid robotikára vagy a társas AI-ra.",
+        "entity": "PBN Germany GmbH, mivel a pályázat for-profit szervezetek számára is nyitott, de a projekt nem illeszkedik a profilunkhoz.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem a humanoid robotikára vagy társas AI-ra vonatkozik.",
+          "A pályázati célok nem fedik le a mi technológiai fejlesztéseinket.",
+          "A pályázat nem biztosít lehetőséget a robotikai innovációk bemutatására."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja GenAI startupok inkubációs programjának lebonyolítása."
+      },
+      "consortium": "optional",
+      "first_seen": "2026-11-09T06:48:44.544574Z",
+      "content_hash": "48b92b5c45eb"
+    },
+    {
+      "id": "found:0e9d388629",
+      "title": "Robot Dexterity: Translation Partner – Request for Proposal",
+      "url": "https://aria.org.uk/opportunity-spaces/adaptive-machines/robot-dexterity/funding?tabId=translation-partner",
+      "source": "foundation",
+      "programme": "ARIA UK — Funding opportunities",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-12-01",
+      "call_budget": 103545000.0,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "GB"
+      ],
+      "summary": "Opportunity space Adaptive Machines Home Opportunity spaces Adaptive Machines Robot Dexterity Funding Funding open More about: Funding open Close: Funding open There are currently two requests for proposal open in the Robot Dexterity programme. Robot Dexterity Backed by £88.5m, this programme sits w",
+      "country": "GB",
+      "fit_score": 1,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 1,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 1.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 30,
+        "confidence": 50,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A humanoid robot head vagy az ETHEA társalgó platform fejlesztése nem illeszkedik a robotok dexteritásának standardizálására és benchmarkingjára irányuló célokhoz, mivel a felhívás a robotok hardveres és szoftveres interoperabilitására összpontosít.",
+        "entity": "PBN Germany GmbH, mivel a felhívás nem támogatja a technológiai fejlesztéseket, így nem releváns számunkra.",
+        "partners": [],
+        "risks": [
+          "A felhívás nem a mi technológiai területünkre vonatkozik.",
+          "Nincs releváns projektötlet, amely megfelelne a felhívás céljainak."
+        ],
+        "next_step": "Nincs további lépés, mivel a felhívás nem releváns számunkra.",
+        "summary": "A felhívás a robotok dexteritásának standardizálására és benchmarkingjára irányul, különös figyelmet fordítva a tapintási adatokra."
+      },
+      "consortium": "optional",
+      "first_seen": "2026-11-09T06:49:15.819513Z",
+      "content_hash": "b20a146b6615"
+    },
+    {
+      "id": "found:40eff25008",
+      "title": "Robot Dexterity: Standards + benchmarks for dexterous robotics – Request for Proposal",
+      "url": "https://aria.org.uk/opportunity-spaces/adaptive-machines/robot-dexterity/funding?tabId=standards-benchmarks",
+      "source": "foundation",
+      "programme": "ARIA UK — Funding opportunities",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-12-01",
+      "call_budget": 103545000.0,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "GB"
+      ],
+      "summary": "Opportunity space Adaptive Machines Home Opportunity spaces Adaptive Machines Robot Dexterity Funding Funding open More about: Funding open Close: Funding open There are currently two requests for proposal open in the Robot Dexterity programme. Robot Dexterity Backed by £88.5m, this programme sits w",
+      "country": "GB",
+      "fit_score": 51,
+      "fit_verdict": "Good fit",
+      "fit_theme": "humanoid_head",
+      "fit_theme_label": "Humanoid head & expressive HRI",
+      "fit_breakdown": {
+        "theme": 33,
+        "packs": 1,
+        "instrument": 8,
+        "conditions": 10,
+        "penalty": 0
+      },
+      "interest_score": 51.0,
+      "interest_hits": [
+        "title: robotics",
+        "title: robot",
+        "body: robots"
+      ],
+      "interest_for": [
+        "Humanoid head & expressive HRI"
+      ],
+      "ai": {
+        "applicable": false,
+        "ai_score": 30,
+        "confidence": 50,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A humanoid robot head fejlesztése és az ETHEA társalgó AI platformunk összekapcsolható a robotok dexteritásának szabványosításával, de a felhívás nem közvetlenül a társalgó AI-ra vagy humanoid robotokra összpontosít.",
+        "entity": "PBN Germany GmbH, mivel a felhívás technológiai fejlesztéseket keres, de nem kifejezetten a humanoid robotok területén.",
+        "partners": [
+          "robotikai kutatócsoportok",
+          "szabványosító szervezetek",
+          "ipari gyártók"
+        ],
+        "risks": [
+          "a felhívás nem közvetlenül kapcsolódik a humanoid robotokhoz",
+          "a verseny erős lehet más technológiai partnerekkel szemben",
+          "a pályázati követelmények nem egyértelműek"
+        ],
+        "next_step": "Olvassuk el a felhívás részletes dokumentumát, hogy jobban megértsük a pályázati követelményeket.",
+        "summary": "A felhívás a robotok dexteritásának szabványosítására és benchmarkok kidolgozására vonatkozik."
+      },
+      "consortium": "optional",
+      "first_seen": "2026-11-09T06:49:15.819884Z",
+      "content_hash": "c1054e3fa481"
+    },
+    {
+      "id": "found:bd888dbab5",
+      "title": "Digitális gyermekvédelem: deliberatív bevonás",
+      "url": "https://pafi.hu/p/digitalis-gyermekvedelem-deliberativ-bevonas",
+      "source": "foundation",
+      "programme": "PAFI — HU civil/nonprofit pályázatok",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-11-20",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 50000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "HU"
+      ],
+      "summary": "Tartalomjegyzék A pályázat Pályázati csomag – Digitális gyermekvédelem: deliberatív bevonás A kiírás a 13/2020. (V. 5.) BM rendelet 1. melléklet 48. sorára (406239) épül: ez pályázati úton, támogatói okirattal vagy támogatási szerződéssel, továbbadás (közreműködők bevonása) mellett teszi lehetővé a ",
+      "country": "HU",
+      "fit_score": 4,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 4,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 4.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 30,
+        "confidence": 40,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "required",
+        "angle": "A pályázat célja a digitális gyermekvédelemhez kapcsolódó társadalmi bevonási program támogatása, ami nem illeszkedik a humanoid fej vagy az ETHEA társaságunk által fejlesztett AI platform célkitűzéseihez.",
+        "entity": "Pannon Business Network Association, mint non-profit szervezet, de a pályázat nem releváns számunkra.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem technológiai fejlesztéseket támogat.",
+          "A pályázat célja nem illeszkedik a mi projektjeinkhez.",
+          "A konzorcium kötelező, de nem találunk releváns partnereket."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat digitális gyermekvédelemhez kapcsolódó társadalmi bevonási programok támogatására irányul."
+      },
+      "consortium": "required",
+      "first_seen": "2026-11-09T06:49:22.178645Z",
+      "content_hash": "750f8487d4e7"
+    },
+    {
+      "id": "found:0dad15efab",
+      "title": "Örökbefogadó családok örökbefogadás utáni gondozásának támogatása",
+      "url": "https://pafi.hu/p/orokbefogado-csaladok-orokbefogadas-utani-gondozasanak-tamogatasa",
+      "source": "foundation",
+      "programme": "PAFI — HU civil/nonprofit pályázatok",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-11-20",
+      "call_budget": 112500.0,
+      "contribution_min": null,
+      "contribution_max": 37500.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "HU"
+      ],
+      "summary": "Tartalomjegyzék A pályázat Pályázati csomag – Örökbefogadó családok örökbefogadás utáni gondozásának támogatása A kiírás a 13/2020. (V. 5.) BM rendelet 1. melléklet 48. sorára (406239 – Gyermekvédelmi és szociális ágazati programok, szakmai feladatok támogatása) épül: ez nevesíti a civil, egyházi és",
+      "country": "HU",
+      "fit_score": 4,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 4,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 4.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 20,
+        "confidence": 40,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A pályázat célja az örökbefogadó családok utáni gondozás támogatása, ami nem kapcsolódik közvetlenül a humanoid robotok vagy a társas AI fejlesztéséhez. A mi projektjeink, mint az ETHEA vagy az ETHEA Face, nem illeszkednek a pályázat célkitűzéseihez.",
+        "entity": "Pannon Business Network Association, mivel ez a non-profit entitásunk jogosult a 100%-os támogatásra, de a pályázat nem releváns számunkra.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem technológiai fejlesztést céloz meg, így nem releváns számunkra.",
+          "A pályázat célja nem illeszkedik a humanoid robotok vagy AI alkalmazásokhoz.",
+          "A pályázat nem invitál technológiai pilotok benyújtására."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat az örökbefogadó családok örökbefogadás utáni gondozásának támogatására vonatkozik."
+      },
+      "consortium": "optional",
+      "first_seen": "2026-11-09T06:49:22.178774Z",
+      "content_hash": "e50f88fd6fd8"
+    },
+    {
+      "id": "found:1739a5c8fa",
+      "title": "Gyermekrészvételi konzorcium",
+      "url": "https://pafi.hu/p/gyermekreszveteli-konzorcium",
+      "source": "foundation",
+      "programme": "PAFI — HU civil/nonprofit pályázatok",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-11-20",
+      "call_budget": 50000.0,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "HU"
+      ],
+      "summary": "Tartalomjegyzék A pályázat Pályázati csomag – Gyermekrészvételi konzorcium A kiírás a 13/2020. (V. 5.) BM rendelet 1. melléklet 48. sorára (406239) épül. Ez civil és szakmai szervezetek gyermekvédelmi szakmai feladatait támogatja, és kimondja, hogy a támogatás továbbadható, közreműködő bevonható – e",
+      "country": "HU",
+      "fit_score": 4,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 4,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 4.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 20,
+        "confidence": 40,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "required",
+        "angle": "A pályázat célja a gyermekek részvételének biztosítása a szakpolitikai döntések előkészítésében, ami nem kapcsolódik közvetlenül a humanoid robotok vagy a társas AI fejlesztéséhez. A mi projektjeink, mint az ETHEA társaság vagy a humanoid fej, nem illeszkednek a pályázat céljához.",
+        "entity": "Nincs megfelelő entitásunk, amely pályázhatna, mivel a pályázat nem technológiai fejlesztéseket támogat.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem technológiai fejlesztéseket céloz meg.",
+          "Nincs releváns kapcsolat a pályázat célja és a mi projektjeink között.",
+          "A pályázat kizárólag civil és szakmai szervezetek számára van fenntartva."
+        ],
+        "next_step": "Nincs szükség további lépésre, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat a gyermekek részvételének biztosítását célozza meg a szakpolitikai döntések előkészítésében."
+      },
+      "consortium": "required",
+      "first_seen": "2026-11-09T06:49:22.178865Z",
+      "content_hash": "23a08bd08cdd"
+    },
+    {
+      "id": "found:9e1402f38c",
+      "title": "SozialMarie – Prize for Social Innovation 2027",
+      "url": "https://pafi.hu/p/sozialmarie-prize-for-social-innovation-2027",
+      "source": "foundation",
+      "programme": "PAFI — HU civil/nonprofit pályázatok",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2027-01-07",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": 15000.0,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "HU"
+      ],
+      "summary": "Tartalomjegyzék A pályázat SozialMarie – Prize for Social Innovation 2027 Mi a pályázat célja? A SozialMarie díj célja, hogy elismerje és támogassa a kipróbált, bevált és hatékony társadalmi innovációkat Közép- és Kelet-Európában. A díj olyan projekteket keres, amelyek már bizonyították hatékonyságu",
+      "country": "HU",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {},
+      "consortium": "",
+      "first_seen": "2026-11-09T06:49:22.178960Z",
+      "content_hash": "d60573272017"
+    },
+    {
+      "id": "found:a726b4623c",
+      "title": "Energiaszegénység pályázat 2026",
+      "url": "https://pafi.hu/p/energiaszegenyseg-palyazat-2026",
+      "source": "foundation",
+      "programme": "PAFI — HU civil/nonprofit pályázatok",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-11-15",
+      "call_budget": null,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "HU"
+      ],
+      "summary": "Tartalomjegyzék A pályázat Energiaszegénység pályázat Az ALTEO Energiaszolgáltató Nyrt. megbízásából a Civil Impact Nonprofit Kft. ismét pályázatot hirdet magyarországi, közhasznúsági fokozattal rendelkező civil szervezetek számára. Mi a pályázat célja? A program célja, hogy támogatást nyújtson az e",
+      "country": "HU",
+      "fit_score": 2,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 2,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 2.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 20,
+        "confidence": 40,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "solo",
+        "angle": "A pályázat célja az energiaszegénység csökkentése, ami nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz. A mi projektjeink, mint például az ETHEA társaság, nem illeszkednek a pályázat célkitűzéseihez.",
+        "entity": "Nincs megfelelő entitás, mivel a pályázat nem releváns számunkra.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem technológiai fejlesztéseket támogat.",
+          "A pályázat célja nem illeszkedik a mi projektjeinkhez.",
+          "Nincs lehetőségünk a pályázat keretein belül való részvételre."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat az energiaszegénység csökkentésére és a civil szervezetek energiahatékonyabb működésére irányul."
+      },
+      "consortium": "solo",
+      "first_seen": "2026-11-09T06:49:22.179161Z",
+      "content_hash": "7eb022a27183"
+    },
+    {
+      "id": "found:2f293c8547",
+      "title": "Túrázz a sulival!",
+      "url": "https://pafi.hu/p/turazz-a-sulival-1",
+      "source": "foundation",
+      "programme": "PAFI — HU civil/nonprofit pályázatok",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2027-06-01",
+      "call_budget": 250000.0,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "HU"
+      ],
+      "summary": "Tartalomjegyzék A pályázat PÁLYÁZATI FELHÍVÁS EGYESÜLETEK ÉS ALAPÍTVÁNYOK RÉSZÉRE A TÚRÁZZ A SULIVAL! PÁLYÁZATHOZ MAGYAR DIÁKSPORT SZÖVETSÉG A Magyar Diáksport Szövetség - az Aktív Magyarország Program keretében - pályázatot hirdet „ TÚRÁZZ A SULIVAL! ” címmel egyesületek és alapítványok részére. 1.",
+      "country": "HU",
+      "fit_score": 1,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 1,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 1.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 20,
+        "confidence": 40,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A pályázat célja a diákok számára túrák szervezése, ami nem kapcsolódik közvetlenül a humanoid robotokhoz vagy a társas AI platformokhoz. A mi projektjeink, mint az ETHEA társaság vagy a humanoid fej, nem illeszkednek a pályázat kereteibe.",
+        "entity": "Pannon Business Network Association, mivel ez a szervezet a legjobban illeszkedik a pályázati követelményekhez, de a pályázat nem releváns számunkra.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem technológiai fejlesztéseket támogat.",
+          "A pályázat célja nem illeszkedik a mi tevékenységünkhöz.",
+          "Nincs releváns partneri lehetőség a pályázat keretein belül."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A pályázat célja, hogy iskolai keretek között túrákat szervezzen diákok számára."
+      },
+      "consortium": "optional",
+      "first_seen": "2026-11-09T06:49:22.179234Z",
+      "content_hash": "24750b9e6ee3"
+    },
+    {
+      "id": "found:a0b2424366",
+      "title": "Közösségi Programok és Fesztiválok Kollégiuma - Nemzeti Kulturális Alap",
+      "url": "https://pafi.hu/p/kozossegi-programok-es-fesztivalok-kollegiuma-nemzeti-kulturalis-alap",
+      "source": "foundation",
+      "programme": "PAFI — HU civil/nonprofit pályázatok",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-12-07",
+      "call_budget": 275000.0,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "HU"
+      ],
+      "summary": "Tartalomjegyzék A pályázat Közösségi Programok és Fesztiválok Kollégiuma Mi a pályázat célja? A pályázat célja, hogy támogassa az Európai Bizottság Kreatív Európa programja (2021-2027) Kultúra alprogramjának keretében megítélt támogatásokhoz szükséges önrész biztosítását. Ez különösen az \"Európai eg",
+      "country": "HU",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {},
+      "consortium": "",
+      "first_seen": "2026-11-09T06:49:22.179327Z",
+      "content_hash": "b677ec93a131"
+    },
+    {
+      "id": "found:20f4689676",
+      "title": "V4 Gen Mini Grants",
+      "url": "https://pafi.hu/p/v4-gen-mini-grants-3",
+      "source": "foundation",
+      "programme": "PAFI — HU civil/nonprofit pályázatok",
+      "call_id": "",
+      "call_title": "",
+      "status": "Open",
+      "action_type": "",
+      "deadline_model": "",
+      "opening_date": null,
+      "deadline": "2026-11-15",
+      "call_budget": 10000.0,
+      "contribution_min": null,
+      "contribution_max": null,
+      "expected_grants": null,
+      "funding_rate": "100% (typ.)",
+      "funding_rate_note": "foundations and national programmes usually fund full project costs — check the call",
+      "tags": [
+        "HU"
+      ],
+      "summary": "Tartalomjegyzék A pályázat V4 Gen Mini Grants Mi a pályázat célja? A V4 Gen Mini Grants célja, hogy pénzügyi támogatást nyújtson rövid távú határon átnyúló ifjúsági mobilitási projektekhez a V4 régióban és annak közvetlen szomszédságában. A program célja a demokratikus értékek, közösségi részvétel é",
+      "country": "HU",
+      "fit_score": 0,
+      "fit_verdict": "",
+      "fit_theme": "",
+      "fit_theme_label": "",
+      "fit_breakdown": {
+        "theme": 0,
+        "packs": 0,
+        "instrument": 0,
+        "conditions": 0,
+        "penalty": 0
+      },
+      "interest_score": 0.0,
+      "interest_hits": [],
+      "interest_for": [],
+      "ai": {
+        "applicable": false,
+        "ai_score": 20,
+        "confidence": 40,
+        "is_open_call": true,
+        "tech_explicit": false,
+        "consortium": "optional",
+        "angle": "A V4 Gen Mini Grants pályázat célja a fiatalok közötti határon átnyúló mobilitás elősegítése, ami nem illeszkedik a humanoid fej vagy az ETHEA társaságunkhoz kapcsolódó projekteinkhez. A pályázat nem támogatja a technológiai fejlesztéseket, így nem tudunk releváns projektötlettel előállni.",
+        "entity": "Pannon Business Network Association, mivel a pályázat civil/nonprofit szervezetek számára van fenntartva.",
+        "partners": [],
+        "risks": [
+          "A pályázat nem technológiai fejlesztésekre vonatkozik, így nem releváns számunkra.",
+          "A pályázat célja nem illeszkedik a mi projektjeinkhez.",
+          "A pályázat keretei között nem tudunk megfelelő partneri kapcsolatokat kialakítani."
+        ],
+        "next_step": "Nincs további lépés, mivel a pályázat nem releváns számunkra.",
+        "summary": "A V4 Gen Mini Grants pályázat határon átnyúló ifjúsági mobilitási projektek támogatására irányul."
+      },
+      "consortium": "optional",
+      "first_seen": "2026-11-09T06:49:22.179424Z",
+      "content_hash": "95ffb8a6e46d"
     }
   ]
 }
